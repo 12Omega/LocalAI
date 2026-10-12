@@ -1,0 +1,9 @@
+Package: local-ai-dev
+Version: 1.0.0
+Section: devel
+Priority: optional
+Architecture: amd64
+Depends: libgtk-3-0, libwebkit2gtk-4.0-37
+Maintainer: Local AI Dev <support@example.com>
+Description: AI-powered local development environment
+ Desktop GUI application for AI-assisted coding tasks.

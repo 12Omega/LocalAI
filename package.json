@@ -1,0 +1,35 @@
+{
+  "name": "local-ai-dev-gui",
+  "version": "1.0.0",
+  "description": "Desktop GUI Application for Local AI Development Environment",
+  "scripts": {
+    "test": "jest",
+    "test:watch": "jest --watch",
+    "test:coverage": "jest --coverage"
+  },
+  "jest": {
+    "testEnvironment": "jsdom",
+    "testMatch": [
+      "**/src/web/js/**/*.test.js"
+    ],
+    "collectCoverageFrom": [
+      "src/web/js/**/*.js",
+      "!src/web/js/**/*.test.js"
+    ],
+    "coverageThreshold": {
+      "global": {
+        "branches": 80,
+        "functions": 80,
+        "lines": 80,
+        "statements": 80
+      }
+    }
+  },
+  "devDependencies": {
+    "jest": "^29.7.0",
+    "jest-environment-jsdom": "^29.7.0"
+  },
+  "dependencies": {
+    "sharp": "^0.35.5"
+  }
+}

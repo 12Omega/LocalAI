@@ -1,0 +1,376 @@
+{
+  "pbtResults": {},
+  "executionHistory": {
+    "13.1 Create `src/web/web_research.py` with `WebResearchModule` class": [
+      {
+        "executionId": "23fdd07f-4794-452a-8c72-4bd2726502d4",
+        "chatSessionId": "sess_ede40a81-a8c4-4835-ae5d-159d5ea2b660",
+        "timestamp": 1788681628968
+      },
+      {
+        "executionId": "23fdd07f-4794-452a-8c72-4bd2726502d4",
+        "chatSessionId": "sess_ede40a81-a8c4-4835-ae5d-159d5ea2b660",
+        "timestamp": 1788681643672
+      },
+      {
+        "executionId": "23fdd07f-4794-452a-8c72-4bd2726502d4",
+        "chatSessionId": "sess_ede40a81-a8c4-4835-ae5d-159d5ea2b660",
+        "timestamp": 1788682401406
+      }
+    ],
+    "13.2 Write property test for HTML content extraction": [
+      {
+        "executionId": "23fdd07f-4794-452a-8c72-4bd2726502d4",
+        "chatSessionId": "sess_ede40a81-a8c4-4835-ae5d-159d5ea2b660",
+        "timestamp": 1788681629155
+      },
+      {
+        "executionId": "23fdd07f-4794-452a-8c72-4bd2726502d4",
+        "chatSessionId": "sess_ede40a81-a8c4-4835-ae5d-159d5ea2b660",
+        "timestamp": 1788682714287
+      },
+      {
+        "executionId": "5f38e0f2-c716-4d92-a0aa-1d923d450b7b",
+        "chatSessionId": "sess_cef60cf7-8e3e-4ee6-87ff-26cc725a95ab",
+        "timestamp": 1788688388575
+      }
+    ],
+    "13.3 Write property test for documentation source prioritization": [
+      {
+        "executionId": "23fdd07f-4794-452a-8c72-4bd2726502d4",
+        "chatSessionId": "sess_ede40a81-a8c4-4835-ae5d-159d5ea2b660",
+        "timestamp": 1788681629285
+      },
+      {
+        "executionId": "23fdd07f-4794-452a-8c72-4bd2726502d4",
+        "chatSessionId": "sess_ede40a81-a8c4-4835-ae5d-159d5ea2b660",
+        "timestamp": 1788682714973
+      },
+      {
+        "executionId": "5f38e0f2-c716-4d92-a0aa-1d923d450b7b",
+        "chatSessionId": "sess_cef60cf7-8e3e-4ee6-87ff-26cc725a95ab",
+        "timestamp": 1788688389198
+      }
+    ],
+    "13.4 Write unit tests for web research": [
+      {
+        "executionId": "23fdd07f-4794-452a-8c72-4bd2726502d4",
+        "chatSessionId": "sess_ede40a81-a8c4-4835-ae5d-159d5ea2b660",
+        "timestamp": 1788681629364
+      },
+      {
+        "executionId": "23fdd07f-4794-452a-8c72-4bd2726502d4",
+        "chatSessionId": "sess_ede40a81-a8c4-4835-ae5d-159d5ea2b660",
+        "timestamp": 1788682715703
+      },
+      {
+        "executionId": "5f38e0f2-c716-4d92-a0aa-1d923d450b7b",
+        "chatSessionId": "sess_cef60cf7-8e3e-4ee6-87ff-26cc725a95ab",
+        "timestamp": 1788688390002
+      }
+    ],
+    "14.1 Create `src/self_improvement/self_improvement.py` with `SelfImprovementEngine` class": [
+      {
+        "executionId": "23fdd07f-4794-452a-8c72-4bd2726502d4",
+        "chatSessionId": "sess_ede40a81-a8c4-4835-ae5d-159d5ea2b660",
+        "timestamp": 1788681629434
+      },
+      {
+        "executionId": "23fdd07f-4794-452a-8c72-4bd2726502d4",
+        "chatSessionId": "sess_ede40a81-a8c4-4835-ae5d-159d5ea2b660",
+        "timestamp": 1788681644539
+      },
+      {
+        "executionId": "23fdd07f-4794-452a-8c72-4bd2726502d4",
+        "chatSessionId": "sess_ede40a81-a8c4-4835-ae5d-159d5ea2b660",
+        "timestamp": 1788682402158
+      }
+    ],
+    "14.2 Write integration tests for self-improvement": [
+      {
+        "executionId": "23fdd07f-4794-452a-8c72-4bd2726502d4",
+        "chatSessionId": "sess_ede40a81-a8c4-4835-ae5d-159d5ea2b660",
+        "timestamp": 1788681629488
+      },
+      {
+        "executionId": "23fdd07f-4794-452a-8c72-4bd2726502d4",
+        "chatSessionId": "sess_ede40a81-a8c4-4835-ae5d-159d5ea2b660",
+        "timestamp": 1788682716450
+      }
+    ],
+    "15.1 Create `src/core/config.py` for configuration management": [
+      {
+        "executionId": "23fdd07f-4794-452a-8c72-4bd2726502d4",
+        "chatSessionId": "sess_ede40a81-a8c4-4835-ae5d-159d5ea2b660",
+        "timestamp": 1788681629550
+      },
+      {
+        "executionId": "23fdd07f-4794-452a-8c72-4bd2726502d4",
+        "chatSessionId": "sess_ede40a81-a8c4-4835-ae5d-159d5ea2b660",
+        "timestamp": 1788681645282
+      },
+      {
+        "executionId": "23fdd07f-4794-452a-8c72-4bd2726502d4",
+        "chatSessionId": "sess_ede40a81-a8c4-4835-ae5d-159d5ea2b660",
+        "timestamp": 1788682402959
+      }
+    ],
+    "15.2 Create main entry point `src/main.py`": [
+      {
+        "executionId": "23fdd07f-4794-452a-8c72-4bd2726502d4",
+        "chatSessionId": "sess_ede40a81-a8c4-4835-ae5d-159d5ea2b660",
+        "timestamp": 1788681629648
+      },
+      {
+        "executionId": "23fdd07f-4794-452a-8c72-4bd2726502d4",
+        "chatSessionId": "sess_ede40a81-a8c4-4835-ae5d-159d5ea2b660",
+        "timestamp": 1788682717341
+      }
+    ],
+    "15.3 Write unit tests for configuration management": [
+      {
+        "executionId": "23fdd07f-4794-452a-8c72-4bd2726502d4",
+        "chatSessionId": "sess_ede40a81-a8c4-4835-ae5d-159d5ea2b660",
+        "timestamp": 1788681629772
+      },
+      {
+        "executionId": "ef6b6697-2bf7-4f48-9cbe-63efbfd634e3",
+        "chatSessionId": "sess_8274f806-1809-4e88-b1dd-38a518218246",
+        "timestamp": 1788688724622
+      },
+      {
+        "executionId": "ef6b6697-2bf7-4f48-9cbe-63efbfd634e3",
+        "chatSessionId": "sess_8274f806-1809-4e88-b1dd-38a518218246",
+        "timestamp": 1788688823616
+      }
+    ],
+    "16. Checkpoint - Ensure all components integrate correctly": [
+      {
+        "executionId": "23fdd07f-4794-452a-8c72-4bd2726502d4",
+        "chatSessionId": "sess_ede40a81-a8c4-4835-ae5d-159d5ea2b660",
+        "timestamp": 1788681629819
+      }
+    ],
+    "17.1 Add comprehensive error handling across all components": [
+      {
+        "executionId": "23fdd07f-4794-452a-8c72-4bd2726502d4",
+        "chatSessionId": "sess_ede40a81-a8c4-4835-ae5d-159d5ea2b660",
+        "timestamp": 1788681629880
+      },
+      {
+        "executionId": "ef6b6697-2bf7-4f48-9cbe-63efbfd634e3",
+        "chatSessionId": "sess_8274f806-1809-4e88-b1dd-38a518218246",
+        "timestamp": 1788688836097
+      }
+    ],
+    "17.2 Write unit tests for error handling": [
+      {
+        "executionId": "23fdd07f-4794-452a-8c72-4bd2726502d4",
+        "chatSessionId": "sess_ede40a81-a8c4-4835-ae5d-159d5ea2b660",
+        "timestamp": 1788681629929
+      }
+    ],
+    "18.1 Add comprehensive logging throughout the system": [
+      {
+        "executionId": "23fdd07f-4794-452a-8c72-4bd2726502d4",
+        "chatSessionId": "sess_ede40a81-a8c4-4835-ae5d-159d5ea2b660",
+        "timestamp": 1788681629984
+      }
+    ],
+    "18.2 Write unit tests for logging": [
+      {
+        "executionId": "23fdd07f-4794-452a-8c72-4bd2726502d4",
+        "chatSessionId": "sess_ede40a81-a8c4-4835-ae5d-159d5ea2b660",
+        "timestamp": 1788681630047
+      }
+    ],
+    "19.1 Write end-to-end test for Python project": [
+      {
+        "executionId": "23fdd07f-4794-452a-8c72-4bd2726502d4",
+        "chatSessionId": "sess_ede40a81-a8c4-4835-ae5d-159d5ea2b660",
+        "timestamp": 1788681630102
+      },
+      {
+        "executionId": "65061525-0f85-4624-ba88-6beae0cb6d71",
+        "chatSessionId": "sess_4d51a238-114a-4e2f-acac-edaa004dee30",
+        "timestamp": 1788690990082
+      },
+      {
+        "executionId": "65061525-0f85-4624-ba88-6beae0cb6d71",
+        "chatSessionId": "sess_4d51a238-114a-4e2f-acac-edaa004dee30",
+        "timestamp": 1788693368041
+      }
+    ],
+    "19.2 Write end-to-end test for JavaScript project": [
+      {
+        "executionId": "23fdd07f-4794-452a-8c72-4bd2726502d4",
+        "chatSessionId": "sess_ede40a81-a8c4-4835-ae5d-159d5ea2b660",
+        "timestamp": 1788681630154
+      },
+      {
+        "executionId": "65061525-0f85-4624-ba88-6beae0cb6d71",
+        "chatSessionId": "sess_4d51a238-114a-4e2f-acac-edaa004dee30",
+        "timestamp": 1788690990607
+      },
+      {
+        "executionId": "65061525-0f85-4624-ba88-6beae0cb6d71",
+        "chatSessionId": "sess_4d51a238-114a-4e2f-acac-edaa004dee30",
+        "timestamp": 1788693368533
+      }
+    ],
+    "19.3 Write end-to-end test for debugging workflow": [
+      {
+        "executionId": "23fdd07f-4794-452a-8c72-4bd2726502d4",
+        "chatSessionId": "sess_ede40a81-a8c4-4835-ae5d-159d5ea2b660",
+        "timestamp": 1788681630204
+      },
+      {
+        "executionId": "65061525-0f85-4624-ba88-6beae0cb6d71",
+        "chatSessionId": "sess_4d51a238-114a-4e2f-acac-edaa004dee30",
+        "timestamp": 1788690991333
+      },
+      {
+        "executionId": "65061525-0f85-4624-ba88-6beae0cb6d71",
+        "chatSessionId": "sess_4d51a238-114a-4e2f-acac-edaa004dee30",
+        "timestamp": 1788693369235
+      }
+    ],
+    "19.4 Write end-to-end test for refactoring workflow": [
+      {
+        "executionId": "23fdd07f-4794-452a-8c72-4bd2726502d4",
+        "chatSessionId": "sess_ede40a81-a8c4-4835-ae5d-159d5ea2b660",
+        "timestamp": 1788681630253
+      },
+      {
+        "executionId": "65061525-0f85-4624-ba88-6beae0cb6d71",
+        "chatSessionId": "sess_4d51a238-114a-4e2f-acac-edaa004dee30",
+        "timestamp": 1788690992141
+      },
+      {
+        "executionId": "65061525-0f85-4624-ba88-6beae0cb6d71",
+        "chatSessionId": "sess_4d51a238-114a-4e2f-acac-edaa004dee30",
+        "timestamp": 1788693369977
+      }
+    ],
+    "19.5 Write end-to-end test with web research": [
+      {
+        "executionId": "23fdd07f-4794-452a-8c72-4bd2726502d4",
+        "chatSessionId": "sess_ede40a81-a8c4-4835-ae5d-159d5ea2b660",
+        "timestamp": 1788681630354
+      },
+      {
+        "executionId": "65061525-0f85-4624-ba88-6beae0cb6d71",
+        "chatSessionId": "sess_4d51a238-114a-4e2f-acac-edaa004dee30",
+        "timestamp": 1788690992930
+      },
+      {
+        "executionId": "65061525-0f85-4624-ba88-6beae0cb6d71",
+        "chatSessionId": "sess_4d51a238-114a-4e2f-acac-edaa004dee30",
+        "timestamp": 1788693960442
+      }
+    ],
+    "19.6 Write end-to-end test for self-improvement": [
+      {
+        "executionId": "23fdd07f-4794-452a-8c72-4bd2726502d4",
+        "chatSessionId": "sess_ede40a81-a8c4-4835-ae5d-159d5ea2b660",
+        "timestamp": 1788681630431
+      },
+      {
+        "executionId": "65061525-0f85-4624-ba88-6beae0cb6d71",
+        "chatSessionId": "sess_4d51a238-114a-4e2f-acac-edaa004dee30",
+        "timestamp": 1788693370927
+      },
+      {
+        "executionId": "65061525-0f85-4624-ba88-6beae0cb6d71",
+        "chatSessionId": "sess_4d51a238-114a-4e2f-acac-edaa004dee30",
+        "timestamp": 1788693984273
+      }
+    ],
+    "20.1 Create README.md with installation and usage instructions": [
+      {
+        "executionId": "23fdd07f-4794-452a-8c72-4bd2726502d4",
+        "chatSessionId": "sess_ede40a81-a8c4-4835-ae5d-159d5ea2b660",
+        "timestamp": 1788681630486
+      },
+      {
+        "executionId": "18c3d7df-cdbc-4ea8-ad9d-bedb7d92ba16",
+        "chatSessionId": "sess_5075580c-2a4c-4471-b2d9-f0fa6a391342",
+        "timestamp": 1788696476590
+      }
+    ],
+    "20.2 Create developer documentation": [
+      {
+        "executionId": "23fdd07f-4794-452a-8c72-4bd2726502d4",
+        "chatSessionId": "sess_ede40a81-a8c4-4835-ae5d-159d5ea2b660",
+        "timestamp": 1788681630538
+      },
+      {
+        "executionId": "18c3d7df-cdbc-4ea8-ad9d-bedb7d92ba16",
+        "chatSessionId": "sess_5075580c-2a4c-4471-b2d9-f0fa6a391342",
+        "timestamp": 1788696476900
+      }
+    ],
+    "20.3 Create example projects and tasks": [
+      {
+        "executionId": "23fdd07f-4794-452a-8c72-4bd2726502d4",
+        "chatSessionId": "sess_ede40a81-a8c4-4835-ae5d-159d5ea2b660",
+        "timestamp": 1788681630597
+      },
+      {
+        "executionId": "18c3d7df-cdbc-4ea8-ad9d-bedb7d92ba16",
+        "chatSessionId": "sess_5075580c-2a4c-4471-b2d9-f0fa6a391342",
+        "timestamp": 1788696477245
+      }
+    ],
+    "21. Final checkpoint - Complete system verification": [
+      {
+        "executionId": "23fdd07f-4794-452a-8c72-4bd2726502d4",
+        "chatSessionId": "sess_ede40a81-a8c4-4835-ae5d-159d5ea2b660",
+        "timestamp": 1788681630652
+      },
+      {
+        "executionId": "659ebb5a-50c3-4e24-b721-7540ceb05c3a",
+        "chatSessionId": "sess_8ea265ef-635c-48aa-85d6-bd535da5780b",
+        "timestamp": 1788697833931
+      },
+      {
+        "executionId": "659ebb5a-50c3-4e24-b721-7540ceb05c3a",
+        "chatSessionId": "sess_8ea265ef-635c-48aa-85d6-bd535da5780b",
+        "timestamp": 1788698965860
+      }
+    ],
+    "13. Implement web research module": [
+      {
+        "executionId": "5f38e0f2-c716-4d92-a0aa-1d923d450b7b",
+        "chatSessionId": "sess_cef60cf7-8e3e-4ee6-87ff-26cc725a95ab",
+        "timestamp": 1788688390098
+      }
+    ],
+    "15. Implement system configuration and initialization": [
+      {
+        "executionId": "ef6b6697-2bf7-4f48-9cbe-63efbfd634e3",
+        "chatSessionId": "sess_8274f806-1809-4e88-b1dd-38a518218246",
+        "timestamp": 1788688823743
+      }
+    ],
+    "19. Write end-to-end system tests": [
+      {
+        "executionId": "65061525-0f85-4624-ba88-6beae0cb6d71",
+        "chatSessionId": "sess_4d51a238-114a-4e2f-acac-edaa004dee30",
+        "timestamp": 1788693984367
+      }
+    ],
+    "20. Create documentation and examples": [
+      {
+        "executionId": "08f62199-fdc4-4834-88e0-33b128ccca7f",
+        "chatSessionId": "sess_8ea265ef-635c-48aa-85d6-bd535da5780b",
+        "timestamp": 1788696927809
+      },
+      {
+        "executionId": "08f62199-fdc4-4834-88e0-33b128ccca7f",
+        "chatSessionId": "sess_8ea265ef-635c-48aa-85d6-bd535da5780b",
+        "timestamp": 1788697743872
+      }
+    ]
+  }
+}

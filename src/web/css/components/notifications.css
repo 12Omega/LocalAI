@@ -1,0 +1,216 @@
+/**
+ * Notifications and Toast Messages
+ * 
+ * Styles for toast notifications, warnings, and error messages
+ */
+
+/* Toast Notifications */
+.toast-notification {
+    position: fixed;
+    bottom: var(--spacing-lg);
+    right: var(--spacing-lg);
+    min-width: 300px;
+    max-width: 500px;
+    padding: var(--spacing-md);
+    background: var(--bg-primary);
+    border-radius: var(--border-radius);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-md);
+    z-index: 9999;
+    animation: slideInRight 0.3s ease-out;
+}
+
+.toast-notification.toast-fade-out {
+    animation: slideOutRight 0.3s ease-out;
+}
+
+.toast-content {
+    flex: 1;
+    font-size: var(--font-size-sm);
+    color: var(--text-primary);
+}
+
+.toast-close {
+    background: none;
+    border: none;
+    font-size: 20px;
+    line-height: 1;
+    color: var(--text-secondary);
+    cursor: pointer;
+    padding: 0;
+    width: 24px;
+    height: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: var(--border-radius-sm);
+    transition: background-color 0.2s;
+}
+
+.toast-close:hover {
+    background-color: var(--bg-hover);
+}
+
+/* Toast variants */
+.toast-info {
+    border-left: 4px solid var(--info-border);
+    background-color: var(--info-bg);
+}
+
+.toast-success {
+    border-left: 4px solid var(--success-border);
+    background-color: var(--success-bg);
+}
+
+.toast-warning {
+    border-left: 4px solid var(--warning-border);
+    background-color: var(--warning-bg);
+}
+
+.toast-error {
+    border-left: 4px solid var(--error-border);
+    background-color: var(--error-bg);
+}
+
+/* Error content in dialogs */
+.error-content {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-md);
+}
+
+.error-main-message {
+    font-size: var(--font-size-base);
+    color: var(--text-primary);
+    margin: 0;
+    line-height: 1.5;
+}
+
+.error-details {
+    background-color: var(--bg-secondary);
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius-sm);
+    padding: var(--spacing-sm);
+}
+
+.error-details summary {
+    cursor: pointer;
+    font-weight: 500;
+    color: var(--text-secondary);
+    user-select: none;
+    padding: var(--spacing-xs);
+}
+
+.error-details summary:hover {
+    color: var(--text-primary);
+}
+
+.error-stack {
+    margin: var(--spacing-sm) 0 0 0;
+    padding: var(--spacing-sm);
+    background-color: var(--bg-tertiary, #000);
+    color: var(--text-on-dark, #fff);
+    font-family: var(--font-mono);
+    font-size: var(--font-size-xs);
+    border-radius: var(--border-radius-sm);
+    overflow-x: auto;
+    white-space: pre-wrap;
+    word-break: break-word;
+}
+
+.error-help {
+    font-size: var(--font-size-sm);
+    color: var(--text-secondary);
+    margin: 0;
+    padding: var(--spacing-sm);
+    background-color: var(--bg-secondary);
+    border-radius: var(--border-radius-sm);
+    border-left: 3px solid var(--warning-border);
+}
+
+.error-suggestions {
+    font-size: var(--font-size-sm);
+    color: var(--text-secondary);
+    padding: var(--spacing-sm);
+    background-color: var(--info-bg);
+    border-radius: var(--border-radius-sm);
+    border-left: 3px solid var(--info-border);
+}
+
+.error-suggestions strong {
+    color: var(--text-primary);
+    display: block;
+    margin-bottom: var(--spacing-xs);
+}
+
+.error-suggestions ul {
+    margin: 0;
+    padding-left: var(--spacing-lg);
+}
+
+.error-suggestions li {
+    margin-bottom: var(--spacing-xs);
+}
+
+.error-suggestions li:last-child {
+    margin-bottom: 0;
+}
+
+/* Animations */
+@keyframes slideInRight {
+    from {
+        transform: translateX(100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+@keyframes slideOutRight {
+    from {
+        transform: translateX(0);
+        opacity: 1;
+    }
+    to {
+        transform: translateX(100%);
+        opacity: 0;
+    }
+}
+
+/* Stack multiple toasts */
+.toast-notification:nth-last-child(2) {
+    bottom: calc(var(--spacing-lg) + 80px);
+}
+
+.toast-notification:nth-last-child(3) {
+    bottom: calc(var(--spacing-lg) + 160px);
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+    .toast-notification {
+        left: var(--spacing-md);
+        right: var(--spacing-md);
+        bottom: var(--spacing-md);
+        min-width: auto;
+    }
+    
+    .toast-notification:nth-last-child(2) {
+        bottom: calc(var(--spacing-md) + 70px);
+    }
+    
+    .toast-notification:nth-last-child(3) {
+        bottom: calc(var(--spacing-md) + 140px);
+    }
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+    .toast-notification {
+        animation: none;
+    }
+}

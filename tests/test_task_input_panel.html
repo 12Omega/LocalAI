@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Task Input Panel - Unit Tests</title>
+    <style>
+        body {
+            font-family: system-ui, -apple-system, sans-serif;
+            padding: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .test-container {
+            border: 1px solid #ccc;
+            padding: 20px;
+            margin-bottom: 20px;
+            border-radius: 4px;
+        }
+        .test-passed {
+            background-color: #d4edda;
+            border-color: #c3e6cb;
+        }
+        .test-failed {
+            background-color: #f8d7da;
+            border-color: #f5c6cb;
+        }
+        .test-title {
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        .test-result {
+            margin-top: 10px;
+            padding: 10px;
+            border-radius: 4px;
+        }
+        #test-area {
+            display: none;
+        }
+        .panel {
+            border: 1px solid #ddd;
+            padding: 15px;
+            border-radius: 4px;
+        }
+        .panel-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+        }
+        .character-counter {
+            color: #666;
+        }
+        .task-input {
+            width: 100%;
+            min-height: 100px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        .task-actions {
+            display: flex;
+            gap: 10px;
+            margin-top: 10px;
+            align-items: center;
+        }
+        .btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        .btn-primary {
+            background-color: #007bff;
+            color: white;
+        }
+        .btn-primary:disabled {
+            background-color: #ccc;
+            cursor: not-allowed;
+        }
+        .btn-danger {
+            background-color: #dc3545;
+            color: white;
+        }
+        .task-status {
+            padding: 5px 10px;
+            border-radius: 4px;
+        }
+        .status-running {
+            background-color: #fff3cd;
+            color: #856404;
+        }
+        .status-success {
+            background-color: #d4edda;
+            color: #155724;
+        }
+        .status-error {
+            background-color: #f8d7da;
+            color: #721c24;
+        }
+    </style>
+</head>
+<body>
+    <h1>Task Input Panel Component - Unit Tests</h1>
+    
+    <div id="test-results"></div>
+    
+    <!-- Hidden test area with DOM elements -->
+    <div id="test-area">
+        <div class="panel">
+            <div class="panel-header">
+                <h2>Task Description</h2>
+                <div class="character-counter">
+                    <span id="char-count">0</span> / 5000
+                </div>
+            </div>
+            <textarea 
+                id="task-description" 
+                class="task-input" 
+                placeholder="Enter task description..."
+                maxlength="5000"
+                rows="8"></textarea>
+            <div class="task-actions">
+                <button id="run-task-btn" class="btn btn-primary" disabled>Run Task</button>
+                <button id="stop-task-btn" class="btn btn-danger" style="display: none;">Stop Task</button>
+                <div id="task-status" class="task-status"></div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Mock State Manager -->
+    <script>
+        // Mock state manager for testing
+        const stateManager = {
+            state: {},
+            observers: {},
+            get(key) {
+                return this.state[key];
+            },
+            set(key, value, persist) {
+                this.state[key] = value;
+                this.notify(key, value);
+            },
+            subscribe(key, callback) {
+                if (!this.observers[key]) {
+                    this.observers[key] = [];
+                }
+                this.observers[key].push(callback);
+                return () => {
+                    const index = this.observers[key].indexOf(callback);
+                    if (index > -1) {
+                        this.observers[key].splice(index, 1);
+                    }
+                };
+            },
+            notify(key, value) {
+                if (this.observers[key]) {
+                    this.observers[key].forEach(callback => callback(value));
+                }
+            }
+        };
+        
+        // Mock Eel for testing
+        const eel = {
+            run_task: (description) => () => {
+                return new Promise((resolve) => {
+                    setTimeout(() => {
+                        resolve({ success: true, task_id: 'test-123' });
+                    }, 100);
+                });
+            },
+            stop_task: () => () => {
+                return new Promise((resolve) => {
+                    setTimeout(() => {
+                        resolve({ success: true });
+                    }, 100);
+                });
+            }
+        };
+    </script>
+    
+    <!-- Component under test -->
+    <script src="../src/web/js/components/task_input.js"></script>
+    
+    <!-- Test Runner -->
+    <script>
+        const tests = [];
+        const results = [];
+        
+        function test(name, fn) {
+            tests.push({ name, fn });
+        }
+        
+        function assert(condition, message) {
+            if (!condition) {
+                throw new Error(message || 'Assertion failed');
+            }
+        }
+        
+        function assertEquals(actual, expected, message) {
+            if (actual !== expected) {
+                throw new Error(message || `Expected ${expected}, got ${actual}`);
+            }
+        }
+        
+        async function runTests() {
+            console.log('Running tests...');
+            
+            for (const { name, fn } of tests) {
+                try {
+                    // Reset component before each test
+                    if (taskInputPanel.destroy) {
+                        taskInputPanel.destroy();
+                    }
+                    taskInputPanel.init();
+                    
+                    await fn();
+                    results.push({ name, passed: true });
+                    console.log(`✓ ${name}`);
+                } catch (error) {
+                    results.push({ name, passed: false, error: error.message });
+                    console.error(`✗ ${name}:`, error.message);
+                }
+            }
+            
+            displayResults();
+        }
+        
+        function displayResults() {
+            const container = document.getElementById('test-results');
+            const passed = results.filter(r => r.passed).length;
+            const failed = results.filter(r => !r.passed).length;
+            
+            let html = `<h2>Test Results: ${passed} passed, ${failed} failed</h2>`;
+            
+            results.forEach(result => {
+                const className = result.passed ? 'test-passed' : 'test-failed';
+                const icon = result.passed ? '✓' : '✗';
+                html += `
+                    <div class="test-container ${className}">
+                        <div class="test-title">${icon} ${result.name}</div>
+                        ${result.error ? `<div class="test-result">${result.error}</div>` : ''}
+                    </div>
+                `;
+            });
+            
+            container.innerHTML = html;
+        }
+        
+        // Define tests
+        test('Component initializes correctly', () => {
+            assert(taskInputPanel.taskDescriptionTextarea, 'Textarea should be initialized');
+            assert(taskInputPanel.charCountSpan, 'Character count span should be initialized');
+            assert(taskInputPanel.runButton, 'Run button should be initialized');
+            assert(taskInputPanel.stopButton, 'Stop button should be initialized');
+            assert(taskInputPanel.statusDiv, 'Status div should be initialized');
+        });
+        
+        test('Character counter updates on input', () => {
+            const textarea = taskInputPanel.taskDescriptionTextarea;
+            const charCount = taskInputPanel.charCountSpan;
+            
+            textarea.value = 'Test task';
+            textarea.dispatchEvent(new Event('input'));
+            
+            assertEquals(charCount.textContent, '9', 'Character count should be 9');
+        });
+        
+        test('Run button is disabled when input is empty', () => {
+            const textarea = taskInputPanel.taskDescriptionTextarea;
+            const runButton = taskInputPanel.runButton;
+            
+            textarea.value = '';
+            textarea.dispatchEvent(new Event('input'));
+            
+            assert(runButton.disabled, 'Run button should be disabled when input is empty');
+        });
+        
+        test('Run button is enabled when input is valid', () => {
+            const textarea = taskInputPanel.taskDescriptionTextarea;
+            const runButton = taskInputPanel.runButton;
+            
+            textarea.value = 'Create a calculator module';
+            textarea.dispatchEvent(new Event('input'));
+            
+            assert(!runButton.disabled, 'Run button should be enabled when input is valid');
+        });
+        
+        test('Input validation checks non-empty and within limit', () => {
+            taskInputPanel.taskDescriptionTextarea.value = '';
+            assert(!taskInputPanel.isInputValid(), 'Empty input should be invalid');
+            
+            taskInputPanel.taskDescriptionTextarea.value = 'Valid task';
+            assert(taskInputPanel.isInputValid(), 'Non-empty input should be valid');
+            
+            taskInputPanel.taskDescriptionTextarea.value = 'a'.repeat(5001);
+            assert(!taskInputPanel.isInputValid(), 'Input over 5000 chars should be invalid');
+        });
+        
+        test('Running state toggles button visibility', () => {
+            const runButton = taskInputPanel.runButton;
+            const stopButton = taskInputPanel.stopButton;
+            
+            taskInputPanel.setRunningState(true);
+            
+            assertEquals(runButton.style.display, 'none', 'Run button should be hidden when running');
+            assertEquals(stopButton.style.display, 'inline-flex', 'Stop button should be visible when running');
+            
+            taskInputPanel.setRunningState(false);
+            
+            assertEquals(runButton.style.display, 'inline-flex', 'Run button should be visible when not running');
+            assertEquals(stopButton.style.display, 'none', 'Stop button should be hidden when not running');
+        });
+        
+        test('Task description can be set and retrieved', () => {
+            const testDescription = 'Build a web application';
+            
+            taskInputPanel.setTaskDescription(testDescription);
+            assertEquals(taskInputPanel.getTaskDescription(), testDescription, 'Should return the set description');
+        });
+        
+        test('Status updates correctly', () => {
+            taskInputPanel.setStatus('running', 'Task is running...');
+            
+            assertEquals(taskInputPanel.statusDiv.textContent, 'Task is running...', 'Status text should match');
+            assert(taskInputPanel.statusDiv.className.includes('status-running'), 'Status should have running class');
+        });
+        
+        test('Keyboard shortcut Ctrl+Enter triggers run', async () => {
+            const textarea = taskInputPanel.taskDescriptionTextarea;
+            
+            // Set valid input
+            textarea.value = 'Test task with keyboard shortcut';
+            textarea.dispatchEvent(new Event('input'));
+            
+            // Create and dispatch keyboard event
+            const event = new KeyboardEvent('keydown', {
+                key: 'Enter',
+                ctrlKey: true,
+                bubbles: true
+            });
+            
+            let runCalled = false;
+            const originalHandleRun = taskInputPanel.handleRunClick;
+            taskInputPanel.handleRunClick = () => {
+                runCalled = true;
+            };
+            
+            textarea.dispatchEvent(event);
+            
+            // Restore original
+            taskInputPanel.handleRunClick = originalHandleRun;
+            
+            assert(runCalled || event.defaultPrevented, 'Ctrl+Enter should trigger run or prevent default');
+        });
+        
+        test('Component can be destroyed and cleaned up', () => {
+            taskInputPanel.destroy();
+            
+            assert(taskInputPanel.taskDescriptionTextarea === null, 'Textarea reference should be cleared');
+            assert(taskInputPanel.charCountSpan === null, 'CharCount reference should be cleared');
+        });
+        
+        // Run all tests when page loads
+        window.addEventListener('load', () => {
+            setTimeout(runTests, 100);
+        });
+    </script>
+</body>
+</html>

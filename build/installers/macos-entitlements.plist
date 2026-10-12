@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<!-- ==================================================================== -->
+	<!-- macOS Code Signing Entitlements                                      -->
+	<!-- ==================================================================== -->
+	<!-- This file defines the entitlements (permissions) required for the    -->
+	<!-- Local AI Development Environment application when code signing       -->
+	<!-- with hardened runtime enabled (required for notarization).           -->
+	<!--                                                                       -->
+	<!-- Usage:                                                               -->
+	<!-- codesign --deep --force --verify --verbose \                        -->
+	<!--   --sign "Developer ID Application: Your Name (TEAM_ID)" \          -->
+	<!--   --options runtime \                                                -->
+	<!--   --entitlements build/installers/macos-entitlements.plist \        -->
+	<!--   --timestamp \                                                      -->
+	<!--   dist/LocalAIDev.app                                               -->
+	<!-- ==================================================================== -->
+	
+	<!-- Allow JIT (Just-In-Time) compilation -->
+	<!-- Required for Python runtime optimization -->
+	<key>com.apple.security.cs.allow-jit</key>
+	<true/>
+	
+	<!-- Allow unsigned executable memory -->
+	<!-- Required for dynamic Python code execution -->
+	<key>com.apple.security.cs.allow-unsigned-executable-memory</key>
+	<true/>
+	
+	<!-- Disable library validation -->
+	<!-- Required for loading Python extensions and native libraries -->
+	<key>com.apple.security.cs.disable-library-validation</key>
+	<true/>
+	
+	<!-- Allow DYLD environment variables -->
+	<!-- May be needed for Python library loading -->
+	<key>com.apple.security.cs.allow-dyld-environment-variables</key>
+	<false/>
+	
+	<!-- Disable executable page protection -->
+	<!-- May be required for some Python operations -->
+	<key>com.apple.security.cs.disable-executable-page-protection</key>
+	<false/>
+	
+	<!-- Network Access -->
+	<!-- Allow outgoing network connections (LLM communication) -->
+	<key>com.apple.security.network.client</key>
+	<true/>
+	
+	<!-- Allow incoming network connections (Eel web server) -->
+	<key>com.apple.security.network.server</key>
+	<true/>
+	
+	<!-- File System Access -->
+	<!-- Allow read access to user-selected files -->
+	<key>com.apple.security.files.user-selected.read-write</key>
+	<true/>
+	
+	<!-- Allow read/write access to Downloads folder -->
+	<key>com.apple.security.files.downloads.read-write</key>
+	<true/>
+	
+	<!-- Audio/Video (if needed in future) -->
+	<!-- <key>com.apple.security.device.audio-input</key> -->
+	<!-- <false/> -->
+	<!-- <key>com.apple.security.device.camera</key> -->
+	<!-- <false/> -->
+	
+	<!-- Debugging (disable for production) -->
+	<!-- Allow debugger attachment during development -->
+	<!-- <key>com.apple.security.get-task-allow</key> -->
+	<!-- <false/> -->
+	
+	<!-- Print Access (if needed) -->
+	<!-- <key>com.apple.security.print</key> -->
+	<!-- <false/> -->
+	
+	<!-- Contacts/Calendar Access (not needed) -->
+	<!-- <key>com.apple.security.personal-information.addressbook</key> -->
+	<!-- <false/> -->
+	<!-- <key>com.apple.security.personal-information.calendars</key> -->
+	<!-- <false/> -->
+	
+</dict>
+</plist>

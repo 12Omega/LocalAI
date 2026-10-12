@@ -1,0 +1,74 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+  <!-- Background circle -->
+  <circle cx="256" cy="256" r="240" fill="#2563eb" opacity="0.1"/>
+  
+  <!-- Robot head shape -->
+  <rect x="156" y="140" width="200" height="180" rx="20" fill="#2563eb"/>
+  
+  <!-- Antenna -->
+  <line x1="256" y1="140" x2="256" y2="100" stroke="#10b981" stroke-width="8" stroke-linecap="round"/>
+  <circle cx="256" cy="100" r="12" fill="#10b981"/>
+  
+  <!-- Eyes (code brackets) -->
+  <g fill="#10b981">
+    <!-- Left eye - opening bracket < -->
+    <path d="M 200 180 L 180 200 L 200 220" stroke="#10b981" stroke-width="12" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+    
+    <!-- Right eye - closing bracket > -->
+    <path d="M 312 180 L 332 200 L 312 220" stroke="#10b981" stroke-width="12" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+  </g>
+  
+  <!-- Smile/mouth - code symbol {} -->
+  <path d="M 190 270 Q 185 270 185 275 L 185 285 Q 185 290 180 290 Q 185 290 185 295 L 185 305 Q 185 310 190 310" 
+        stroke="#ffffff" stroke-width="8" fill="none" stroke-linecap="round"/>
+  <path d="M 322 270 Q 327 270 327 275 L 327 285 Q 327 290 332 290 Q 327 290 327 295 L 327 305 Q 327 310 322 310" 
+        stroke="#ffffff" stroke-width="8" fill="none" stroke-linecap="round"/>
+  
+  <!-- Code lines on body -->
+  <g opacity="0.7">
+    <line x1="210" y1="250" x2="302" y2="250" stroke="#ffffff" stroke-width="6" stroke-linecap="round"/>
+    <line x1="220" y1="268" x2="292" y2="268" stroke="#ffffff" stroke-width="6" stroke-linecap="round"/>
+    <line x1="210" y1="286" x2="302" y2="286" stroke="#ffffff" stroke-width="6" stroke-linecap="round"/>
+  </g>
+  
+  <!-- Body/shoulder area with terminal-like design -->
+  <path d="M 156 320 L 156 360 Q 156 380 176 380 L 336 380 Q 356 380 356 360 L 356 320" 
+        fill="#2563eb" opacity="0.8"/>
+  
+  <!-- Terminal prompt symbol -->
+  <g fill="#10b981">
+    <path d="M 200 345 L 215 355 L 200 365" stroke="#10b981" stroke-width="6" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+    <line x1="230" y1="365" x2="260" y2="365" stroke="#10b981" stroke-width="6" stroke-linecap="round"/>
+  </g>
+  
+  <!-- Circuit pattern around robot -->
+  <g stroke="#10b981" stroke-width="3" fill="none" opacity="0.6">
+    <!-- Top left circuit -->
+    <path d="M 120 180 L 140 180 L 140 160"/>
+    <circle cx="120" cy="180" r="4" fill="#10b981"/>
+    
+    <!-- Top right circuit -->
+    <path d="M 392 180 L 372 180 L 372 160"/>
+    <circle cx="392" cy="180" r="4" fill="#10b981"/>
+    
+    <!-- Bottom left circuit -->
+    <path d="M 120 340 L 140 340 L 140 360"/>
+    <circle cx="120" cy="340" r="4" fill="#10b981"/>
+    
+    <!-- Bottom right circuit -->
+    <path d="M 392 340 L 372 340 L 372 360"/>
+    <circle cx="392" cy="340" r="4" fill="#10b981"/>
+  </g>
+  
+  <!-- Corner brackets for "framing" effect -->
+  <g stroke="#2563eb" stroke-width="4" fill="none" opacity="0.5">
+    <!-- Top left corner -->
+    <path d="M 80 120 L 80 80 L 120 80"/>
+    <!-- Top right corner -->
+    <path d="M 432 80 L 472 80 L 472 120"/>
+    <!-- Bottom left corner -->
+    <path d="M 80 392 L 80 432 L 120 432"/>
+    <!-- Bottom right corner -->
+    <path d="M 392 432 L 432 432 L 432 392"/>
+  </g>
+</svg>

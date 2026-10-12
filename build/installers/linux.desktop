@@ -1,0 +1,126 @@
+[Desktop Entry]
+# ==============================================================================
+# Desktop Entry File for Local AI Development Environment
+# ==============================================================================
+#
+# This desktop entry file allows the application to appear in application menus
+# and launchers on Linux desktop environments (GNOME, KDE, XFCE, etc.).
+#
+# Requirements implemented:
+# - 8.7: Configure desktop entry for application menu
+# - 7.5: Add application icon to standard locations
+# - 15.3: Support Linux distributions with GTK 3.0 or newer
+#
+# Installation locations:
+# - System-wide: /usr/share/applications/localaidev.desktop
+# - User-specific: ~/.local/share/applications/localaidev.desktop
+#
+# Icon installation locations:
+# - System-wide: /usr/share/icons/hicolor/{size}/apps/localaidev.png
+# - User-specific: ~/.local/share/icons/hicolor/{size}/apps/localaidev.png
+#
+# Specification:
+# https://specifications.freedesktop.org/desktop-entry-spec/desktop-entry-spec-latest.html
+#
+# ==============================================================================
+
+# Entry type
+Type=Application
+
+# Version of the Desktop Entry Specification
+Version=1.5
+
+# Application name
+Name=Local AI Development Environment
+
+# Generic name for the application
+GenericName=AI Development Tool
+
+# Short description
+Comment=Modern desktop GUI for AI-powered development environment
+
+# Executable command
+# Adjust path if installed to different location
+Exec=/opt/LocalAIDev/LocalAIDev %U
+
+# Icon name (without extension or path)
+# System will look for this in standard icon directories
+Icon=localaidev
+
+# Whether the program runs in a terminal window
+Terminal=false
+
+# Categories for the application menu
+# See: https://specifications.freedesktop.org/menu-spec/latest/apa.html
+Categories=Development;IDE;Utility;
+
+# Keywords for searching (separated by semicolons)
+Keywords=ai;development;coding;llm;local;assistant;programming;automation;
+
+# MIME types the application can handle (if applicable)
+# MimeType=text/plain;text/x-python;
+
+# Startup notification support
+StartupNotify=true
+
+# Working directory for the application
+# Path=/opt/LocalAIDev
+
+# Additional actions (right-click menu items)
+Actions=NewWindow;Settings;
+
+# Whether to show in application menus
+NoDisplay=false
+
+# Whether the application is hidden
+Hidden=false
+
+# Whether multiple instances are allowed
+# Set to false if the app should be single-instance
+# SingleMainWindow=false
+
+# Localized names for different languages
+Name[en_US]=Local AI Development Environment
+GenericName[en_US]=AI Development Tool
+Comment[en_US]=Modern desktop GUI for AI-powered development environment
+
+# Add translations for other languages as needed
+# Name[es]=Entorno de Desarrollo de IA Local
+# Name[fr]=Environnement de Développement IA Local
+# Name[de]=Lokale KI-Entwicklungsumgebung
+
+# ==============================================================================
+# Actions (Right-click Menu Items)
+# ==============================================================================
+
+[Desktop Action NewWindow]
+Name=Open New Window
+Exec=/opt/LocalAIDev/LocalAIDev --new-window
+
+[Desktop Action Settings]
+Name=Settings
+Exec=/opt/LocalAIDev/LocalAIDev --settings
+
+# ==============================================================================
+# Installation Instructions
+# ==============================================================================
+
+# To install this desktop entry file:
+#
+# 1. System-wide installation (requires root):
+#    sudo cp linux.desktop /usr/share/applications/localaidev.desktop
+#    sudo chmod 644 /usr/share/applications/localaidev.desktop
+#
+# 2. User-specific installation:
+#    mkdir -p ~/.local/share/applications
+#    cp linux.desktop ~/.local/share/applications/localaidev.desktop
+#    chmod 644 ~/.local/share/applications/localaidev.desktop
+#
+# 3. Update desktop database:
+#    update-desktop-database ~/.local/share/applications  # For user
+#    sudo update-desktop-database /usr/share/applications  # For system
+#
+# 4. Verify the installation:
+#    desktop-file-validate ~/.local/share/applications/localaidev.desktop
+#
+# ==============================================================================

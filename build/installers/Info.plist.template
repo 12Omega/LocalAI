@@ -1,0 +1,212 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<!-- Application Metadata -->
+	<key>CFBundleName</key>
+	<string>LocalAIDev</string>
+	
+	<key>CFBundleDisplayName</key>
+	<string>Local AI Development Environment</string>
+	
+	<key>CFBundleIdentifier</key>
+	<string>com.localaidev.localaidev</string>
+	
+	<key>CFBundleVersion</key>
+	<string>1.0.0</string>
+	
+	<key>CFBundleShortVersionString</key>
+	<string>1.0.0</string>
+	
+	<key>CFBundlePackageType</key>
+	<string>APPL</string>
+	
+	<key>CFBundleSignature</key>
+	<string>????</string>
+	
+	<!-- Executable -->
+	<key>CFBundleExecutable</key>
+	<string>LocalAIDev</string>
+	
+	<!-- Icon File -->
+	<key>CFBundleIconFile</key>
+	<string>icon.icns</string>
+	
+	<!-- Application Category -->
+	<key>LSApplicationCategoryType</key>
+	<string>public.app-category.developer-tools</string>
+	
+	<!-- Minimum macOS Version (Requirement 15.2: macOS 10.14 Mojave) -->
+	<key>LSMinimumSystemVersion</key>
+	<string>10.14</string>
+	
+	<!-- Human-readable copyright -->
+	<key>NSHumanReadableCopyright</key>
+	<string>Copyright © 2024 Local AI Dev Team. All rights reserved.</string>
+	
+	<!-- High Resolution Capable (Retina) -->
+	<key>NSHighResolutionCapable</key>
+	<true/>
+	
+	<!-- Support dark mode -->
+	<key>NSRequiresAquaSystemAppearance</key>
+	<false/>
+	
+	<!-- Allow opening in background -->
+	<key>LSBackgroundOnly</key>
+	<false/>
+	
+	<!-- UI Element (set to false for normal app with dock icon) -->
+	<key>LSUIElement</key>
+	<false/>
+	
+	<!-- App Transport Security (allow local connections) -->
+	<key>NSAppTransportSecurity</key>
+	<dict>
+		<key>NSAllowsArbitraryLoads</key>
+		<false/>
+		<key>NSAllowsLocalNetworking</key>
+		<true/>
+		<key>NSExceptionDomains</key>
+		<dict>
+			<key>localhost</key>
+			<dict>
+				<key>NSExceptionAllowsInsecureHTTPLoads</key>
+				<true/>
+				<key>NSIncludesSubdomains</key>
+				<true/>
+			</dict>
+			<key>127.0.0.1</key>
+			<dict>
+				<key>NSExceptionAllowsInsecureHTTPLoads</key>
+				<true/>
+			</dict>
+		</dict>
+	</dict>
+	
+	<!-- File Type Associations (optional - for opening files with the app) -->
+	<key>CFBundleDocumentTypes</key>
+	<array>
+		<dict>
+			<key>CFBundleTypeExtensions</key>
+			<array>
+				<string>yaml</string>
+				<string>yml</string>
+			</array>
+			<key>CFBundleTypeName</key>
+			<string>YAML Configuration File</string>
+			<key>CFBundleTypeRole</key>
+			<string>Viewer</string>
+			<key>LSHandlerRank</key>
+			<string>Alternate</string>
+			<key>LSItemContentTypes</key>
+			<array>
+				<string>public.yaml</string>
+			</array>
+		</dict>
+	</array>
+	
+	<!-- URL Schemes (optional - for deep linking) -->
+	<key>CFBundleURLTypes</key>
+	<array>
+		<dict>
+			<key>CFBundleURLName</key>
+			<string>Local AI Dev URL</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>localaidev</string>
+			</array>
+		</dict>
+	</array>
+	
+	<!-- Services Menu (optional) -->
+	<key>NSServices</key>
+	<array>
+		<dict>
+			<key>NSMenuItem</key>
+			<dict>
+				<key>default</key>
+				<string>Process with Local AI Dev</string>
+			</dict>
+			<key>NSMessage</key>
+			<string>processText</string>
+			<key>NSPortName</key>
+			<string>LocalAIDev</string>
+			<key>NSSendTypes</key>
+			<array>
+				<string>NSStringPboardType</string>
+			</array>
+		</dict>
+	</array>
+	
+	<!-- Principal Class (for Cocoa apps) -->
+	<key>NSPrincipalClass</key>
+	<string>NSApplication</string>
+	
+	<!-- Main Nib File (not used for Eel/Python apps) -->
+	<!-- <key>NSMainNibFile</key> -->
+	<!-- <string>MainMenu</string> -->
+	
+	<!-- Supported Platforms -->
+	<key>CFBundleSupportedPlatforms</key>
+	<array>
+		<string>MacOSX</string>
+	</array>
+	
+	<!-- Development Region -->
+	<key>CFBundleDevelopmentRegion</key>
+	<string>en</string>
+	
+	<!-- Localization -->
+	<key>CFBundleLocalizations</key>
+	<array>
+		<string>en</string>
+	</array>
+	
+	<!-- Info Dictionary Version -->
+	<key>CFBundleInfoDictionaryVersion</key>
+	<string>6.0</string>
+	
+	<!-- Bundle Executable Architecture (universal binary) -->
+	<key>LSArchitecturePriority</key>
+	<array>
+		<string>arm64</string>
+		<string>x86_64</string>
+	</array>
+	
+	<!-- Enable App Nap for better energy efficiency -->
+	<key>NSAppSleepDisabled</key>
+	<false/>
+	
+	<!-- Require App Sandbox (optional, for App Store) -->
+	<!-- Set to true for App Store submission -->
+	<key>com.apple.security.app-sandbox</key>
+	<false/>
+	
+	<!-- Camera/Microphone Access (if needed) -->
+	<!-- <key>NSCameraUsageDescription</key> -->
+	<!-- <string>This app needs camera access for...</string> -->
+	<!-- <key>NSMicrophoneUsageDescription</key> -->
+	<!-- <string>This app needs microphone access for...</string> -->
+	
+	<!-- Hardened Runtime (for notarization) -->
+	<!-- These are set during code signing, not in Info.plist -->
+	<!-- But document them here for reference -->
+	<!-- Entitlements needed:
+		- com.apple.security.cs.allow-jit (for Python JIT)
+		- com.apple.security.cs.allow-unsigned-executable-memory
+		- com.apple.security.cs.disable-library-validation
+		- com.apple.security.network.client (for network access)
+		- com.apple.security.network.server (for Eel web server)
+	-->
+	
+	<!-- Prevent automatic termination -->
+	<key>NSSupportsSuddenTermination</key>
+	<false/>
+	
+	<!-- Appearance -->
+	<key>NSWindowSupportsAutomaticInlineTitle</key>
+	<false/>
+	
+</dict>
+</plist>

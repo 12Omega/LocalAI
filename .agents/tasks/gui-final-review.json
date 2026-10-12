@@ -1,0 +1,70 @@
+{
+  "verdict": "CHANGES_REQUESTED",
+  "findings": [
+    {
+      "issue": "Setup wizard Eel connectivity check",
+      "description": "completeSetup() calls eel.complete_first_run_setup() and browseDirectory() calls eel.browse_directory() without verifying Eel is connected. Add a check for typeof eel !== 'undefined' before calling, or gracefully handle the error.",
+      "severity": "high",
+      "confidence": "confirmed",
+      "file": "src/web/js/components/setup_wizard.js",
+      "line": "305, 275"
+    },
+    {
+      "issue": "NSIS GetSize macro definition mismatch",
+      "description": "The GetSize macro at line ~280 pops three values (SIZE_KB, SIZE_MB, SIZE_GB) but the GetSize function at line ~295 only pushes one value (KB). Stack mismatch causes undefined behavior. Change the macro to pop only SIZE_KB and remove $1 $2 from invocation at line ~155.",
+      "severity": "high",
+      "confidence": "confirmed",
+      "file": "build/installers/windows.nsi",
+      "line": "155, 280, 295"
+    },
+    {
+      "issue": "Platform CSS class selector mismatch",
+      "description": "platform.js line 75 applies body.classList.add('platform-mac'), but CSS selectors at line ~1100 use .platform-windows and .platform-linux (body selectors) vs .platform-mac .app-header (descendant selector). Pattern is inconsistent for future rules.",
+      "severity": "medium",
+      "confidence": "confirmed",
+      "file": "src/web/js/platform.js, src/web/css/main.css",
+      "line": "75, 1100"
+    },
+    {
+      "issue": "History virtual scrolling filter/sort race",
+      "description": "filterAndRenderEntries() line ~240 resets filteredEntries but doesn't reset currentOffset. If a user loads 200 entries, filters to 50, then scrolls to bottom, lazy load requests entries 200-250 from backend (unfiltered), not the filtered set. Offset management is confusing when filters are active.",
+      "severity": "medium",
+      "confidence": "confirmed",
+      "file": "src/web/js/components/history.js",
+      "line": "240"
+    },
+    {
+      "issue": "gui_app.py review incomplete",
+      "description": "File was truncated at line 950 in the read output. The second half includes _create_task_summary, _save_task_to_history, _get_error_suggestion, and configuration watcher logic which weren't reviewed. Request a re-read to verify those functions don't have import errors, reference non-existent attributes, or call missing Eel functions.",
+      "severity": "high",
+      "confidence": "likely",
+      "file": "src/gui/gui_app.py",
+      "line": "950+"
+    },
+    {
+      "issue": "Linux desktop entry CLI flags not implemented",
+      "description": "linux.desktop Actions section references --new-window and --settings CLI flags. gui_app.py was truncated before argument parsing code, couldn't verify implementation. If flags aren't implemented, remove the Actions section or add argument parsing.",
+      "severity": "low",
+      "confidence": "likely",
+      "file": "build/installers/linux.desktop, src/gui/gui_app.py",
+      "line": "90"
+    },
+    {
+      "issue": "Setup wizard validation bypass (informational)",
+      "description": "validateCurrentStep() line ~230 returns true for step 1 and step 3. If a user clicks Back from step 4 to step 2, then Next without re-testing, isUrlValidated remains true from previous test. If user edited endpoint after testing, validation is stale. However, isUrlValidated is cleared on endpoint input change (line ~190), so this is not a bug, just subtle flow.",
+      "severity": "low",
+      "confidence": "confirmed",
+      "file": "src/web/js/components/setup_wizard.js",
+      "line": "230, 190"
+    },
+    {
+      "issue": "Progress display pending updates race (informational)",
+      "description": "handleProgressUpdate() line ~90 queues updates and sets updateBatchTimeout = true. processPendingUpdates() sets updateBatchTimeout = null at end. A third call arriving right after processPendingUpdates() runs but before next frame could schedule duplicate RAF. Current logic is correct because updateBatchTimeout is checked immediately, but the comment at line ~95 is accurate.",
+      "severity": "low",
+      "confidence": "confirmed",
+      "file": "src/web/js/components/progress_display.js",
+      "line": "90, 95, 110"
+    }
+  ],
+  "reviewDoc": "c:\\Users\\acer\\Local dev ai\\.agents\\tasks\\gui-final-review.md"
+}

@@ -1,0 +1,467 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>PROJECT</key>
+	<dict>
+		<key>PROJECT_COMMENTS</key>
+		<dict>
+			<key>NOTES</key>
+			<string>Installer package for Local AI Development Environment Desktop GUI Application.
+
+This Packages project creates a macOS installer that:
+- Installs LocalAIDev.app to the /Applications folder
+- Supports macOS 10.14 (Mojave) and newer
+- Includes proper .app bundle structure with Info.plist
+- Supports code signing when certificates are available
+
+Requirements implemented:
+- 8.7: Add application to Applications folder
+- 8.9: Code sign (if certificate available)
+- 7.6: Set Info.plist with version and icon
+- 15.2: Support macOS 10.14 (Mojave) and newer
+
+Build Instructions:
+1. Open this file in Packages app (http://s.sudre.free.fr/Software/Packages/)
+2. Configure code signing in Build settings (optional)
+3. Build > Build to create the .pkg installer
+4. Output will be in dist/LocalAIDev.pkg
+
+Prerequisites:
+- PyInstaller-built LocalAIDev.app in dist/ directory
+- Packages app installed (brew install --cask packages)
+- (Optional) Apple Developer certificate for code signing</string>
+		</dict>
+		<key>PROJECT_PRESENTATION</key>
+		<dict>
+			<key>BACKGROUND</key>
+			<dict>
+				<key>ALIGNMENT</key>
+				<integer>1</integer>
+				<key>BACKGROUND_PATH</key>
+				<string></string>
+				<key>CUSTOM</key>
+				<false/>
+				<key>LAYOUT_DIRECTION</key>
+				<integer>0</integer>
+				<key>SCALING</key>
+				<integer>1</integer>
+			</dict>
+			<key>INSTALLATION TYPE</key>
+			<dict>
+				<key>HIERARCHIES</key>
+				<dict>
+					<key>INSTALLER</key>
+					<dict>
+						<key>CHILDREN</key>
+						<array>
+							<dict>
+								<key>CHILDREN</key>
+								<array/>
+								<key>OPTIONS</key>
+								<dict>
+									<key>DESCRIPTION</key>
+									<dict>
+										<key>INTERNATIONAL</key>
+										<dict>
+											<key>en</key>
+											<string>Local AI Development Environment Desktop Application</string>
+										</dict>
+									</dict>
+									<key>STATE</key>
+									<integer>1</integer>
+									<key>TOOLTIP</key>
+									<dict/>
+								</dict>
+								<key>PACKAGE_UUID</key>
+								<string>LOCALAIDEV-APP-PACKAGE-UUID</string>
+								<key>REQUIREMENTS</key>
+								<array/>
+								<key>TITLE</key>
+								<dict>
+									<key>INTERNATIONAL</key>
+									<dict>
+										<key>en</key>
+										<string>LocalAIDev Application</string>
+									</dict>
+								</dict>
+								<key>TYPE</key>
+								<integer>0</integer>
+								<key>UUID</key>
+								<string>LOCALAIDEV-CHOICE-UUID</string>
+							</dict>
+						</array>
+						<key>OPTIONS</key>
+						<dict/>
+					</dict>
+				</dict>
+				<key>MODE</key>
+				<integer>0</integer>
+			</dict>
+			<key>INTRODUCTION</key>
+			<dict>
+				<key>LOCALIZATIONS</key>
+				<array>
+					<dict>
+						<key>LANGUAGE</key>
+						<string>en</string>
+						<key>VALUE</key>
+						<dict>
+							<key>MODE</key>
+							<integer>1</integer>
+							<key>PATH</key>
+							<string></string>
+							<key>TEMPLATE</key>
+							<string>&lt;!DOCTYPE html&gt;
+&lt;html lang="en"&gt;
+&lt;head&gt;
+    &lt;meta charset="utf-8"/&gt;
+    &lt;style&gt;
+        body { 
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+            font-size: 13px;
+            line-height: 1.5;
+        }
+        h1 { 
+            color: #007AFF;
+            font-size: 22px;
+            margin-bottom: 16px;
+        }
+        p { margin: 8px 0; }
+        ul { margin: 8px 0; padding-left: 24px; }
+        li { margin: 4px 0; }
+        strong { font-weight: 600; }
+    &lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;h1&gt;Welcome to Local AI Development Environment&lt;/h1&gt;
+    &lt;p&gt;This installer will install Local AI Development Environment version 1.0.0 on your computer.&lt;/p&gt;
+    &lt;p&gt;Local AI Development Environment is a modern desktop GUI application that provides a user-friendly interface for AI-powered development tasks. It wraps the existing CLI functionality with real-time feedback, configuration management, and task history tracking.&lt;/p&gt;
+    &lt;p&gt;&lt;strong&gt;Key Features:&lt;/strong&gt;&lt;/p&gt;
+    &lt;ul&gt;
+        &lt;li&gt;Intuitive graphical interface for AI development tasks&lt;/li&gt;
+        &lt;li&gt;Real-time progress monitoring and feedback&lt;/li&gt;
+        &lt;li&gt;Task history tracking and management&lt;/li&gt;
+        &lt;li&gt;Visual configuration management&lt;/li&gt;
+        &lt;li&gt;Light and dark theme support&lt;/li&gt;
+    &lt;/ul&gt;
+    &lt;p&gt;&lt;strong&gt;Minimum System Requirements:&lt;/strong&gt;&lt;/p&gt;
+    &lt;ul&gt;
+        &lt;li&gt;macOS 10.14 (Mojave) or later&lt;/li&gt;
+        &lt;li&gt;64-bit Intel or Apple Silicon (M1/M2) processor&lt;/li&gt;
+        &lt;li&gt;200 MB of available disk space&lt;/li&gt;
+        &lt;li&gt;Internet connection for LLM communication&lt;/li&gt;
+    &lt;/ul&gt;
+    &lt;p&gt;Click Continue to proceed with the installation.&lt;/p&gt;
+&lt;/body&gt;
+&lt;/html&gt;</string>
+						</dict>
+					</dict>
+				</array>
+			</dict>
+			<key>LICENSE</key>
+			<dict>
+				<key>LOCALIZATIONS</key>
+				<array>
+					<dict>
+						<key>LANGUAGE</key>
+						<string>en</string>
+						<key>VALUE</key>
+						<dict>
+							<key>MODE</key>
+							<integer>0</integer>
+							<key>PATH</key>
+							<string>../../LICENSE</string>
+						</dict>
+					</dict>
+				</array>
+			</dict>
+			<key>README</key>
+			<dict>
+				<key>LOCALIZATIONS</key>
+				<array/>
+			</dict>
+			<key>SUMMARY</key>
+			<dict>
+				<key>LOCALIZATIONS</key>
+				<array>
+					<dict>
+						<key>LANGUAGE</key>
+						<string>en</string>
+						<key>VALUE</key>
+						<dict>
+							<key>MODE</key>
+							<integer>1</integer>
+							<key>PATH</key>
+							<string></string>
+							<key>TEMPLATE</key>
+							<string>&lt;!DOCTYPE html&gt;
+&lt;html lang="en"&gt;
+&lt;head&gt;
+    &lt;meta charset="utf-8"/&gt;
+    &lt;style&gt;
+        body { 
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+            font-size: 13px;
+            line-height: 1.5;
+        }
+        h1 { 
+            color: #007AFF;
+            font-size: 22px;
+            margin-bottom: 16px;
+        }
+        p { margin: 8px 0; }
+        strong { font-weight: 600; }
+        .success { 
+            color: #34C759;
+            font-weight: 600;
+        }
+    &lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;h1&gt;Installation Complete&lt;/h1&gt;
+    &lt;p class="success"&gt;✓ Local AI Development Environment has been successfully installed.&lt;/p&gt;
+    &lt;p&gt;The application has been installed to your Applications folder. You can:&lt;/p&gt;
+    &lt;ul&gt;
+        &lt;li&gt;Launch it from your Applications folder&lt;/li&gt;
+        &lt;li&gt;Find it using Spotlight search (Cmd+Space, type "Local AI")&lt;/li&gt;
+        &lt;li&gt;Add it to your Dock for quick access&lt;/li&gt;
+    &lt;/ul&gt;
+    &lt;p&gt;&lt;strong&gt;Getting Started:&lt;/strong&gt;&lt;/p&gt;
+    &lt;ol&gt;
+        &lt;li&gt;Launch Local AI Development Environment&lt;/li&gt;
+        &lt;li&gt;Configure your LLM settings in the Settings panel&lt;/li&gt;
+        &lt;li&gt;Enter a task description and click Run to get started&lt;/li&gt;
+    &lt;/ol&gt;
+    &lt;p&gt;For documentation and support, visit the project repository or check the Help menu in the application.&lt;/p&gt;
+    &lt;p&gt;Thank you for choosing Local AI Development Environment!&lt;/p&gt;
+&lt;/body&gt;
+&lt;/html&gt;</string>
+						</dict>
+					</dict>
+				</array>
+			</dict>
+			<key>TITLE</key>
+			<dict>
+				<key>INTERNATIONAL</key>
+				<dict>
+					<key>en</key>
+					<string>Local AI Development Environment</string>
+				</dict>
+			</dict>
+		</dict>
+		<key>PROJECT_REQUIREMENTS</key>
+		<dict>
+			<key>LIST</key>
+			<array>
+				<dict>
+					<key>BEHAVIOR</key>
+					<integer>1</integer>
+					<key>DICTIONARY</key>
+					<dict>
+						<key>FAIL_MESSAGE</key>
+						<dict>
+							<key>INTERNATIONAL</key>
+							<dict>
+								<key>en</key>
+								<string>This application requires macOS 10.14 (Mojave) or later.</string>
+							</dict>
+						</dict>
+						<key>OS_DISTRIBUTION_TYPE</key>
+						<integer>0</integer>
+						<key>OS_MINIMUM_VERSION</key>
+						<string>10.14</string>
+						<key>OS_VERSION_CHECK_TYPE</key>
+						<integer>1</integer>
+					</dict>
+					<key>IDENTIFIER</key>
+					<string>fr.whitebox.Packages.requirement.os</string>
+					<key>MESSAGE</key>
+					<string></string>
+					<key>STATE</key>
+					<true/>
+					<key>TYPE</key>
+					<integer>2</integer>
+				</dict>
+				<dict>
+					<key>BEHAVIOR</key>
+					<integer>1</integer>
+					<key>DICTIONARY</key>
+					<dict>
+						<key>ARCHITECTURES</key>
+						<array>
+							<string>x86_64</string>
+							<string>arm64</string>
+						</array>
+						<key>FAIL_MESSAGE</key>
+						<dict>
+							<key>INTERNATIONAL</key>
+							<dict>
+								<key>en</key>
+								<string>This application requires a 64-bit Intel or Apple Silicon processor.</string>
+							</dict>
+						</dict>
+					</dict>
+					<key>IDENTIFIER</key>
+					<string>fr.whitebox.Packages.requirement.cpu</string>
+					<key>MESSAGE</key>
+					<string></string>
+					<key>STATE</key>
+					<true/>
+					<key>TYPE</key>
+					<integer>1</integer>
+				</dict>
+				<dict>
+					<key>BEHAVIOR</key>
+					<integer>1</integer>
+					<key>DICTIONARY</key>
+					<dict>
+						<key>FAIL_MESSAGE</key>
+						<dict>
+							<key>INTERNATIONAL</key>
+							<dict>
+								<key>en</key>
+								<string>At least 200 MB of free disk space is required.</string>
+							</dict>
+						</dict>
+						<key>FREE_DISK_SPACE</key>
+						<integer>209715200</integer>
+					</dict>
+					<key>IDENTIFIER</key>
+					<string>fr.whitebox.Packages.requirement.diskspace</string>
+					<key>MESSAGE</key>
+					<string></string>
+					<key>STATE</key>
+					<true/>
+					<key>TYPE</key>
+					<integer>3</integer>
+				</dict>
+			</array>
+		</dict>
+		<key>PROJECT_SETTINGS</key>
+		<dict>
+			<key>AUTHENTICATION</key>
+			<integer>1</integer>
+			<key>CONCLUSION_ACTION</key>
+			<integer>1</integer>
+			<key>IDENTIFIER</key>
+			<string>com.localaidev.localaidev.pkg</string>
+			<key>NAME</key>
+			<string>Local AI Development Environment</string>
+			<key>OVERWRITE_PERMISSIONS</key>
+			<false/>
+			<key>VERSION</key>
+			<string>1.0.0</string>
+		</dict>
+	</dict>
+	<key>PACKAGES</key>
+	<array>
+		<dict>
+			<key>PACKAGE_FILES</key>
+			<dict>
+				<key>DEFAULT_INSTALL_LOCATION</key>
+				<string>/Applications</string>
+				<key>HIERARCHY</key>
+				<dict>
+					<key>CHILDREN</key>
+					<array>
+						<dict>
+							<key>CHILDREN</key>
+							<array/>
+							<key>GID</key>
+							<integer>80</integer>
+							<key>PATH</key>
+							<string>LocalAIDev.app</string>
+							<key>PATH_TYPE</key>
+							<integer>1</integer>
+							<key>PERMISSIONS</key>
+							<integer>493</integer>
+							<key>TYPE</key>
+							<integer>3</integer>
+							<key>UID</key>
+							<integer>0</integer>
+						</dict>
+					</array>
+					<key>GID</key>
+					<integer>80</integer>
+					<key>PATH</key>
+					<string>/Applications</string>
+					<key>PATH_TYPE</key>
+					<integer>0</integer>
+					<key>PERMISSIONS</key>
+					<integer>509</integer>
+					<key>TYPE</key>
+					<integer>1</integer>
+					<key>UID</key>
+					<integer>0</integer>
+				</dict>
+				<key>PAYLOAD_TYPE</key>
+				<integer>0</integer>
+				<key>SHOW_INVISIBLE</key>
+				<false/>
+				<key>SPLIT_FORKS</key>
+				<true/>
+				<key>TREAT_MISSING_FILES_AS_WARNING</key>
+				<false/>
+				<key>VERSION</key>
+				<integer>5</integer>
+			</dict>
+			<key>PACKAGE_SCRIPTS</key>
+			<dict>
+				<key>POSTINSTALL_PATH</key>
+				<dict>
+					<key>PATH</key>
+					<string></string>
+					<key>PATH_TYPE</key>
+					<integer>0</integer>
+				</dict>
+				<key>PREINSTALL_PATH</key>
+				<dict>
+					<key>PATH</key>
+					<string></string>
+					<key>PATH_TYPE</key>
+					<integer>0</integer>
+				</dict>
+				<key>RESOURCES</key>
+				<array/>
+			</dict>
+			<key>PACKAGE_SETTINGS</key>
+			<dict>
+				<key>AUTHENTICATION</key>
+				<integer>1</integer>
+				<key>CONCLUSION_ACTION</key>
+				<integer>0</integer>
+				<key>FOLLOW_SYMBOLIC_LINKS</key>
+				<false/>
+				<key>IDENTIFIER</key>
+				<string>com.localaidev.localaidev</string>
+				<key>LOCATION</key>
+				<integer>0</integer>
+				<key>NAME</key>
+				<string>LocalAIDev</string>
+				<key>OVERWRITE_PERMISSIONS</key>
+				<false/>
+				<key>PAYLOAD_SIZE</key>
+				<integer>-1</integer>
+				<key>RELOCATABLE</key>
+				<false/>
+				<key>USE_HFS+_COMPRESSION</key>
+				<false/>
+				<key>VERSION</key>
+				<string>1.0.0</string>
+			</dict>
+			<key>UUID</key>
+			<string>LOCALAIDEV-APP-PACKAGE-UUID</string>
+		</dict>
+	</array>
+	<key>TYPE</key>
+	<integer>1</integer>
+	<key>VERSION</key>
+	<dict>
+		<key>MAJOR</key>
+		<integer>1</integer>
+		<key>MINOR</key>
+		<integer>10</integer>
+	</dict>
+</dict>
+</plist>

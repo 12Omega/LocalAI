@@ -1,0 +1,120 @@
+/**
+ * Light Theme - Local AI Development Environment
+ * Color variables for light mode
+ */
+
+:root {
+    /* ==================== Primary Colors ==================== */
+    --primary: #2563eb;           /* Blue 600 - Main actions, links */
+    --primary-hover: #1d4ed8;     /* Blue 700 - Primary hover state */
+    --primary-alpha: rgba(37, 99, 235, 0.1); /* Primary with transparency */
+    
+    --success: #10b981;           /* Green 500 - Success states */
+    --success-hover: #059669;     /* Green 600 - Success hover */
+    --success-alpha: rgba(16, 185, 129, 0.1); /* Success with transparency */
+    
+    --warning: #f59e0b;           /* Amber 500 - Warnings */
+    --warning-hover: #d97706;     /* Amber 600 - Warning hover */
+    --warning-alpha: rgba(245, 158, 11, 0.1); /* Warning with transparency */
+    
+    --error: #ef4444;             /* Red 500 - Errors */
+    --error-hover: #dc2626;       /* Red 600 - Error hover */
+    --error-alpha: rgba(239, 68, 68, 0.1); /* Error with transparency */
+    
+    --info: #3b82f6;              /* Blue 500 - Informational */
+    --info-hover: #2563eb;        /* Blue 600 - Info hover */
+    --info-alpha: rgba(59, 130, 246, 0.1); /* Info with transparency */
+    
+    /* ==================== Neutral Colors ==================== */
+    --background: #ffffff;        /* White - Main background */
+    --surface: #f9fafb;           /* Gray 50 - Cards, panels */
+    --border: #e5e7eb;            /* Gray 200 - Borders */
+    
+    --text-primary: #111827;      /* Gray 900 - Primary text */
+    --text-secondary: #6b7280;    /* Gray 500 - Secondary text */
+    --text-disabled: #9ca3af;     /* Gray 400 - Disabled text */
+    
+    /* ==================== Component Colors ==================== */
+    --input-bg: #ffffff;          /* Input background */
+    --input-border: #d1d5db;      /* Gray 300 - Input borders */
+    --input-border-focus: #2563eb; /* Primary - Focused input border */
+    
+    --code-bg: #f3f4f6;           /* Gray 100 - Code block background */
+    
+    --hover-bg: #f3f4f6;          /* Gray 100 - Hover backgrounds */
+    --active-bg: #e5e7eb;         /* Gray 200 - Active/pressed states */
+    
+    --secondary: #e5e7eb;         /* Gray 200 - Secondary button background */
+    --secondary-hover: #d1d5db;   /* Gray 300 - Secondary button hover */
+    
+    --shadow: rgba(0, 0, 0, 0.1); /* Box shadow color */
+    --shadow-md: rgba(0, 0, 0, 0.15); /* Medium shadow */
+    --shadow-lg: rgba(0, 0, 0, 0.2);  /* Large shadow */
+    
+    /* ==================== Status Colors ==================== */
+    --status-success: #10b981;    /* Green 500 */
+    --status-warning: #f59e0b;    /* Amber 500 */
+    --status-error: #ef4444;      /* Red 500 */
+    --status-info: #3b82f6;       /* Blue 500 */
+    
+    /* ==================== Semantic Colors ==================== */
+    --link: #2563eb;              /* Primary - Links */
+    --link-hover: #1d4ed8;        /* Primary hover - Link hover */
+    --link-visited: #7c3aed;      /* Purple 600 - Visited links */
+    
+    /* ==================== Special Purpose ==================== */
+    --divider: #e5e7eb;           /* Gray 200 - Dividers */
+    --overlay: rgba(0, 0, 0, 0.5); /* Modal/dialog overlay */
+    
+    --scrollbar-track: #f9fafb;   /* Gray 50 */
+    --scrollbar-thumb: #d1d5db;   /* Gray 300 */
+    --scrollbar-thumb-hover: #9ca3af; /* Gray 400 */
+}
+
+/* ==================== Light Theme Specific Overrides ==================== */
+
+body[data-theme="light"] {
+    color-scheme: light;
+}
+
+/* Ensure proper contrast for light theme */
+body[data-theme="light"] .progress-output {
+    background-color: #f9fafb;
+    color: #111827;
+}
+
+body[data-theme="light"] code,
+body[data-theme="light"] pre {
+    background-color: #f3f4f6;
+    color: #111827;
+}
+
+/* Light theme selection colors */
+body[data-theme="light"] ::selection {
+    background-color: #bfdbfe; /* Blue 200 */
+    color: #1e3a8a; /* Blue 900 */
+}
+
+body[data-theme="light"] ::-moz-selection {
+    background-color: #bfdbfe;
+    color: #1e3a8a;
+}
+
+/* Light theme focus ring */
+body[data-theme="light"] :focus-visible {
+    outline-color: #2563eb;
+}
+
+/* Light theme scrollbar */
+body[data-theme="light"] ::-webkit-scrollbar-track {
+    background: #f9fafb;
+}
+
+body[data-theme="light"] ::-webkit-scrollbar-thumb {
+    background: #d1d5db;
+    border-color: #ffffff;
+}
+
+body[data-theme="light"] ::-webkit-scrollbar-thumb:hover {
+    background: #9ca3af;
+}

@@ -1,0 +1,525 @@
+/**
+ * Button Components - Local AI Development Environment
+ * Comprehensive button styles for all button types and states
+ */
+
+/* ==================== Base Button Styles ==================== */
+
+.btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--spacing-sm); /* 8px */
+    padding: var(--spacing-sm) var(--spacing-lg); /* 8px 16px */
+    border: none;
+    border-radius: 6px;
+    font-size: var(--font-size-base); /* 14px */
+    font-weight: 500;
+    font-family: var(--font-family-base);
+    line-height: 1.5;
+    cursor: pointer;
+    white-space: nowrap;
+    user-select: none;
+    transition: background-color 150ms ease, 
+                transform 50ms ease,
+                box-shadow 150ms ease,
+                opacity 150ms ease;
+    text-decoration: none;
+}
+
+.btn:active:not(:disabled) {
+    transform: translateY(1px);
+}
+
+.btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    transform: none;
+}
+
+.btn:focus-visible {
+    outline: 2px solid var(--primary);
+    outline-offset: 2px;
+}
+
+/* ==================== Button Sizes ==================== */
+
+.btn-small {
+    padding: var(--spacing-xs) var(--spacing-md); /* 4px 12px */
+    font-size: var(--font-size-xs); /* 12px */
+    gap: var(--spacing-xs); /* 4px */
+}
+
+.btn-large {
+    padding: var(--spacing-md) var(--spacing-xl); /* 12px 24px */
+    font-size: var(--font-size-md); /* 16px */
+    gap: var(--spacing-md); /* 12px */
+}
+
+/* ==================== Primary Button ==================== */
+
+.btn-primary {
+    background-color: var(--primary);
+    color: #ffffff;
+    box-shadow: 0 1px 2px var(--shadow);
+}
+
+.btn-primary:hover:not(:disabled) {
+    background-color: var(--primary-hover);
+    box-shadow: 0 2px 4px var(--shadow);
+}
+
+.btn-primary:active:not(:disabled) {
+    box-shadow: 0 1px 2px var(--shadow);
+}
+
+/* ==================== Success Button (Run Task) ==================== */
+
+.btn-success {
+    background-color: var(--success);
+    color: #ffffff;
+    box-shadow: 0 1px 2px var(--shadow);
+}
+
+.btn-success:hover:not(:disabled) {
+    background-color: var(--success-hover);
+    box-shadow: 0 2px 4px var(--shadow);
+}
+
+.btn-success:active:not(:disabled) {
+    box-shadow: 0 1px 2px var(--shadow);
+}
+
+/* ==================== Danger Button (Stop Task) ==================== */
+
+.btn-danger {
+    background-color: var(--error);
+    color: #ffffff;
+    box-shadow: 0 1px 2px var(--shadow);
+}
+
+.btn-danger:hover:not(:disabled) {
+    background-color: var(--error-hover);
+    box-shadow: 0 2px 4px var(--shadow);
+}
+
+.btn-danger:active:not(:disabled) {
+    box-shadow: 0 1px 2px var(--shadow);
+}
+
+/* ==================== Secondary Button ==================== */
+
+.btn-secondary {
+    background-color: var(--secondary);
+    color: var(--text-primary);
+    box-shadow: 0 1px 2px var(--shadow);
+}
+
+.btn-secondary:hover:not(:disabled) {
+    background-color: var(--secondary-hover);
+    box-shadow: 0 2px 4px var(--shadow);
+}
+
+.btn-secondary:active:not(:disabled) {
+    box-shadow: 0 1px 2px var(--shadow);
+}
+
+/* ==================== Outline Button Variants ==================== */
+
+.btn-outline {
+    background-color: transparent;
+    border: 1px solid var(--border);
+    color: var(--text-primary);
+    box-shadow: none;
+}
+
+.btn-outline:hover:not(:disabled) {
+    background-color: var(--hover-bg);
+    border-color: var(--text-secondary);
+}
+
+.btn-outline-primary {
+    background-color: transparent;
+    border: 1px solid var(--primary);
+    color: var(--primary);
+    box-shadow: none;
+}
+
+.btn-outline-primary:hover:not(:disabled) {
+    background-color: var(--primary-alpha);
+    border-color: var(--primary-hover);
+}
+
+.btn-outline-success {
+    background-color: transparent;
+    border: 1px solid var(--success);
+    color: var(--success);
+    box-shadow: none;
+}
+
+.btn-outline-success:hover:not(:disabled) {
+    background-color: var(--success-alpha);
+    border-color: var(--success-hover);
+}
+
+.btn-outline-danger {
+    background-color: transparent;
+    border: 1px solid var(--error);
+    color: var(--error);
+    box-shadow: none;
+}
+
+.btn-outline-danger:hover:not(:disabled) {
+    background-color: var(--error-alpha);
+    border-color: var(--error-hover);
+}
+
+/* ==================== Ghost Button (Text Only) ==================== */
+
+.btn-ghost {
+    background-color: transparent;
+    color: var(--text-primary);
+    box-shadow: none;
+}
+
+.btn-ghost:hover:not(:disabled) {
+    background-color: var(--hover-bg);
+}
+
+.btn-ghost:active:not(:disabled) {
+    background-color: var(--active-bg);
+}
+
+/* ==================== Icon Button ==================== */
+
+.btn-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    padding: 0;
+    background-color: transparent;
+    border: none;
+    border-radius: 6px;
+    color: var(--text-secondary);
+    cursor: pointer;
+    transition: background-color 150ms ease, 
+                color 150ms ease,
+                transform 50ms ease;
+}
+
+.btn-icon:hover:not(:disabled) {
+    background-color: var(--hover-bg);
+    color: var(--text-primary);
+}
+
+.btn-icon:active:not(:disabled) {
+    transform: scale(0.95);
+}
+
+.btn-icon:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.btn-icon.active {
+    background-color: var(--primary-alpha);
+    color: var(--primary);
+}
+
+.btn-icon:focus-visible {
+    outline: 2px solid var(--primary);
+    outline-offset: 2px;
+}
+
+/* Icon button sizes */
+.btn-icon-small {
+    width: 28px;
+    height: 28px;
+}
+
+.btn-icon-large {
+    width: 44px;
+    height: 44px;
+}
+
+/* ==================== Button Icons ==================== */
+
+.btn-icon-left {
+    margin-right: calc(var(--spacing-sm) * -0.5);
+}
+
+.btn-icon-right {
+    margin-left: calc(var(--spacing-sm) * -0.5);
+}
+
+.btn .icon {
+    flex-shrink: 0;
+    width: 18px;
+    height: 18px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.btn-large .icon {
+    width: 20px;
+    height: 20px;
+}
+
+.btn-small .icon {
+    width: 16px;
+    height: 16px;
+}
+
+/* ==================== Button Groups ==================== */
+
+.btn-group {
+    display: inline-flex;
+    gap: var(--spacing-sm);
+    flex-wrap: wrap;
+}
+
+.btn-group-connected {
+    display: inline-flex;
+    gap: 0;
+}
+
+.btn-group-connected .btn {
+    border-radius: 0;
+    margin-left: -1px;
+}
+
+.btn-group-connected .btn:first-child {
+    border-top-left-radius: 6px;
+    border-bottom-left-radius: 6px;
+    margin-left: 0;
+}
+
+.btn-group-connected .btn:last-child {
+    border-top-right-radius: 6px;
+    border-bottom-right-radius: 6px;
+}
+
+/* ==================== Loading State ==================== */
+
+.btn-loading {
+    position: relative;
+    color: transparent;
+    pointer-events: none;
+}
+
+.btn-loading::after {
+    content: "";
+    position: absolute;
+    width: 16px;
+    height: 16px;
+    top: 50%;
+    left: 50%;
+    margin-left: -8px;
+    margin-top: -8px;
+    border: 2px solid currentColor;
+    border-radius: 50%;
+    border-color: currentColor transparent currentColor transparent;
+    animation: btn-spinner 1s linear infinite;
+    color: #ffffff;
+}
+
+.btn-secondary.btn-loading::after,
+.btn-outline.btn-loading::after,
+.btn-ghost.btn-loading::after {
+    color: var(--text-primary);
+}
+
+@keyframes btn-spinner {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+/* ==================== Full Width Button ==================== */
+
+.btn-block {
+    display: flex;
+    width: 100%;
+}
+
+/* ==================== Navigation Tab Buttons ==================== */
+
+.nav-tab {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-sm);
+    padding: var(--spacing-md) var(--spacing-xl); /* 12px 24px */
+    background: transparent;
+    border: none;
+    border-bottom: 2px solid transparent;
+    color: var(--text-secondary);
+    font-size: var(--font-size-base);
+    font-weight: 500;
+    font-family: var(--font-family-base);
+    cursor: pointer;
+    white-space: nowrap;
+    transition: color 150ms ease, 
+                border-color 150ms ease,
+                background-color 150ms ease;
+}
+
+.nav-tab:hover:not(.active) {
+    color: var(--text-primary);
+    background-color: var(--hover-bg);
+}
+
+.nav-tab.active {
+    color: var(--primary);
+    border-bottom-color: var(--primary);
+    font-weight: 600;
+}
+
+.nav-tab:focus-visible {
+    outline: 2px solid var(--primary);
+    outline-offset: -2px;
+}
+
+.nav-tab .icon {
+    width: 20px;
+    height: 20px;
+    flex-shrink: 0;
+}
+
+/* ==================== Special Purpose Buttons ==================== */
+
+/* Browse button (for file selection) */
+.btn-browse {
+    background-color: var(--secondary);
+    color: var(--text-primary);
+    padding: var(--spacing-sm) var(--spacing-md);
+    min-width: 80px;
+}
+
+.btn-browse:hover:not(:disabled) {
+    background-color: var(--secondary-hover);
+}
+
+/* Clear/Reset button */
+.btn-clear {
+    background-color: transparent;
+    color: var(--text-secondary);
+    border: 1px solid var(--border);
+}
+
+.btn-clear:hover:not(:disabled) {
+    background-color: var(--error-alpha);
+    color: var(--error);
+    border-color: var(--error);
+}
+
+/* Copy button */
+.btn-copy {
+    background-color: transparent;
+    color: var(--text-secondary);
+    border: 1px solid var(--border);
+}
+
+.btn-copy:hover:not(:disabled) {
+    background-color: var(--primary-alpha);
+    color: var(--primary);
+    border-color: var(--primary);
+}
+
+.btn-copy.copied {
+    background-color: var(--success-alpha);
+    color: var(--success);
+    border-color: var(--success);
+}
+
+/* Export button */
+.btn-export {
+    background-color: transparent;
+    color: var(--text-primary);
+    border: 1px solid var(--border);
+}
+
+.btn-export:hover:not(:disabled) {
+    background-color: var(--info-alpha);
+    color: var(--info);
+    border-color: var(--info);
+}
+
+/* ==================== Accessibility Enhancements ==================== */
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+    .btn {
+        border: 2px solid currentColor;
+    }
+    
+    .btn-primary,
+    .btn-success,
+    .btn-danger {
+        border-color: transparent;
+    }
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+    .btn,
+    .btn-icon,
+    .nav-tab {
+        transition: none;
+    }
+    
+    .btn:active:not(:disabled) {
+        transform: none;
+    }
+    
+    @keyframes btn-spinner {
+        0%, 100% {
+            transform: rotate(0deg);
+        }
+    }
+}
+
+/* ==================== Print Styles ==================== */
+
+@media print {
+    .btn {
+        border: 1px solid #000;
+        background: #fff !important;
+        color: #000 !important;
+        box-shadow: none !important;
+    }
+}
+
+/* ==================== Dark Theme Adjustments ==================== */
+
+body[data-theme="dark"] .btn-secondary {
+    background-color: #374151; /* Gray 700 */
+    color: #f9fafb; /* Gray 50 */
+}
+
+body[data-theme="dark"] .btn-secondary:hover:not(:disabled) {
+    background-color: #4b5563; /* Gray 600 */
+}
+
+body[data-theme="dark"] .btn-outline {
+    border-color: #4b5563;
+    color: #f9fafb;
+}
+
+body[data-theme="dark"] .btn-outline:hover:not(:disabled) {
+    background-color: rgba(255, 255, 255, 0.05);
+    border-color: #6b7280;
+}
+
+body[data-theme="dark"] .btn-ghost:hover:not(:disabled) {
+    background-color: rgba(255, 255, 255, 0.05);
+}
+
+body[data-theme="dark"] .btn-icon:hover:not(:disabled) {
+    background-color: rgba(255, 255, 255, 0.05);
+}

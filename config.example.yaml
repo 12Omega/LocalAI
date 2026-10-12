@@ -1,0 +1,66 @@
+# Local AI Development Environment - Example Configuration
+# Copy this file to config.yaml and customize for your setup
+
+# Language Model Configuration
+llm:
+  # Endpoint URL for the local LLM server
+  endpoint: "http://localhost:11434"
+  
+  # Model name to use (must be available on your endpoint)
+  model_name: "codellama:13b"
+  
+  # Temperature for response generation (0.0 = deterministic, 2.0 = very creative)
+  temperature: 0.2
+  
+  # Maximum tokens to generate in a single response
+  max_tokens: 4096
+  
+  # Total context window size
+  context_length: 16384
+  
+  # Backend type: ollama, llamacpp, or openai-compatible
+  backend_type: "ollama"
+
+# Project root directory (where the AI will work)
+project_root: "."
+
+# Logging level: debug, info, warning, error
+log_level: "info"
+
+# Enable web research capabilities (searches web for documentation)
+web_research_enabled: true
+
+# Enable self-improvement capabilities (system can modify its own code)
+# WARNING: Enable with caution - system will modify its own codebase
+self_improvement_enabled: false
+
+# Directories to exclude from code search and analysis
+excluded_directories:
+  - "node_modules"
+  - ".git"
+  - "__pycache__"
+  - ".pytest_cache"
+  - "venv"
+  - ".venv"
+  - "build"
+  - "dist"
+  - ".hypothesis"
+
+# Environment Variable Overrides:
+# You can override any of these settings using environment variables:
+#
+# LOCAL_AI_LLM_ENDPOINT          - Override LLM endpoint
+# LOCAL_AI_LLM_MODEL             - Override model name
+# LOCAL_AI_LLM_TEMPERATURE       - Override temperature
+# LOCAL_AI_LLM_MAX_TOKENS        - Override max tokens
+# LOCAL_AI_LLM_CONTEXT_LENGTH    - Override context length
+# LOCAL_AI_LLM_BACKEND           - Override backend type
+# LOCAL_AI_PROJECT_ROOT          - Override project root
+# LOCAL_AI_LOG_LEVEL             - Override log level
+# LOCAL_AI_WEB_RESEARCH          - Enable/disable web research (true/false)
+# LOCAL_AI_SELF_IMPROVEMENT      - Enable/disable self-improvement (true/false)
+# LOCAL_AI_NETWORK_DISABLED      - Disable all network access (true/false)
+#
+# Example:
+#   export LOCAL_AI_LLM_MODEL="llama2:7b"
+#   export LOCAL_AI_LOG_LEVEL="debug"
