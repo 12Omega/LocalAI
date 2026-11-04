@@ -1,0 +1,6006 @@
+﻿diff --git a/src/web/css/accessibility.css b/src/web/css/accessibility.css
+index ed7f6ed..f9bbd7f 100644
+--- a/src/web/css/accessibility.css
++++ b/src/web/css/accessibility.css
+@@ -1,17 +1,10 @@
+ /**
+- * Accessibility Styles
+- * Ensures the application is accessible to all users, including those using
+- * assistive technologies, keyboard navigation, and screen readers.
++ * Accessibility Styles - VS Code compatible
+  */
+ 
+-/* ============================================
+-   Screen Reader Only Content
+-   ============================================ */
+-
+-/**
+- * Visually hide elements but keep them accessible to screen readers
+- */
+-.sr-only {
++/* Screen reader only */
++.sr-only,
++.visually-hidden {
+     position: absolute;
+     width: 1px;
+     height: 1px;
+@@ -23,160 +16,54 @@
+     border-width: 0;
+ }
+ 
+-/**
+- * Make sr-only element visible when focused (useful for skip links)
+- */
+-.sr-only-focusable:focus,
+-.sr-only-focusable:active {
+-    position: static;
+-    width: auto;
+-    height: auto;
+-    overflow: visible;
+-    clip: auto;
+-    white-space: normal;
+-}
+-
+-/* ============================================
+-   Focus Indicators
+-   ============================================ */
+-
+-/**
+- * Ensure all interactive elements have visible focus indicators
+- * Using a prominent blue outline that meets WCAG contrast requirements
+- */
+-*:focus {
+-    outline: 2px solid var(--focus-color, #2563eb);
+-    outline-offset: 2px;
+-}
+-
+-/**
+- * Enhanced focus for buttons
+- */
+-button:focus,
+-.btn:focus {
+-    outline: 2px solid var(--focus-color, #2563eb);
+-    outline-offset: 2px;
+-    box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.1);
+-}
+-
+-/**
+- * Enhanced focus for form inputs
+- */
+-input:focus,
+-textarea:focus,
+-select:focus {
+-    outline: 2px solid var(--focus-color, #2563eb);
+-    outline-offset: 0;
+-    border-color: var(--focus-color, #2563eb);
+-    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+-}
+-
+-/**
+- * Focus indicators for navigation tabs
+- */
+-.nav-tab:focus {
+-    outline: 2px solid var(--focus-color, #2563eb);
+-    outline-offset: -2px;
+-    position: relative;
+-    z-index: 1;
+-}
+-
+-/**
+- * Focus indicators for icon buttons
+- */
+-.icon-button:focus {
+-    outline: 2px solid var(--focus-color, #2563eb);
+-    outline-offset: 2px;
+-    border-radius: 4px;
+-}
+-
+-/**
+- * Focus indicators for history list items
+- */
+-.history-entry:focus {
+-    outline: 2px solid var(--focus-color, #2563eb);
+-    outline-offset: -2px;
+-    background-color: var(--focus-bg, rgba(37, 99, 235, 0.05));
+-}
+-
+-/**
+- * Focus visible only when using keyboard (removes focus ring on mouse click)
+- * Note: This requires JavaScript to add .using-mouse class to body on mousedown
+- */
+-body.using-mouse *:focus {
+-    outline: none;
+-}
+-
+-body.using-mouse button:focus,
+-body.using-mouse .btn:focus {
+-    box-shadow: none;
++/* Skip link */
++.skip-link {
++    position: absolute;
++    top: -40px;
++    left: 0;
++    background: #007ACC;
++    color: #ffffff;
++    padding: 8px 16px;
++    text-decoration: none;
++    z-index: 100;
++    font-size: 13px;
+ }
+ 
+-body.using-mouse input:focus,
+-body.using-mouse textarea:focus,
+-body.using-mouse select:focus {
+-    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
++.skip-link:focus {
++    top: 0;
+ }
+ 
+-/* ============================================
+-   Keyboard Navigation Indicators
+-   ============================================ */
+-
+-/**
+- * Show focus ring only when navigating with keyboard
+- */
++/* Focus indicators - VS Code style */
+ :focus-visible {
+-    outline: 2px solid var(--focus-color, #2563eb);
++    outline: 2px solid #007ACC;
+     outline-offset: 2px;
+ }
+ 
+-/**
+- * Remove focus ring when clicked with mouse
+- */
+-:focus:not(:focus-visible) {
+-    outline: none;
+-}
+-
+-/**
+- * Tab order visual indicator (optional, for debugging)
+- */
+-[tabindex]:not([tabindex="-1"]):focus {
+-    position: relative;
++button:focus-visible,
++input:focus-visible,
++select:focus-visible,
++textarea:focus-visible,
++a:focus-visible {
++    outline: 2px solid #007ACC;
++    outline-offset: 2px;
+ }
+ 
+-/* ============================================
+-   High Contrast Mode Support
+-   ============================================ */
+-
+-/**
+- * Ensure buttons and interactive elements are visible in high contrast mode
+- */
++/* High contrast adjustments */
+ @media (prefers-contrast: high) {
+-    button,
+-    .btn {
+-        border: 2px solid currentColor;
++    .activity-item.active {
++        border-left-width: 3px;
+     }
+     
+-    .nav-tab.active {
+-        border-bottom: 3px solid currentColor;
+-        font-weight: bold;
++    .editor-tab.active {
++        border-bottom-width: 3px;
+     }
+     
+-    input,
+-    textarea,
+-    select {
+-        border: 2px solid currentColor;
++    :focus-visible {
++        outline-width: 3px;
+     }
+ }
+ 
+-/* ============================================
+-   Reduced Motion Support
+-   ============================================ */
+-
+-/**
+- * Respect user preference for reduced motion
+- * Disable animations and transitions for users who prefer reduced motion
+- */
++/* Reduced motion */
+ @media (prefers-reduced-motion: reduce) {
+     *,
+     *::before,
+@@ -184,592 +71,5 @@ body.using-mouse select:focus {
+         animation-duration: 0.01ms !important;
+         animation-iteration-count: 1 !important;
+         transition-duration: 0.01ms !important;
+-        scroll-behavior: auto !important;
+     }
+ }
+-
+-/* ============================================
+-   Screen Reader Announcements
+-   ============================================ */
+-
+-/**
+- * Announcement region styling (visually hidden but accessible)
+- */
+-#sr-announcements {
+-    /* Already hidden with .sr-only class */
+-}
+-
+-/**
+- * Live region styling for progress updates
+- */
+-[aria-live="polite"],
+-[aria-live="assertive"] {
+-    /* Screen readers will announce these automatically */
+-}
+-
+-/* ============================================
+-   Focus Trap for Modals/Dialogs
+-   ============================================ */
+-
+-/**
+- * When a dialog is open, make background content inert
+- */
+-body.dialog-open {
+-    overflow: hidden;
+-}
+-
+-body.dialog-open .app-container > *:not(dialog):not([role="dialog"]) {
+-    pointer-events: none;
+-    user-select: none;
+-}
+-
+-/**
+- * Dialog focus styles
+- */
+-dialog:focus,
+-[role="dialog"]:focus {
+-    outline: none; /* Dialog itself doesn't need focus ring */
+-}
+-
+-dialog button:first-of-type,
+-[role="dialog"] button:first-of-type {
+-    /* First button in dialog should receive initial focus */
+-}
+-
+-/* ============================================
+-   Skip Links
+-   ============================================ */
+-
+-/**
+- * Skip navigation link (appears on focus for keyboard users)
+- */
+-.skip-link {
+-    position: absolute;
+-    top: -40px;
+-    left: 0;
+-    background: var(--primary-color, #2563eb);
+-    color: white;
+-    padding: 8px 16px;
+-    text-decoration: none;
+-    border-radius: 0 0 4px 0;
+-    z-index: 10000;
+-    transition: top 0.2s ease;
+-    font-weight: 600;
+-}
+-
+-.skip-link:focus {
+-    top: 0;
+-    outline: 3px solid white;
+-    outline-offset: -3px;
+-}
+-
+-/* ============================================
+-   Text Sizing and Readability
+-   ============================================ */
+-
+-/**
+- * Ensure text remains readable when user increases font size
+- */
+-body {
+-    font-size: 14px;
+-}
+-
+-@media (min-width: 1400px) {
+-    body {
+-        font-size: 15px;
+-    }
+-}
+-
+-/**
+- * Allow text to scale up to 200% without loss of content or functionality
+- */
+-html {
+-    font-size: 100%;
+-}
+-
+-/* ============================================
+-   Color Contrast
+-   ============================================ */
+-
+-/**
+- * Ensure all text meets WCAG AA contrast requirements (4.5:1 for normal text)
+- * Light theme values are defined in themes/light.css
+- * Dark theme values are defined in themes/dark.css
+- */
+-
+-/* Light theme - ensure contrast ratios meet WCAG AA */
+-[data-theme="light"] {
+-    --text-primary: #111827;        /* Gray 900 on white = 14.7:1 Γ£ô */
+-    --text-secondary: #4b5563;      /* Gray 600 on white = 6.7:1 Γ£ô */
+-    --link-color: #1d4ed8;          /* Blue 700 on white = 7.6:1 Γ£ô */
+-    --error-color: #dc2626;         /* Red 600 on white = 5.9:1 Γ£ô */
+-    --success-color: #059669;       /* Green 600 on white = 4.9:1 Γ£ô */
+-}
+-
+-/* Dark theme - ensure contrast ratios meet WCAG AA */
+-[data-theme="dark"] {
+-    --text-primary: #f9fafb;        /* Gray 50 on gray 900 = 14.1:1 Γ£ô */
+-    --text-secondary: #d1d5db;      /* Gray 300 on gray 900 = 8.8:1 Γ£ô */
+-    --link-color: #60a5fa;          /* Blue 400 on gray 900 = 8.2:1 Γ£ô */
+-    --error-color: #f87171;         /* Red 400 on gray 900 = 7.4:1 Γ£ô */
+-    --success-color: #34d399;       /* Green 400 on gray 900 = 7.9:1 Γ£ô */
+-}
+-
+-/* ============================================
+-   Keyboard-Only Indicators
+-   ============================================ */
+-
+-/**
+- * Show visual indicator for keyboard navigation mode
+- */
+-body.keyboard-nav .nav-tab:focus {
+-    background-color: rgba(37, 99, 235, 0.1);
+-}
+-
+-body.keyboard-nav button:focus,
+-body.keyboard-nav .btn:focus {
+-    transform: translateY(-1px);
+-    box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.15);
+-}
+-
+-/* ============================================
+-   Touch Target Sizing
+-   ============================================ */
+-
+-/**
+- * Ensure all interactive elements meet minimum touch target size (44x44px)
+- */
+-button,
+-.btn,
+-a,
+-input[type="checkbox"],
+-input[type="radio"],
+-select {
+-    min-height: 44px;
+-    min-width: 44px;
+-}
+-
+-/**
+- * Exception for icon buttons - add padding to meet size requirement
+- */
+-.icon-button {
+-    padding: 10px;
+-    min-height: 44px;
+-    min-width: 44px;
+-}
+-
+-/**
+- * Exception for small buttons in compact areas
+- */
+-.btn-sm {
+-    min-height: 36px;
+-    padding: 6px 12px;
+-}
+-
+-/* ============================================
+-   Error and Status Announcements
+-   ============================================ */
+-
+-/**
+- * Error messages should be clearly visible and announced
+- */
+-.error-message,
+-.validation-error {
+-    color: var(--error-color, #dc2626);
+-    font-weight: 500;
+-    display: flex;
+-    align-items: center;
+-    gap: 8px;
+-}
+-
+-.error-message::before {
+-    content: "ΓÜá∩╕Å";
+-    font-size: 16px;
+-}
+-
+-/**
+- * Success messages
+- */
+-.success-message {
+-    color: var(--success-color, #059669);
+-    font-weight: 500;
+-    display: flex;
+-    align-items: center;
+-    gap: 8px;
+-}
+-
+-.success-message::before {
+-    content: "Γ£ô";
+-    font-size: 16px;
+-}
+-
+-/* ============================================
+-   Form Accessibility
+-   ============================================ */
+-
+-/**
+- * Ensure labels are properly associated with inputs
+- */
+-label {
+-    display: block;
+-    margin-bottom: 4px;
+-    font-weight: 500;
+-    color: var(--text-primary);
+-}
+-
+-/**
+- * Required field indicator
+- */
+-label.required::after {
+-    content: " *";
+-    color: var(--error-color, #dc2626);
+-}
+-
+-/**
+- * Field descriptions
+- */
+-.field-description {
+-    font-size: 12px;
+-    color: var(--text-secondary);
+-    margin-top: 4px;
+-}
+-
+-/**
+- * Invalid input styling
+- */
+-input:invalid,
+-textarea:invalid,
+-select:invalid {
+-    border-color: var(--error-color, #dc2626);
+-}
+-
+-input[aria-invalid="true"],
+-textarea[aria-invalid="true"],
+-select[aria-invalid="true"] {
+-    border-color: var(--error-color, #dc2626);
+-    background-color: rgba(220, 38, 38, 0.05);
+-}
+-
+-/* ============================================
+-   Loading States
+-   ============================================ */
+-
+-/**
+- * Loading indicator should be announced to screen readers
+- */
+-.loading {
+-    position: relative;
+-}
+-
+-.loading::after {
+-    content: "";
+-    position: absolute;
+-    top: 50%;
+-    left: 50%;
+-    width: 20px;
+-    height: 20px;
+-    margin: -10px 0 0 -10px;
+-    border: 2px solid var(--primary-color, #2563eb);
+-    border-top-color: transparent;
+-    border-radius: 50%;
+-    animation: spinner 0.6s linear infinite;
+-}
+-
+-@keyframes spinner {
+-    to { transform: rotate(360deg); }
+-}
+-
+-/**
+- * Loading state should be announced
+- */
+-[aria-busy="true"] {
+-    position: relative;
+-}
+-
+-/* ============================================
+-   Tooltips and Help Text
+-   ============================================ */
+-
+-/**
+- * Tooltips must be keyboard accessible
+- */
+-[data-tooltip] {
+-    position: relative;
+-}
+-
+-[data-tooltip]:hover::after,
+-[data-tooltip]:focus::after {
+-    content: attr(data-tooltip);
+-    position: absolute;
+-    bottom: 100%;
+-    left: 50%;
+-    transform: translateX(-50%);
+-    padding: 8px 12px;
+-    background: var(--tooltip-bg, #111827);
+-    color: white;
+-    font-size: 12px;
+-    white-space: nowrap;
+-    border-radius: 4px;
+-    margin-bottom: 8px;
+-    z-index: 1000;
+-}
+-
+-[data-tooltip]:hover::before,
+-[data-tooltip]:focus::before {
+-    content: "";
+-    position: absolute;
+-    bottom: 100%;
+-    left: 50%;
+-    transform: translateX(-50%);
+-    border: 4px solid transparent;
+-    border-top-color: var(--tooltip-bg, #111827);
+-    margin-bottom: 4px;
+-    z-index: 1000;
+-}
+-
+-/* ============================================
+-   Progress Indicators
+-   ============================================ */
+-
+-/**
+- * Progress bars should have proper ARIA attributes
+- */
+-[role="progressbar"] {
+-    height: 8px;
+-    background: var(--progress-bg, #e5e7eb);
+-    border-radius: 4px;
+-    overflow: hidden;
+-}
+-
+-[role="progressbar"]::before {
+-    content: "";
+-    display: block;
+-    height: 100%;
+-    background: var(--primary-color, #2563eb);
+-    width: calc(var(--progress-value, 0) * 1%);
+-    transition: width 0.3s ease;
+-}
+-
+-/* ============================================
+-   Disabled State
+-   ============================================ */
+-
+-/**
+- * Disabled elements should be clearly indicated
+- */
+-:disabled,
+-[aria-disabled="true"] {
+-    opacity: 0.5;
+-    cursor: not-allowed;
+-    pointer-events: none;
+-}
+-
+-button:disabled,
+-.btn:disabled,
+-button[aria-disabled="true"],
+-.btn[aria-disabled="true"] {
+-    background-color: var(--disabled-bg, #9ca3af);
+-    color: var(--disabled-text, #6b7280);
+-    border-color: var(--disabled-border, #9ca3af);
+-}
+-
+-/* ============================================
+-   Hidden Content
+-   ============================================ */
+-
+-/**
+- * Properly hide content from screen readers
+- */
+-[hidden],
+-[aria-hidden="true"] {
+-    display: none !important;
+-}
+-
+-/**
+- * Visually hidden but accessible to screen readers
+- */
+-.visually-hidden {
+-    position: absolute !important;
+-    clip: rect(1px, 1px, 1px, 1px);
+-    padding: 0 !important;
+-    border: 0 !important;
+-    height: 1px !important;
+-    width: 1px !important;
+-    overflow: hidden;
+-}
+-
+-/* ============================================
+-   Enhanced Focus Indicators for Components
+-   ============================================ */
+-
+-/**
+- * Filter inputs and selects
+- */
+-.filter-input:focus,
+-.filter-select:focus {
+-    outline: 2px solid var(--focus-color, #2563eb);
+-    outline-offset: 0;
+-    border-color: var(--focus-color, #2563eb);
+-    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
+-}
+-
+-/**
+- * Checkbox and radio focus indicators
+- */
+-input[type="checkbox"]:focus,
+-input[type="radio"]:focus {
+-    outline: 2px solid var(--focus-color, #2563eb);
+-    outline-offset: 2px;
+-    box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.1);
+-}
+-
+-/**
+- * History list items when keyboard navigable
+- */
+-.history-entry[tabindex]:focus {
+-    outline: 2px solid var(--focus-color, #2563eb);
+-    outline-offset: -2px;
+-    background-color: var(--focus-bg, rgba(37, 99, 235, 0.08));
+-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+-}
+-
+-/**
+- * Range slider focus
+- */
+-input[type="range"]:focus {
+-    outline: 2px solid var(--focus-color, #2563eb);
+-    outline-offset: 2px;
+-}
+-
+-/**
+- * Link focus indicators
+- */
+-a:focus {
+-    outline: 2px solid var(--focus-color, #2563eb);
+-    outline-offset: 2px;
+-    border-radius: 2px;
+-}
+-
+-/**
+- * Ensure visible focus for tab navigation controls
+- */
+-.nav-tab[role="tab"]:focus-visible {
+-    outline: 2px solid var(--focus-color, #2563eb);
+-    outline-offset: -2px;
+-    box-shadow: inset 0 -3px 0 0 var(--focus-color, #2563eb);
+-}
+-
+-/* ============================================
+-   Status Badge Accessibility
+-   ============================================ */
+-
+-/**
+- * Ensure status badges have proper role and are announced
+- */
+-.status-badge,
+-.task-status {
+-    display: inline-block;
+-    padding: 4px 8px;
+-    border-radius: 4px;
+-    font-size: 12px;
+-    font-weight: 600;
+-}
+-
+-/**
+- * Status badge color coding with sufficient contrast
+- */
+-.status-idle {
+-    background-color: #e5e7eb;
+-    color: #374151;
+-}
+-
+-.status-running {
+-    background-color: #dbeafe;
+-    color: #1e40af;
+-}
+-
+-.status-success,
+-.status-completed {
+-    background-color: #d1fae5;
+-    color: #065f46;
+-}
+-
+-.status-error,
+-.status-failed {
+-    background-color: #fee2e2;
+-    color: #991b1b;
+-}
+-
+-.status-warning,
+-.status-cancelled {
+-    background-color: #fef3c7;
+-    color: #92400e;
+-}
+-
+-/* ============================================
+-   Screen Reader Specific Enhancements
+-   ============================================ */
+-
+-/**
+- * Enhance form error messages for screen readers
+- */
+-.form-error[role="alert"] {
+-    padding: 4px 0;
+-    font-size: 13px;
+-}
+-
+-/**
+- * Ensure live regions are properly configured
+- */
+-[aria-live] {
+-    position: relative;
+-}
+-
+-/**
+- * Hidden content that should remain accessible
+- */
+-[aria-hidden="false"] {
+-    display: inherit;
+-}
+-
+-/* ============================================
+-   Keyboard Navigation Visual Cues
+-   ============================================ */
+-
+-/**
+- * Show visual indicator when user is navigating with keyboard
+- */
+-body.user-is-tabbing *:focus {
+-    outline: 2px solid var(--focus-color, #2563eb);
+-    outline-offset: 2px;
+-}
+-
+-body.user-is-tabbing button:focus,
+-body.user-is-tabbing .btn:focus {
+-    box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.2);
+-    transform: translateY(-1px);
+-}
+-
+-body.user-is-tabbing .nav-tab:focus {
+-    box-shadow: inset 0 -3px 0 0 var(--focus-color, #2563eb);
+-}
+-
+-/* ============================================
+-   Improved Tab Order Indicators
+-   ============================================ */
+-
+-/**
+- * Ensure logical tab order is visually clear
+- */
+-[tabindex="0"]:focus,
+-[tabindex="-1"]:focus {
+-    position: relative;
+-    z-index: 1;
+-}
+-
+-/**
+- * Button groups maintain clear focus
+- */
+-.btn-group button:focus {
+-    z-index: 2;
+-}
+diff --git a/src/web/css/components/buttons.css b/src/web/css/components/buttons.css
+index 14b76bc..472afa8 100644
+--- a/src/web/css/components/buttons.css
++++ b/src/web/css/components/buttons.css
+@@ -1,525 +1,90 @@
+ /**
+- * Button Components - Local AI Development Environment
+- * Comprehensive button styles for all button types and states
++ * Button Component Styles - VS Code Style
+  */
+ 
+-/* ==================== Base Button Styles ==================== */
+-
++/* Primary Button */
+ .btn {
+     display: inline-flex;
+     align-items: center;
+-    justify-content: center;
+-    gap: var(--spacing-sm); /* 8px */
+-    padding: var(--spacing-sm) var(--spacing-lg); /* 8px 16px */
++    gap: 6px;
++    height: 28px;
++    padding: 4px 14px;
++    background-color: #007ACC;
++    color: #ffffff;
+     border: none;
+-    border-radius: 6px;
+-    font-size: var(--font-size-base); /* 14px */
++    border-radius: 2px;
++    font-size: 13px;
++    font-family: 'Segoe UI', system-ui, sans-serif;
+     font-weight: 500;
+-    font-family: var(--font-family-base);
+-    line-height: 1.5;
+     cursor: pointer;
+-    white-space: nowrap;
+-    user-select: none;
+-    transition: background-color 150ms ease, 
+-                transform 50ms ease,
+-                box-shadow 150ms ease,
+-                opacity 150ms ease;
+-    text-decoration: none;
++    transition: background-color 100ms ease;
+ }
+ 
+-.btn:active:not(:disabled) {
+-    transform: translateY(1px);
++.btn:hover:not(:disabled) {
++    background-color: #005a9e;
+ }
+ 
+ .btn:disabled {
+     opacity: 0.5;
+     cursor: not-allowed;
+-    transform: none;
+-}
+-
+-.btn:focus-visible {
+-    outline: 2px solid var(--primary);
+-    outline-offset: 2px;
+-}
+-
+-/* ==================== Button Sizes ==================== */
+-
+-.btn-small {
+-    padding: var(--spacing-xs) var(--spacing-md); /* 4px 12px */
+-    font-size: var(--font-size-xs); /* 12px */
+-    gap: var(--spacing-xs); /* 4px */
+-}
+-
+-.btn-large {
+-    padding: var(--spacing-md) var(--spacing-xl); /* 12px 24px */
+-    font-size: var(--font-size-md); /* 16px */
+-    gap: var(--spacing-md); /* 12px */
+-}
+-
+-/* ==================== Primary Button ==================== */
+-
+-.btn-primary {
+-    background-color: var(--primary);
+-    color: #ffffff;
+-    box-shadow: 0 1px 2px var(--shadow);
+-}
+-
+-.btn-primary:hover:not(:disabled) {
+-    background-color: var(--primary-hover);
+-    box-shadow: 0 2px 4px var(--shadow);
+-}
+-
+-.btn-primary:active:not(:disabled) {
+-    box-shadow: 0 1px 2px var(--shadow);
+-}
+-
+-/* ==================== Success Button (Run Task) ==================== */
+-
+-.btn-success {
+-    background-color: var(--success);
+-    color: #ffffff;
+-    box-shadow: 0 1px 2px var(--shadow);
+-}
+-
+-.btn-success:hover:not(:disabled) {
+-    background-color: var(--success-hover);
+-    box-shadow: 0 2px 4px var(--shadow);
+-}
+-
+-.btn-success:active:not(:disabled) {
+-    box-shadow: 0 1px 2px var(--shadow);
+-}
+-
+-/* ==================== Danger Button (Stop Task) ==================== */
+-
+-.btn-danger {
+-    background-color: var(--error);
+-    color: #ffffff;
+-    box-shadow: 0 1px 2px var(--shadow);
+-}
+-
+-.btn-danger:hover:not(:disabled) {
+-    background-color: var(--error-hover);
+-    box-shadow: 0 2px 4px var(--shadow);
+ }
+ 
+-.btn-danger:active:not(:disabled) {
+-    box-shadow: 0 1px 2px var(--shadow);
++.btn svg {
++    width: 16px;
++    height: 16px;
+ }
+ 
+-/* ==================== Secondary Button ==================== */
+-
++/* Secondary Button */
+ .btn-secondary {
+-    background-color: var(--secondary);
+-    color: var(--text-primary);
+-    box-shadow: 0 1px 2px var(--shadow);
+-}
+-
+-.btn-secondary:hover:not(:disabled) {
+-    background-color: var(--secondary-hover);
+-    box-shadow: 0 2px 4px var(--shadow);
+-}
+-
+-.btn-secondary:active:not(:disabled) {
+-    box-shadow: 0 1px 2px var(--shadow);
+-}
+-
+-/* ==================== Outline Button Variants ==================== */
+-
+-.btn-outline {
+     background-color: transparent;
+-    border: 1px solid var(--border);
+-    color: var(--text-primary);
+-    box-shadow: none;
+-}
+-
+-.btn-outline:hover:not(:disabled) {
+-    background-color: var(--hover-bg);
+-    border-color: var(--text-secondary);
++    color: #cccccc;
++    border: 1px solid #454545;
+ }
+ 
+-.btn-outline-primary {
+-    background-color: transparent;
+-    border: 1px solid var(--primary);
+-    color: var(--primary);
+-    box-shadow: none;
+-}
+-
+-.btn-outline-primary:hover:not(:disabled) {
+-    background-color: var(--primary-alpha);
+-    border-color: var(--primary-hover);
+-}
+-
+-.btn-outline-success {
+-    background-color: transparent;
+-    border: 1px solid var(--success);
+-    color: var(--success);
+-    box-shadow: none;
+-}
+-
+-.btn-outline-success:hover:not(:disabled) {
+-    background-color: var(--success-alpha);
+-    border-color: var(--success-hover);
+-}
+-
+-.btn-outline-danger {
+-    background-color: transparent;
+-    border: 1px solid var(--error);
+-    color: var(--error);
+-    box-shadow: none;
+-}
+-
+-.btn-outline-danger:hover:not(:disabled) {
+-    background-color: var(--error-alpha);
+-    border-color: var(--error-hover);
+-}
+-
+-/* ==================== Ghost Button (Text Only) ==================== */
+-
+-.btn-ghost {
+-    background-color: transparent;
+-    color: var(--text-primary);
+-    box-shadow: none;
+-}
+-
+-.btn-ghost:hover:not(:disabled) {
+-    background-color: var(--hover-bg);
+-}
+-
+-.btn-ghost:active:not(:disabled) {
+-    background-color: var(--active-bg);
+-}
+-
+-/* ==================== Icon Button ==================== */
+-
+-.btn-icon {
+-    display: inline-flex;
+-    align-items: center;
+-    justify-content: center;
+-    width: 36px;
+-    height: 36px;
+-    padding: 0;
++.btn-secondary:hover:not(:disabled) {
++    border-color: #007ACC;
+     background-color: transparent;
+-    border: none;
+-    border-radius: 6px;
+-    color: var(--text-secondary);
+-    cursor: pointer;
+-    transition: background-color 150ms ease, 
+-                color 150ms ease,
+-                transform 50ms ease;
+-}
+-
+-.btn-icon:hover:not(:disabled) {
+-    background-color: var(--hover-bg);
+-    color: var(--text-primary);
+ }
+ 
+-.btn-icon:active:not(:disabled) {
+-    transform: scale(0.95);
+-}
+-
+-.btn-icon:disabled {
+-    opacity: 0.5;
+-    cursor: not-allowed;
++/* Danger Button */
++.btn-danger {
++    background-color: #f48771;
++    color: #ffffff;
+ }
+ 
+-.btn-icon.active {
+-    background-color: var(--primary-alpha);
+-    color: var(--primary);
++.btn-danger:hover:not(:disabled) {
++    background-color: #d16350;
+ }
+ 
+-.btn-icon:focus-visible {
+-    outline: 2px solid var(--primary);
+-    outline-offset: 2px;
++/* Small Button */
++.btn-sm {
++    height: 24px;
++    padding: 2px 10px;
++    font-size: 12px;
+ }
+ 
+-/* Icon button sizes */
+-.btn-icon-small {
++/* Icon Button */
++.icon-btn {
+     width: 28px;
+     height: 28px;
+-}
+-
+-.btn-icon-large {
+-    width: 44px;
+-    height: 44px;
+-}
+-
+-/* ==================== Button Icons ==================== */
+-
+-.btn-icon-left {
+-    margin-right: calc(var(--spacing-sm) * -0.5);
+-}
+-
+-.btn-icon-right {
+-    margin-left: calc(var(--spacing-sm) * -0.5);
+-}
+-
+-.btn .icon {
+-    flex-shrink: 0;
+-    width: 18px;
+-    height: 18px;
+-    display: inline-flex;
+-    align-items: center;
+-    justify-content: center;
+-}
+-
+-.btn-large .icon {
+-    width: 20px;
+-    height: 20px;
+-}
+-
+-.btn-small .icon {
+-    width: 16px;
+-    height: 16px;
+-}
+-
+-/* ==================== Button Groups ==================== */
+-
+-.btn-group {
+-    display: inline-flex;
+-    gap: var(--spacing-sm);
+-    flex-wrap: wrap;
+-}
+-
+-.btn-group-connected {
+-    display: inline-flex;
+-    gap: 0;
+-}
+-
+-.btn-group-connected .btn {
+-    border-radius: 0;
+-    margin-left: -1px;
+-}
+-
+-.btn-group-connected .btn:first-child {
+-    border-top-left-radius: 6px;
+-    border-bottom-left-radius: 6px;
+-    margin-left: 0;
+-}
+-
+-.btn-group-connected .btn:last-child {
+-    border-top-right-radius: 6px;
+-    border-bottom-right-radius: 6px;
+-}
+-
+-/* ==================== Loading State ==================== */
+-
+-.btn-loading {
+-    position: relative;
+-    color: transparent;
+-    pointer-events: none;
+-}
+-
+-.btn-loading::after {
+-    content: "";
+-    position: absolute;
+-    width: 16px;
+-    height: 16px;
+-    top: 50%;
+-    left: 50%;
+-    margin-left: -8px;
+-    margin-top: -8px;
+-    border: 2px solid currentColor;
+-    border-radius: 50%;
+-    border-color: currentColor transparent currentColor transparent;
+-    animation: btn-spinner 1s linear infinite;
+-    color: #ffffff;
+-}
+-
+-.btn-secondary.btn-loading::after,
+-.btn-outline.btn-loading::after,
+-.btn-ghost.btn-loading::after {
+-    color: var(--text-primary);
+-}
+-
+-@keyframes btn-spinner {
+-    0% {
+-        transform: rotate(0deg);
+-    }
+-    100% {
+-        transform: rotate(360deg);
+-    }
+-}
+-
+-/* ==================== Full Width Button ==================== */
+-
+-.btn-block {
+-    display: flex;
+-    width: 100%;
+-}
+-
+-/* ==================== Navigation Tab Buttons ==================== */
+-
+-.nav-tab {
++    padding: 0;
+     display: flex;
+     align-items: center;
+-    gap: var(--spacing-sm);
+-    padding: var(--spacing-md) var(--spacing-xl); /* 12px 24px */
++    justify-content: center;
+     background: transparent;
+     border: none;
+-    border-bottom: 2px solid transparent;
+-    color: var(--text-secondary);
+-    font-size: var(--font-size-base);
+-    font-weight: 500;
+-    font-family: var(--font-family-base);
++    color: #858585;
+     cursor: pointer;
+-    white-space: nowrap;
+-    transition: color 150ms ease, 
+-                border-color 150ms ease,
+-                background-color 150ms ease;
+-}
+-
+-.nav-tab:hover:not(.active) {
+-    color: var(--text-primary);
+-    background-color: var(--hover-bg);
++    border-radius: 2px;
++    transition: background-color 100ms ease, color 100ms ease;
+ }
+ 
+-.nav-tab.active {
+-    color: var(--primary);
+-    border-bottom-color: var(--primary);
+-    font-weight: 600;
++.icon-btn:hover {
++    background-color: #2a2a2b;
++    color: #cccccc;
+ }
+ 
+-.nav-tab:focus-visible {
+-    outline: 2px solid var(--primary);
+-    outline-offset: -2px;
+-}
+-
+-.nav-tab .icon {
+-    width: 20px;
+-    height: 20px;
+-    flex-shrink: 0;
+-}
+-
+-/* ==================== Special Purpose Buttons ==================== */
+-
+-/* Browse button (for file selection) */
+-.btn-browse {
+-    background-color: var(--secondary);
+-    color: var(--text-primary);
+-    padding: var(--spacing-sm) var(--spacing-md);
+-    min-width: 80px;
+-}
+-
+-.btn-browse:hover:not(:disabled) {
+-    background-color: var(--secondary-hover);
+-}
+-
+-/* Clear/Reset button */
+-.btn-clear {
+-    background-color: transparent;
+-    color: var(--text-secondary);
+-    border: 1px solid var(--border);
+-}
+-
+-.btn-clear:hover:not(:disabled) {
+-    background-color: var(--error-alpha);
+-    color: var(--error);
+-    border-color: var(--error);
+-}
+-
+-/* Copy button */
+-.btn-copy {
+-    background-color: transparent;
+-    color: var(--text-secondary);
+-    border: 1px solid var(--border);
+-}
+-
+-.btn-copy:hover:not(:disabled) {
+-    background-color: var(--primary-alpha);
+-    color: var(--primary);
+-    border-color: var(--primary);
+-}
+-
+-.btn-copy.copied {
+-    background-color: var(--success-alpha);
+-    color: var(--success);
+-    border-color: var(--success);
+-}
+-
+-/* Export button */
+-.btn-export {
+-    background-color: transparent;
+-    color: var(--text-primary);
+-    border: 1px solid var(--border);
+-}
+-
+-.btn-export:hover:not(:disabled) {
+-    background-color: var(--info-alpha);
+-    color: var(--info);
+-    border-color: var(--info);
+-}
+-
+-/* ==================== Accessibility Enhancements ==================== */
+-
+-/* High contrast mode support */
+-@media (prefers-contrast: high) {
+-    .btn {
+-        border: 2px solid currentColor;
+-    }
+-    
+-    .btn-primary,
+-    .btn-success,
+-    .btn-danger {
+-        border-color: transparent;
+-    }
+-}
+-
+-/* Reduced motion support */
+-@media (prefers-reduced-motion: reduce) {
+-    .btn,
+-    .btn-icon,
+-    .nav-tab {
+-        transition: none;
+-    }
+-    
+-    .btn:active:not(:disabled) {
+-        transform: none;
+-    }
+-    
+-    @keyframes btn-spinner {
+-        0%, 100% {
+-            transform: rotate(0deg);
+-        }
+-    }
+-}
+-
+-/* ==================== Print Styles ==================== */
+-
+-@media print {
+-    .btn {
+-        border: 1px solid #000;
+-        background: #fff !important;
+-        color: #000 !important;
+-        box-shadow: none !important;
+-    }
+-}
+-
+-/* ==================== Dark Theme Adjustments ==================== */
+-
+-body[data-theme="dark"] .btn-secondary {
+-    background-color: #374151; /* Gray 700 */
+-    color: #f9fafb; /* Gray 50 */
+-}
+-
+-body[data-theme="dark"] .btn-secondary:hover:not(:disabled) {
+-    background-color: #4b5563; /* Gray 600 */
+-}
+-
+-body[data-theme="dark"] .btn-outline {
+-    border-color: #4b5563;
+-    color: #f9fafb;
+-}
+-
+-body[data-theme="dark"] .btn-outline:hover:not(:disabled) {
+-    background-color: rgba(255, 255, 255, 0.05);
+-    border-color: #6b7280;
+-}
+-
+-body[data-theme="dark"] .btn-ghost:hover:not(:disabled) {
+-    background-color: rgba(255, 255, 255, 0.05);
+-}
+-
+-body[data-theme="dark"] .btn-icon:hover:not(:disabled) {
+-    background-color: rgba(255, 255, 255, 0.05);
++.icon-btn svg {
++    width: 16px;
++    height: 16px;
+ }
+diff --git a/src/web/css/components/inputs.css b/src/web/css/components/inputs.css
+index 63961a4..e5fb7dd 100644
+--- a/src/web/css/components/inputs.css
++++ b/src/web/css/components/inputs.css
+@@ -1,661 +1,85 @@
+ /**
+- * Input Components - Local AI Development Environment
+- * Comprehensive input field styles for all input types
++ * Input Component Styles - VS Code Style
+  */
+ 
+-/* ==================== Base Input Styles ==================== */
+-
+-.form-input,
+-.form-select,
+-.form-textarea {
+-    width: 100%;
+-    padding: var(--spacing-sm) var(--spacing-md); /* 8px 12px */
+-    background-color: var(--input-bg);
+-    border: 1px solid var(--input-border);
+-    border-radius: 6px;
+-    color: var(--text-primary);
+-    font-size: var(--font-size-base);
+-    font-family: var(--font-family-base);
+-    line-height: 1.5;
+-    transition: border-color 150ms ease, 
+-                box-shadow 150ms ease,
+-                background-color 150ms ease;
++/* Text Input */
++.setting-input,
++.search-input,
++.filter-select,
++input[type="text"],
++input[type="url"],
++input[type="number"],
++input[type="password"],
++select,
++textarea {
++    padding: 6px 8px;
++    background-color: #3c3c3c;
++    border: 1px solid #454545;
++    color: #cccccc;
++    font-size: 13px;
++    font-family: 'Segoe UI', system-ui, sans-serif;
++    border-radius: 0;
+ }
+ 
+-.form-input:focus,
+-.form-select:focus,
+-.form-textarea:focus {
++.setting-input:focus,
++.search-input:focus,
++.filter-select:focus,
++input:focus,
++select:focus,
++textarea:focus {
+     outline: none;
+-    border-color: var(--primary);
+-    box-shadow: 0 0 0 3px var(--primary-alpha);
+-}
+-
+-.form-input:disabled,
+-.form-select:disabled,
+-.form-textarea:disabled {
+-    background-color: var(--hover-bg);
+-    color: var(--text-disabled);
+-    cursor: not-allowed;
+-    opacity: 0.6;
+-}
+-
+-.form-input::placeholder,
+-.form-textarea::placeholder {
+-    color: var(--text-disabled);
+-}
+-
+-/* ==================== Input Sizes ==================== */
+-
+-.form-input-small {
+-    padding: var(--spacing-xs) var(--spacing-sm); /* 4px 8px */
+-    font-size: var(--font-size-xs); /* 12px */
+-}
+-
+-.form-input-large {
+-    padding: var(--spacing-md) var(--spacing-lg); /* 12px 16px */
+-    font-size: var(--font-size-md); /* 16px */
+-}
+-
+-/* ==================== Text Input Variants ==================== */
+-
+-/* Standard text input */
+-input[type="text"].form-input,
+-input[type="email"].form-input,
+-input[type="url"].form-input,
+-input[type="password"].form-input,
+-input[type="search"].form-input,
+-input[type="tel"].form-input {
+-    /* Inherits base styles */
++    border-color: #007ACC;
+ }
+ 
+-/* Number input */
+-input[type="number"].form-input {
+-    /* Inherits base styles */
++::placeholder {
++    color: #858585;
+ }
+ 
+-/* Remove spinner from number input (optional styling) */
+-input[type="number"].form-input.no-spinner::-webkit-outer-spin-button,
+-input[type="number"].form-input.no-spinner::-webkit-inner-spin-button {
++/* Range Input */
++input[type="range"] {
+     -webkit-appearance: none;
+-    margin: 0;
+-}
+-
+-input[type="number"].form-input.no-spinner {
+-    -moz-appearance: textfield;
+-}
+-
+-/* ==================== Textarea ==================== */
+-
+-.form-textarea {
+-    min-height: 80px;
+-    resize: vertical;
+-    font-family: var(--font-family-base);
+-}
+-
+-.form-textarea.monospace {
+-    font-family: var(--font-family-mono);
+-    font-size: var(--font-size-sm);
+-    line-height: var(--line-height-relaxed);
+-}
+-
+-.form-textarea.no-resize {
+-    resize: none;
+-}
+-
+-/* Task description textarea */
+-.task-input {
++    appearance: none;
+     width: 100%;
+-    min-height: 150px;
+-    padding: var(--spacing-md);
+-    background-color: var(--input-bg);
+-    border: 1px solid var(--input-border);
+-    border-radius: 6px;
+-    color: var(--text-primary);
+-    font-size: var(--font-size-base);
+-    font-family: var(--font-family-base);
+-    line-height: var(--line-height-normal);
+-    resize: vertical;
+-    transition: border-color 150ms ease, box-shadow 150ms ease;
+-}
+-
+-.task-input:focus {
++    height: 4px;
++    background: #454545;
+     outline: none;
+-    border-color: var(--primary);
+-    box-shadow: 0 0 0 3px var(--primary-alpha);
+-}
+-
+-.task-input::placeholder {
+-    color: var(--text-disabled);
+ }
+ 
+-/* ==================== Select Dropdown ==================== */
+-
+-.form-select {
+-    cursor: pointer;
+-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%236b7280' d='M6 9L1 4h10z'/%3E%3C/svg%3E");
+-    background-repeat: no-repeat;
+-    background-position: right var(--spacing-md) center;
+-    background-size: 12px;
+-    padding-right: calc(var(--spacing-md) * 3); /* Room for arrow */
+-    appearance: none;
++input[type="range"]::-webkit-slider-thumb {
+     -webkit-appearance: none;
+-    -moz-appearance: none;
+-}
+-
+-.form-select:focus {
+-    outline: none;
+-    border-color: var(--primary);
+-    box-shadow: 0 0 0 3px var(--primary-alpha);
+-}
+-
+-/* ==================== Checkbox ==================== */
+-
+-.form-checkbox {
+-    width: 18px;
+-    height: 18px;
+-    cursor: pointer;
+-    accent-color: var(--primary);
+-    border-radius: 4px;
+-}
+-
+-.form-checkbox:focus-visible {
+-    outline: 2px solid var(--primary);
+-    outline-offset: 2px;
+-}
+-
+-.form-checkbox:disabled {
+-    cursor: not-allowed;
+-    opacity: 0.5;
+-}
+-
+-/* Checkbox group */
+-.form-checkbox-group {
+-    display: flex;
+-    align-items: center;
+-    gap: var(--spacing-sm);
+-    cursor: pointer;
+-}
+-
+-.form-checkbox-group label {
+-    cursor: pointer;
+-    user-select: none;
+-}
+-
+-.form-checkbox-group .form-checkbox {
+-    flex-shrink: 0;
+-}
+-
+-/* ==================== Radio Button ==================== */
+-
+-.form-radio {
+-    width: 18px;
+-    height: 18px;
+-    cursor: pointer;
+-    accent-color: var(--primary);
+-}
+-
+-.form-radio:focus-visible {
+-    outline: 2px solid var(--primary);
+-    outline-offset: 2px;
+-}
+-
+-.form-radio:disabled {
+-    cursor: not-allowed;
+-    opacity: 0.5;
+-}
+-
+-/* Radio group */
+-.form-radio-group {
+-    display: flex;
+-    align-items: center;
+-    gap: var(--spacing-sm);
+-    cursor: pointer;
+-}
+-
+-.form-radio-group label {
+-    cursor: pointer;
+-    user-select: none;
+-}
+-
+-/* ==================== Range Slider ==================== */
+-
+-.form-range {
+-    width: 100%;
+-    height: 6px;
+-    background: var(--input-border);
+-    border-radius: 3px;
+-    outline: none;
+     appearance: none;
+-    -webkit-appearance: none;
++    width: 14px;
++    height: 14px;
++    background: #007ACC;
+     cursor: pointer;
+-}
+-
+-.form-range:focus {
+-    outline: 2px solid var(--primary);
+-    outline-offset: 2px;
+-}
+-
+-/* Webkit (Chrome, Safari, Edge) */
+-.form-range::-webkit-slider-thumb {
+-    appearance: none;
+-    -webkit-appearance: none;
+-    width: 18px;
+-    height: 18px;
+-    background: var(--primary);
+     border-radius: 50%;
+-    cursor: pointer;
+-    transition: background 150ms ease, transform 150ms ease;
+-    box-shadow: 0 1px 3px var(--shadow);
+-}
+-
+-.form-range::-webkit-slider-thumb:hover {
+-    background: var(--primary-hover);
+-    transform: scale(1.1);
+ }
+ 
+-.form-range::-webkit-slider-thumb:active {
+-    transform: scale(1.05);
+-}
+-
+-/* Firefox */
+-.form-range::-moz-range-thumb {
+-    width: 18px;
+-    height: 18px;
+-    background: var(--primary);
+-    border-radius: 50%;
+-    border: none;
++input[type="range"]::-moz-range-thumb {
++    width: 14px;
++    height: 14px;
++    background: #007ACC;
+     cursor: pointer;
+-    transition: background 150ms ease, transform 150ms ease;
+-    box-shadow: 0 1px 3px var(--shadow);
+-}
+-
+-.form-range::-moz-range-thumb:hover {
+-    background: var(--primary-hover);
+-    transform: scale(1.1);
+-}
+-
+-.form-range::-moz-range-thumb:active {
+-    transform: scale(1.05);
+-}
+-
+-/* ==================== Input Groups ==================== */
+-
+-.input-group {
+-    display: flex;
+-    gap: var(--spacing-sm);
+-    align-items: stretch;
+-}
+-
+-.input-group .form-input {
+-    flex: 1;
+-}
+-
+-.input-group .btn {
+-    flex-shrink: 0;
+-}
+-
+-/* Connected input group (no gap) */
+-.input-group-connected {
+-    display: flex;
+-    gap: 0;
+-}
+-
+-.input-group-connected .form-input {
+-    flex: 1;
+-    border-radius: 0;
+-    margin-left: -1px;
+-}
+-
+-.input-group-connected .form-input:first-child {
+-    border-top-left-radius: 6px;
+-    border-bottom-left-radius: 6px;
+-    margin-left: 0;
+-}
+-
+-.input-group-connected .form-input:last-child {
+-    border-top-right-radius: 6px;
+-    border-bottom-right-radius: 6px;
+-}
+-
+-.input-group-connected .btn {
+-    border-radius: 0;
+-    margin-left: -1px;
+-}
+-
+-.input-group-connected .btn:last-child {
+-    border-top-right-radius: 6px;
+-    border-bottom-right-radius: 6px;
+-}
+-
+-/* ==================== Input with Icon ==================== */
+-
+-.input-with-icon {
+-    position: relative;
+-    display: flex;
+-    align-items: center;
+-}
+-
+-.input-icon-left {
+-    position: absolute;
+-    left: var(--spacing-md);
+-    color: var(--text-secondary);
+-    pointer-events: none;
+-    display: flex;
+-    align-items: center;
+-    justify-content: center;
+-}
+-
+-.input-with-icon.has-icon-left .form-input {
+-    padding-left: calc(var(--spacing-md) * 3);
+-}
+-
+-.input-icon-right {
+-    position: absolute;
+-    right: var(--spacing-md);
+-    color: var(--text-secondary);
+-    display: flex;
+-    align-items: center;
+-    justify-content: center;
+-}
+-
+-.input-with-icon.has-icon-right .form-input {
+-    padding-right: calc(var(--spacing-md) * 3);
+-}
+-
+-/* Search input with icon */
+-.search-box {
+-    position: relative;
+-    display: flex;
+-    align-items: center;
+-}
+-
+-.search-icon {
+-    position: absolute;
+-    left: var(--spacing-md);
+-    color: var(--text-secondary);
+-    pointer-events: none;
+-}
+-
+-.search-input {
+-    width: 100%;
+-    padding: var(--spacing-sm) var(--spacing-md) var(--spacing-sm) calc(var(--spacing-md) * 3);
+-    background-color: var(--input-bg);
+-    border: 1px solid var(--input-border);
+-    border-radius: 6px;
+-    color: var(--text-primary);
+-    font-size: var(--font-size-base);
+-    transition: border-color 150ms ease, box-shadow 150ms ease;
+-}
+-
+-.search-input:focus {
+-    outline: none;
+-    border-color: var(--primary);
+-    box-shadow: 0 0 0 3px var(--primary-alpha);
+-}
+-
+-.search-input::placeholder {
+-    color: var(--text-disabled);
+-}
+-
+-/* ==================== Form Labels ==================== */
+-
+-.form-label {
+-    display: flex;
+-    align-items: center;
+-    gap: var(--spacing-sm);
+-    font-size: var(--font-size-base);
+-    font-weight: 500;
+-    color: var(--text-primary);
+-    margin-bottom: var(--spacing-sm);
+-    user-select: none;
+-}
+-
+-.form-label.required::after {
+-    content: "*";
+-    color: var(--error);
+-    margin-left: var(--spacing-xs);
+-}
+-
+-.label-value {
+-    margin-left: auto;
+-    color: var(--primary);
+-    font-weight: 400;
++    border: none;
++    border-radius: 50%;
+ }
+ 
+-/* Help icon in label */
+-.help-icon {
+-    background: transparent;
+-    border: none;
+-    color: var(--text-secondary);
+-    cursor: help;
+-    padding: 0;
+-    display: inline-flex;
+-    align-items: center;
+-    justify-content: center;
++/* Checkbox */
++input[type="checkbox"] {
+     width: 16px;
+     height: 16px;
+-    transition: color 150ms ease;
+-}
+-
+-.help-icon:hover {
+-    color: var(--text-primary);
+-}
+-
+-/* ==================== Form Groups ==================== */
+-
+-.form-group {
+-    margin-bottom: var(--spacing-lg);
+-}
+-
+-.form-group:last-child {
+-    margin-bottom: 0;
+-}
+-
+-.form-group .form-label + .form-input,
+-.form-group .form-label + .form-select,
+-.form-group .form-label + .form-textarea {
+-    margin-top: var(--spacing-sm);
+-}
+-
+-/* ==================== Validation States ==================== */
+-
+-/* Error state */
+-.form-input.error,
+-.form-select.error,
+-.form-textarea.error {
+-    border-color: var(--error);
+-}
+-
+-.form-input.error:focus,
+-.form-select.error:focus,
+-.form-textarea.error:focus {
+-    border-color: var(--error);
+-    box-shadow: 0 0 0 3px var(--error-alpha);
+-}
+-
+-/* Success state */
+-.form-input.success,
+-.form-select.success,
+-.form-textarea.success {
+-    border-color: var(--success);
+-}
+-
+-.form-input.success:focus,
+-.form-select.success:focus,
+-.form-textarea.success:focus {
+-    border-color: var(--success);
+-    box-shadow: 0 0 0 3px var(--success-alpha);
+-}
+-
+-/* Warning state */
+-.form-input.warning,
+-.form-select.warning,
+-.form-textarea.warning {
+-    border-color: var(--warning);
+-}
+-
+-.form-input.warning:focus,
+-.form-select.warning:focus,
+-.form-textarea.warning:focus {
+-    border-color: var(--warning);
+-    box-shadow: 0 0 0 3px var(--warning-alpha);
+-}
+-
+-/* ==================== Validation Messages ==================== */
+-
+-.error-message,
+-.success-message,
+-.warning-message,
+-.help-text {
+-    display: block;
+-    margin-top: var(--spacing-xs);
+-    font-size: var(--font-size-xs);
+-}
+-
+-.error-message {
+-    color: var(--error);
+-}
+-
+-.success-message {
+-    color: var(--success);
+-}
+-
+-.warning-message {
+-    color: var(--warning);
+-}
+-
+-.help-text {
+-    color: var(--text-secondary);
+-}
+-
+-/* Hide empty messages */
+-.error-message:empty,
+-.success-message:empty,
+-.warning-message:empty {
+-    display: none;
+-}
+-
+-/* ==================== Character Counter ==================== */
+-
+-.character-counter {
+-    font-size: var(--font-size-xs);
+-    color: var(--text-secondary);
+-    text-align: right;
+-    margin-top: var(--spacing-xs);
+-}
+-
+-.character-counter.warning {
+-    color: var(--warning);
+-}
+-
+-.character-counter.error {
+-    color: var(--error);
+-}
+-
+-/* ==================== Form Sections ==================== */
+-
+-.form-section {
+-    border: 1px solid var(--border);
+-    border-radius: 8px;
+-    padding: var(--spacing-xl);
+-    margin-bottom: var(--spacing-xl);
+-}
+-
+-.form-section:last-child {
+-    margin-bottom: 0;
+-}
+-
+-.section-title {
+-    font-size: var(--font-size-md);
+-    font-weight: 600;
+-    color: var(--text-primary);
+-    margin-bottom: var(--spacing-lg);
+-    padding-bottom: var(--spacing-sm);
+-    border-bottom: 1px solid var(--border);
+-}
+-
+-.section-description {
+-    font-size: var(--font-size-sm);
+-    color: var(--text-secondary);
+-    margin-bottom: var(--spacing-lg);
+-}
+-
+-/* ==================== Accessibility Enhancements ==================== */
+-
+-/* Focus visible styles */
+-.form-input:focus-visible,
+-.form-select:focus-visible,
+-.form-textarea:focus-visible {
+-    outline: 2px solid var(--primary);
+-    outline-offset: 2px;
+-}
+-
+-/* High contrast mode support */
+-@media (prefers-contrast: high) {
+-    .form-input,
+-    .form-select,
+-    .form-textarea {
+-        border-width: 2px;
+-    }
+-    
+-    .form-input:focus,
+-    .form-select:focus,
+-    .form-textarea:focus {
+-        border-width: 2px;
+-        box-shadow: none;
+-    }
+-}
+-
+-/* Reduced motion support */
+-@media (prefers-reduced-motion: reduce) {
+-    .form-input,
+-    .form-select,
+-    .form-textarea,
+-    .form-range::-webkit-slider-thumb,
+-    .form-range::-moz-range-thumb {
+-        transition: none;
+-    }
+-}
+-
+-/* ==================== Dark Theme Adjustments ==================== */
+-
+-body[data-theme="dark"] .form-input,
+-body[data-theme="dark"] .form-select,
+-body[data-theme="dark"] .form-textarea {
+-    background-color: #1f2937; /* Gray 800 */
+-    border-color: #4b5563; /* Gray 600 */
+-    color: #f9fafb; /* Gray 50 */
+-}
+-
+-body[data-theme="dark"] .form-input:focus,
+-body[data-theme="dark"] .form-select:focus,
+-body[data-theme="dark"] .form-textarea:focus {
+-    border-color: var(--primary);
+-}
+-
+-body[data-theme="dark"] .form-input::placeholder,
+-body[data-theme="dark"] .form-textarea::placeholder {
+-    color: #6b7280; /* Gray 500 */
+-}
+-
+-body[data-theme="dark"] .form-select {
+-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%239ca3af' d='M6 9L1 4h10z'/%3E%3C/svg%3E");
+-}
+-
+-body[data-theme="dark"] .form-input:disabled,
+-body[data-theme="dark"] .form-select:disabled,
+-body[data-theme="dark"] .form-textarea:disabled {
+-    background-color: #111827; /* Gray 900 */
++    cursor: pointer;
++    accent-color: #007ACC;
+ }
+ 
+-/* ==================== Print Styles ==================== */
+-
+-@media print {
+-    .form-input,
+-    .form-select,
+-    .form-textarea {
+-        border: 1px solid #000;
+-        background: #fff;
+-        color: #000;
+-    }
++/* Select */
++select {
++    cursor: pointer;
++    padding-right: 24px;
++    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23cccccc' d='M6 9L1 4h10z'/%3E%3C/svg%3E");
++    background-repeat: no-repeat;
++    background-position: right 8px center;
++    -webkit-appearance: none;
++    -moz-appearance: none;
++    appearance: none;
+ }
+diff --git a/src/web/css/main.css b/src/web/css/main.css
+index aedcfac..92e372a 100644
+--- a/src/web/css/main.css
++++ b/src/web/css/main.css
+@@ -1,47 +1,37 @@
+ /**
+- * Main Stylesheet - Local AI Development Environment
+- * Base styles, layout, and responsive design
++ * Main Stylesheet - VS Code Style
++ * Local AI Development Environment
+  */
+ 
+-/* ==================== Component Imports ==================== */
+-/* Import component-specific stylesheets */
+-@import url('components/buttons.css');
+-@import url('components/inputs.css');
+-@import url('components/progress.css');
+-@import url('components/panels.css');
+-@import url('components/loading.css');
+-
+-/* ==================== CSS Variables - Spacing Scale ==================== */
++/* ==================== CSS Variables - VS Code Dark+ Theme ==================== */
+ 
+ :root {
+-    /* Spacing scale - 4px base unit */
+-    --spacing-xs: 0.25rem;   /* 4px */
+-    --spacing-sm: 0.5rem;    /* 8px */
+-    --spacing-md: 0.75rem;   /* 12px */
+-    --spacing-lg: 1rem;      /* 16px */
+-    --spacing-xl: 1.5rem;    /* 24px */
+-    --spacing-2xl: 2rem;     /* 32px */
+-    
+-    /* Font families */
+-    --font-family-base: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+-    --font-family-mono: "Fira Code", "Cascadia Code", "JetBrains Mono", "Source Code Pro", Consolas, "Courier New", monospace;
++    /* VS Code Color Scheme */
++    --background: #1e1e1e;          /* Main editor background */
++    --sidebar-bg: #252526;          /* Sidebar background */
++    --activitybar-bg: #333333;      /* Activity bar (left edge) */
++    --titlebar-bg: #323233;         /* Title bar */
++    --statusbar-bg: #007ACC;        /* Status bar (blue) */
++    --input-bg: #3c3c3c;            /* Input fields */
++    --border: #454545;              /* Borders */
++    --text: #cccccc;                /* Main text */
++    --text-muted: #858585;          /* Secondary text */
++    --accent: #007ACC;              /* Focus/active (blue) */
++    --success: #89d185;             /* Success (green) */
++    --error: #f48771;               /* Error (red) */
++    --warning: #cca700;             /* Warning (yellow) */
++    --hover-bg: #2a2a2b;            /* Hover background */
++    --active-bg: #37373d;           /* Active background */
+     
+-    /* Font sizes */
+-    --font-size-xs: 0.75rem;      /* 12px */
+-    --font-size-sm: 0.8125rem;    /* 13px */
+-    --font-size-base: 0.875rem;   /* 14px */
+-    --font-size-md: 1rem;         /* 16px */
+-    --font-size-lg: 1.125rem;     /* 18px */
+-    --font-size-xl: 1.25rem;      /* 20px */
+-    --font-size-2xl: 1.5rem;      /* 24px */
+-    
+-    /* Line heights */
+-    --line-height-tight: 1.2;
+-    --line-height-normal: 1.5;
+-    --line-height-relaxed: 1.6;
++    /* Typography */
++    --font-family-ui: 'Segoe UI', system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
++    --font-family-mono: 'Consolas', 'Monaco', 'Courier New', monospace;
++    --font-size-ui: 13px;
++    --font-size-editor: 14px;
++    --font-size-status: 12px;
+ }
+ 
+-/* ==================== CSS Reset & Base Styles ==================== */
++/* ==================== Reset & Base ==================== */
+ 
+ * {
+     margin: 0;
+@@ -49,861 +39,694 @@
+     box-sizing: border-box;
+ }
+ 
+-html {
+-    font-size: 16px;
+-    -webkit-font-smoothing: antialiased;
+-    -moz-osx-font-smoothing: grayscale;
++html, body {
++    width: 100%;
++    height: 100%;
++    overflow: hidden;
+ }
+ 
+ body {
+-    font-family: var(--font-family-base);
+-    font-size: var(--font-size-base);
+-    line-height: var(--line-height-normal);
+-    color: var(--text-primary);
++    font-family: var(--font-family-ui);
++    font-size: var(--font-size-ui);
++    color: var(--text);
+     background-color: var(--background);
+-    overflow: hidden;
+-}
+-
+-/* ==================== Typography ==================== */
+-
+-h1, h2, h3, h4, h5, h6 {
+-    margin: 0;
+-    font-weight: 600;
+-    line-height: var(--line-height-tight);
+-}
+-
+-h1 {
+-    font-size: var(--font-size-2xl); /* 24px - Title */
+-}
+-
+-h2 {
+-    font-size: var(--font-size-lg); /* 18px - Heading */
+-}
+-
+-h3 {
+-    font-size: var(--font-size-md); /* 16px */
+-}
+-
+-h4, h5, h6 {
+-    font-size: var(--font-size-base); /* 14px */
+-}
+-
+-.text-small {
+-    font-size: var(--font-size-sm); /* 13px - Small variant */
+-}
+-
+-.text-xs {
+-    font-size: var(--font-size-xs); /* 12px - Extra small variant */
+-}
+-
+-code, pre {
+-    font-family: var(--font-family-mono);
+-    font-size: var(--font-size-sm); /* 13px */
+-    line-height: var(--line-height-relaxed);
++    line-height: 1.5;
+ }
+ 
+-/* ==================== Main Application Layout ==================== */
++/* ==================== VS Code Layout ==================== */
+ 
+-.app-container {
++.vscode-layout {
+     display: grid;
+-    grid-template-rows: auto auto 1fr auto;
+-    grid-template-columns: 1fr;
++    grid-template-columns: 48px auto 1px 1fr;
++    grid-template-rows: 1fr 22px;
+     grid-template-areas:
+-        "header"
+-        "navigation"
+-        "content"
+-        "footer";
++        "activity sidebar splitter editor"
++        "status status status status";
+     height: 100vh;
+     width: 100vw;
+ }
+ 
+-/* ==================== Header ==================== */
++/* ==================== Activity Bar ==================== */
+ 
+-.app-header {
+-    grid-area: header;
+-    background-color: var(--surface);
+-    border-bottom: 1px solid var(--border);
+-    padding: var(--spacing-lg);
+-}
+-
+-.header-content {
+-    display: flex;
+-    justify-content: space-between;
+-    align-items: center;
+-    max-width: 100%;
+-}
+-
+-.app-branding {
++.activity-bar {
++    grid-area: activity;
++    background-color: var(--activitybar-bg);
+     display: flex;
++    flex-direction: column;
+     align-items: center;
+-    gap: var(--spacing-md);
+-}
+-
+-.app-icon {
+-    width: 32px;
+-    height: 32px;
+-}
+-
+-.app-title {
+-    font-size: var(--font-size-xl);
+-    font-weight: 600;
+-    color: var(--text-primary);
+-}
+-
+-.header-actions {
+-    display: flex;
+-    gap: var(--spacing-sm);
+-}
+-
+-/* ==================== Navigation ==================== */
+-
+-.app-navigation {
+-    grid-area: navigation;
+-    background-color: var(--surface);
+-    border-bottom: 1px solid var(--border);
+-}
+-
+-.nav-tabs {
+-    display: flex;
+-    list-style: none;
+-    margin: 0;
+     padding: 0;
++    border-right: 1px solid var(--border);
+ }
+ 
+-.nav-tabs li {
+-    flex: 0 0 auto;
+-}
+-
+-.nav-tab {
++.activity-item {
++    width: 48px;
++    height: 48px;
+     display: flex;
+     align-items: center;
+-    gap: var(--spacing-sm);
+-    padding: var(--spacing-md) var(--spacing-xl);
++    justify-content: center;
+     background: transparent;
+     border: none;
+-    border-bottom: 2px solid transparent;
+-    color: var(--text-secondary);
+-    font-size: var(--font-size-base);
+-    font-weight: 500;
++    border-left: 2px solid transparent;
++    color: var(--text);
+     cursor: pointer;
+-    /* Use opacity and transform for smooth transitions (Req 18.1) */
+-    transition: color 150ms ease, border-color 150ms ease, background-color 150ms ease, opacity 150ms ease;
+-    transform: translateZ(0);
++    transition: background-color 100ms ease;
+ }
+ 
+-.nav-tab:hover {
+-    color: var(--text-primary);
+-    background-color: var(--hover-bg);
++.activity-item:hover {
++    background-color: #3d3d3d;
+ }
+ 
+-.nav-tab.active {
+-    color: var(--primary);
+-    border-bottom-color: var(--primary);
++.activity-item.active {
++    border-left-color: var(--accent);
+ }
+ 
+-.tab-icon {
+-    color: currentColor;
++.activity-item svg {
++    width: 24px;
++    height: 24px;
+ }
+ 
+-/* ==================== Main Content Area ==================== */
++/* ==================== Sidebar ==================== */
+ 
+-.app-content {
+-    grid-area: content;
++.sidebar {
++    grid-area: sidebar;
++    background-color: var(--sidebar-bg);
++    width: 300px;
++    display: flex;
++    flex-direction: column;
+     overflow: hidden;
+-    position: relative;
+ }
+ 
+-.view-container {
+-    position: absolute;
+-    top: 0;
+-    left: 0;
+-    width: 100%;
+-    height: 100%;
+-    padding: var(--spacing-xl);
+-    overflow-y: auto;
+-    overflow-x: hidden;
+-    display: none;
+-    /* Smooth view transitions */
+-    opacity: 1;
+-    transform: translateY(0);
+-    transition: opacity 150ms ease, transform 150ms ease;
++.sidebar-header {
++    padding: 16px 20px;
++    border-bottom: 1px solid var(--border);
+ }
+ 
+-.view-container.active {
+-    display: block;
++.sidebar-title {
++    font-size: var(--font-size-ui);
++    font-weight: 600;
++    color: var(--text);
++    text-transform: uppercase;
++    letter-spacing: 0.5px;
+ }
+ 
+-/* View transition states */
+-.view-container.transitioning-out {
+-    opacity: 0;
+-    transform: translateY(4px);
++.sidebar-content {
++    flex: 1;
++    overflow-y: auto;
++    padding: 16px 20px;
+ }
+ 
+-.view-container.transitioning-in {
+-    opacity: 0;
+-    transform: translateY(-4px);
++.sidebar-info {
++    color: var(--text-muted);
++    font-size: var(--font-size-ui);
++    line-height: 1.6;
+ }
+ 
+-/* ==================== Task View Layout ==================== */
++/* ==================== Splitter ==================== */
+ 
+-#view-task {
+-    display: grid;
+-    grid-template-rows: auto 1fr;
+-    grid-template-columns: 1fr;
+-    gap: var(--spacing-xl);
+-    padding: var(--spacing-xl);
++.splitter {
++    grid-area: splitter;
++    width: 1px;
++    background-color: var(--border);
++    cursor: col-resize;
++    user-select: none;
+ }
+ 
+-.task-input-panel {
+-    grid-row: 1;
++.splitter:hover {
++    background-color: var(--accent);
+ }
+ 
+-.progress-display-panel {
+-    grid-row: 2;
+-    min-height: 0; /* Allow grid to shrink */
++.h-splitter {
++    height: 1px;
++    background-color: var(--border);
++    cursor: row-resize;
++    user-select: none;
+ }
+ 
+-/* ==================== History View Layout ==================== */
+-
+-#view-history {
+-    display: grid;
+-    grid-template-columns: 1fr;
+-    grid-template-rows: 1fr;
+-    gap: var(--spacing-xl);
++.h-splitter:hover {
++    background-color: var(--accent);
+ }
+ 
+-#view-history.with-detail {
+-    grid-template-columns: 1fr 1fr;
++.v-splitter {
++    width: 1px;
++    background-color: var(--border);
++    cursor: col-resize;
++    user-select: none;
+ }
+ 
+-.history-detail-panel {
+-    overflow-y: auto;
++.v-splitter:hover {
++    background-color: var(--accent);
+ }
+ 
+-/* ==================== Panel Styles ==================== */
++/* ==================== Editor Area ==================== */
+ 
+-.panel {
+-    background-color: var(--surface);
+-    border: 1px solid var(--border);
+-    border-radius: 8px;
++.editor-area {
++    grid-area: editor;
++    background-color: var(--background);
+     display: flex;
+     flex-direction: column;
+     overflow: hidden;
+ }
+ 
+-.panel-header {
++/* Editor Tabs */
++.editor-tabs {
+     display: flex;
+-    justify-content: space-between;
+-    align-items: center;
+-    padding: var(--spacing-lg);
++    background-color: var(--background);
+     border-bottom: 1px solid var(--border);
+-    background-color: var(--surface);
+-}
+-
+-.panel-title {
+-    font-size: var(--font-size-lg);
+-    font-weight: 600;
+-    color: var(--text-primary);
++    height: 35px;
++    align-items: center;
+ }
+ 
+-.panel-actions {
++.editor-tab {
+     display: flex;
+-    gap: var(--spacing-sm);
+-}
+-
+-.panel-content {
+-    flex: 1;
+-    padding: var(--spacing-lg);
+-    overflow: auto;
+-    min-height: 0; /* Allow flex to shrink */
+-}
+-
+-/* ==================== Task Input Styles ==================== */
+-
+-.character-counter {
+-    font-size: var(--font-size-xs);
+-    color: var(--text-secondary);
+-}
+-
+-.task-input {
+-    width: 100%;
+-    min-height: 150px;
+-    padding: var(--spacing-md);
+-    background-color: var(--input-bg);
+-    border: 1px solid var(--input-border);
+-    border-radius: 6px;
+-    color: var(--text-primary);
+-    font-size: var(--font-size-base);
+-    font-family: inherit;
+-    resize: vertical;
+-    transition: border-color 150ms ease, box-shadow 150ms ease;
+-}
+-
+-.task-input:focus {
+-    outline: none;
+-    border-color: var(--primary);
+-    box-shadow: 0 0 0 3px var(--primary-alpha);
++    align-items: center;
++    gap: 8px;
++    height: 35px;
++    padding: 0 12px;
++    background: transparent;
++    border: none;
++    border-bottom: 2px solid transparent;
++    color: var(--text-muted);
++    font-size: var(--font-size-ui);
++    cursor: pointer;
++    transition: color 100ms ease, border-color 100ms ease;
+ }
+ 
+-.task-input::placeholder {
+-    color: var(--text-disabled);
++.editor-tab:hover {
++    color: var(--text);
+ }
+ 
+-.task-actions {
+-    display: flex;
+-    align-items: center;
+-    gap: var(--spacing-md);
+-    margin-top: var(--spacing-lg);
++.editor-tab.active {
++    color: #ffffff;
++    border-bottom-color: var(--accent);
+ }
+ 
+-.task-status {
+-    margin-left: auto;
+-    font-size: var(--font-size-base);
+-    font-weight: 500;
+-    color: var(--text-secondary);
++.tab-label {
++    user-select: none;
+ }
+ 
+-.task-status.running {
+-    color: var(--info);
+-    animation: pulse 2s ease-in-out infinite;
++.tab-close {
++    display: none;
++    width: 16px;
++    height: 16px;
++    padding: 0;
++    background: transparent;
++    border: none;
++    color: var(--text-muted);
++    font-size: 18px;
++    line-height: 1;
++    cursor: pointer;
+ }
+ 
+-.task-status.success {
+-    color: var(--success);
++.editor-tab.active .tab-close,
++.editor-tab:hover .tab-close {
++    display: block;
+ }
+ 
+-.task-status.error {
+-    color: var(--error);
++.tab-close:hover {
++    color: var(--text);
+ }
+ 
+-/* Status badge styles with animations */
+-.status-badge {
+-    display: inline-flex;
+-    align-items: center;
+-    gap: var(--spacing-xs);
+-    padding: var(--spacing-xs) var(--spacing-md);
+-    border-radius: 4px;
+-    font-size: var(--font-size-sm);
+-    font-weight: 600;
+-    transition: background-color 200ms ease, color 200ms ease;
++/* Editor Content */
++.editor-content {
++    flex: 1;
++    overflow: hidden;
+ }
+ 
+-.status-badge.status-idle {
+-    background-color: var(--secondary);
+-    color: var(--text-secondary);
++.editor-panel {
++    width: 100%;
++    height: 100%;
++    display: none;
+ }
+ 
+-.status-badge.status-running {
+-    background-color: var(--info-alpha);
+-    color: var(--info);
+-    animation: pulse 2s ease-in-out infinite;
++.editor-panel.active {
++    display: block;
+ }
+ 
+-.status-badge.status-success {
+-    background-color: var(--success-alpha);
+-    color: var(--success);
+-}
++/* ==================== Task View Layout ==================== */
+ 
+-.status-badge.status-success::before {
+-    content: 'Γ£ô';
+-    animation: checkmarkFadeIn 300ms ease-out;
++.task-layout {
++    display: grid;
++    grid-template-rows: 40% 1px 1fr;
++    height: 100%;
++    overflow: hidden;
+ }
+ 
+-.status-badge.status-error {
+-    background-color: var(--error-alpha);
+-    color: var(--error);
++.task-input-area {
++    display: flex;
++    flex-direction: column;
++    background-color: var(--background);
++    overflow: hidden;
+ }
+ 
+-/* ==================== Progress Display Styles ==================== */
+-
+-.progress-output {
++.task-textarea {
++    flex: 1;
++    width: 100%;
++    padding: 16px;
++    background: transparent;
++    border: none;
++    color: var(--text);
+     font-family: var(--font-family-mono);
+-    font-size: var(--font-size-sm);
+-    line-height: var(--line-height-relaxed);
+-    background-color: var(--code-bg);
+-    border-radius: 6px;
+-    padding: var(--spacing-lg);
++    font-size: var(--font-size-editor);
++    line-height: 1.6;
++    resize: none;
+     overflow-y: auto;
+-    max-height: 100%;
+-    min-height: 300px;
+-    /* GPU acceleration for smooth scrolling (Req 18.1) */
+-    transform: translateZ(0);
+-    will-change: scroll-position;
+ }
+ 
+-.progress-message {
+-    display: flex;
+-    align-items: flex-start;
+-    gap: var(--spacing-md);
+-    padding: var(--spacing-sm);
+-    margin-bottom: var(--spacing-sm);
+-    border-left: 3px solid transparent;
+-    border-radius: 3px;
+-    /* Slide-in animation for new messages */
+-    animation: slideIn 150ms ease-out;
+-    transform: translateZ(0);
+-    will-change: transform, opacity;
+-}
+-
+-.progress-message.info {
+-    border-left-color: var(--info);
+-    background-color: var(--info-alpha);
++.task-textarea:focus {
++    outline: none;
+ }
+ 
+-.progress-message.success {
+-    border-left-color: var(--success);
+-    background-color: var(--success-alpha);
++.task-textarea::placeholder {
++    color: var(--text-muted);
+ }
+ 
+-.progress-message.warning {
+-    border-left-color: var(--warning);
+-    background-color: var(--warning-alpha);
++/* Task Toolbar */
++.task-toolbar {
++    display: flex;
++    align-items: center;
++    justify-content: space-between;
++    height: 40px;
++    padding: 0 16px;
++    background-color: var(--sidebar-bg);
++    border-top: 1px solid var(--border);
+ }
+ 
+-.progress-message.error {
+-    border-left-color: var(--error);
+-    background-color: var(--error-alpha);
++.toolbar-left,
++.toolbar-right {
++    display: flex;
++    align-items: center;
++    gap: 12px;
+ }
+ 
+-.message-timestamp {
+-    color: var(--text-secondary);
+-    flex-shrink: 0;
++.status-text {
++    color: var(--text-muted);
++    font-size: var(--font-size-ui);
+ }
+ 
+-.message-content {
+-    color: var(--text-primary);
+-    flex: 1;
+-    word-break: break-word;
++.char-counter {
++    color: var(--text-muted);
++    font-size: var(--font-size-ui);
+ }
+ 
+-/* ==================== History Styles ==================== */
+-
+-.history-controls {
+-    padding: var(--spacing-lg);
+-    border-bottom: 1px solid var(--border);
++/* Output Panel */
++.output-panel {
+     display: flex;
+     flex-direction: column;
+-    gap: var(--spacing-md);
++    background-color: var(--background);
++    overflow: hidden;
+ }
+ 
+-.search-box {
+-    position: relative;
++.output-header {
+     display: flex;
+     align-items: center;
++    justify-content: space-between;
++    height: 35px;
++    padding: 0 16px;
++    background-color: var(--sidebar-bg);
++    border-bottom: 1px solid var(--border);
+ }
+ 
+-.search-icon {
+-    position: absolute;
+-    left: var(--spacing-md);
+-    color: var(--text-secondary);
+-    pointer-events: none;
+-}
+-
+-.search-input {
+-    width: 100%;
+-    padding: var(--spacing-sm) var(--spacing-md) var(--spacing-sm) 2.5rem;
+-    background-color: var(--input-bg);
+-    border: 1px solid var(--input-border);
+-    border-radius: 6px;
+-    color: var(--text-primary);
+-    font-size: var(--font-size-base);
+-    transition: border-color 150ms ease, box-shadow 150ms ease;
++.output-title {
++    font-size: 11px;
++    font-weight: 600;
++    color: var(--text);
++    text-transform: uppercase;
++    letter-spacing: 0.5px;
+ }
+ 
+-.search-input:focus {
+-    outline: none;
+-    border-color: var(--primary);
+-    box-shadow: 0 0 0 3px var(--primary-alpha);
++.output-actions {
++    display: flex;
++    align-items: center;
++    gap: 8px;
+ }
+ 
+-.filter-controls {
++.auto-scroll-label {
+     display: flex;
+-    gap: var(--spacing-sm);
++    align-items: center;
++    gap: 4px;
++    color: var(--text);
++    font-size: var(--font-size-ui);
++    cursor: pointer;
+ }
+ 
+-.filter-select {
+-    padding: var(--spacing-sm) var(--spacing-md);
+-    background-color: var(--input-bg);
+-    border: 1px solid var(--input-border);
+-    border-radius: 6px;
+-    color: var(--text-primary);
+-    font-size: var(--font-size-base);
++.auto-scroll-label input {
+     cursor: pointer;
+-    transition: border-color 150ms ease;
+ }
+ 
+-.filter-select:focus {
+-    outline: none;
+-    border-color: var(--primary);
++.output-content {
++    flex: 1;
++    padding: 16px;
++    font-family: var(--font-family-mono);
++    font-size: 13px;
++    line-height: 1.6;
++    color: var(--text);
++    overflow-y: auto;
+ }
+ 
+-.history-entries {
+-    display: flex;
+-    flex-direction: column;
+-    gap: var(--spacing-md);
+-    /* GPU acceleration for virtual scrolling (Req 18.1) */
+-    transform: translateZ(0);
+-    will-change: transform;
++.output-placeholder {
++    color: var(--text-muted);
++    font-style: italic;
+ }
+ 
+-.history-entry {
+-    padding: var(--spacing-lg);
+-    background-color: var(--background);
+-    border: 1px solid var(--border);
+-    border-radius: 6px;
+-    /* Use transform for smooth transitions (Req 18.1) */
+-    transition: border-color 150ms ease, box-shadow 150ms ease, transform 150ms ease;
+-    transform: translateZ(0);
++/* ==================== History View Layout ==================== */
++
++.history-layout {
++    display: grid;
++    grid-template-columns: 40% 1px 1fr;
++    height: 100%;
++    overflow: hidden;
+ }
+ 
+-.history-entry:hover {
+-    border-color: var(--primary);
+-    box-shadow: 0 2px 8px var(--shadow);
+-    /* Use translateY instead of margin for GPU acceleration (Req 18.1) */
+-    transform: translateY(-2px) translateZ(0);
++.history-list-pane {
++    display: flex;
++    flex-direction: column;
++    overflow: hidden;
++    background-color: var(--background);
+ }
+ 
+-.entry-header {
++.history-filters {
+     display: flex;
+-    align-items: flex-start;
+-    gap: var(--spacing-md);
+-    margin-bottom: var(--spacing-sm);
++    gap: 8px;
++    padding: 16px;
++    border-bottom: 1px solid var(--border);
+ }
+ 
+-.entry-status-icon {
+-    flex-shrink: 0;
+-    width: 20px;
+-    height: 20px;
++.search-input,
++.filter-select {
++    flex: 1;
++    padding: 6px 8px;
++    background-color: var(--input-bg);
++    border: 1px solid var(--border);
++    color: var(--text);
++    font-size: var(--font-size-ui);
+ }
+ 
+-.entry-status-icon.success {
+-    color: var(--success);
++.search-input:focus,
++.filter-select:focus {
++    outline: none;
++    border-color: var(--accent);
+ }
+ 
+-.entry-status-icon.failed {
+-    color: var(--error);
++.history-list {
++    flex: 1;
++    overflow-y: auto;
+ }
+ 
+-.entry-status-icon.cancelled {
+-    color: var(--text-secondary);
++.history-item {
++    padding: 8px 16px;
++    border-left: 2px solid transparent;
++    cursor: pointer;
++    transition: background-color 100ms ease;
+ }
+ 
+-.entry-description {
+-    flex: 1;
+-    font-weight: 500;
+-    color: var(--text-primary);
+-    margin-bottom: var(--spacing-xs);
++.history-item:nth-child(even) {
++    background-color: var(--sidebar-bg);
+ }
+ 
+-.entry-meta {
+-    font-size: var(--font-size-xs);
+-    color: var(--text-secondary);
++.history-item:hover {
++    background-color: var(--hover-bg);
+ }
+ 
+-.entry-actions {
+-    display: flex;
+-    gap: var(--spacing-sm);
+-    margin-top: var(--spacing-md);
++.history-item.selected {
++    background-color: var(--active-bg);
++    border-left-color: var(--accent);
+ }
+ 
+-.empty-state {
+-    display: flex;
+-    flex-direction: column;
+-    align-items: center;
+-    justify-content: center;
+-    padding: var(--spacing-2xl) var(--spacing-lg);
++.history-placeholder {
++    padding: 32px 16px;
+     text-align: center;
+-    color: var(--text-secondary);
++    color: var(--text-muted);
++    font-style: italic;
+ }
+ 
+-.empty-icon {
+-    color: var(--text-disabled);
+-    margin-bottom: var(--spacing-lg);
++.history-details-pane {
++    padding: 16px;
++    overflow-y: auto;
++    background-color: var(--background);
+ }
+ 
+-.empty-subtext {
+-    font-size: var(--font-size-xs);
+-    margin-top: var(--spacing-xs);
++.details-placeholder {
++    padding: 32px 16px;
++    text-align: center;
++    color: var(--text-muted);
++    font-style: italic;
+ }
+ 
+-/* ==================== Settings Form Styles ==================== */
++/* ==================== Settings View ==================== */
++
++.settings-container {
++    height: 100%;
++    overflow-y: auto;
++    padding: 16px 32px 80px;
++    position: relative;
++}
+ 
+ .settings-form {
+-    display: flex;
+-    flex-direction: column;
+-    gap: var(--spacing-2xl);
++    max-width: 800px;
+ }
+ 
+ .settings-section {
+-    border: 1px solid var(--border);
+-    border-radius: 8px;
+-    padding: var(--spacing-xl);
++    margin-bottom: 32px;
+ }
+ 
+-.section-title {
+-    font-size: var(--font-size-md);
++.section-header {
++    font-size: 16px;
+     font-weight: 600;
+-    color: var(--text-primary);
+-    margin-bottom: var(--spacing-lg);
+-}
+-
+-.form-group {
+-    margin-bottom: var(--spacing-lg);
+-}
+-
+-.form-group:last-child {
+-    margin-bottom: 0;
+-}
+-
+-.form-label {
+-    display: flex;
+-    align-items: center;
+-    gap: var(--spacing-sm);
+-    font-size: var(--font-size-base);
+-    font-weight: 500;
+-    color: var(--text-primary);
+-    margin-bottom: var(--spacing-sm);
++    color: var(--text);
++    margin-bottom: 16px;
++    padding-bottom: 8px;
++    border-bottom: 1px solid var(--border);
+ }
+ 
+-.label-value {
+-    margin-left: auto;
+-    color: var(--primary);
++.setting-item {
++    margin-bottom: 20px;
+ }
+ 
+-.help-icon {
+-    background: transparent;
+-    border: none;
+-    color: var(--text-secondary);
+-    cursor: help;
+-    padding: 0;
+-    transition: color 150ms ease;
++.setting-label {
++    display: block;
++    font-size: 11px;
++    font-weight: 600;
++    color: var(--text-muted);
++    text-transform: uppercase;
++    letter-spacing: 0.5px;
++    margin-bottom: 4px;
+ }
+ 
+-.help-icon:hover {
+-    color: var(--text-primary);
++.setting-value {
++    float: right;
++    color: var(--accent);
++    font-weight: normal;
++    text-transform: none;
+ }
+ 
+-.form-input,
+-.form-select {
++.setting-input,
++.setting-select {
+     width: 100%;
+-    padding: var(--spacing-sm) var(--spacing-md);
++    padding: 6px 8px;
+     background-color: var(--input-bg);
+-    border: 1px solid var(--input-border);
+-    border-radius: 6px;
+-    color: var(--text-primary);
+-    font-size: var(--font-size-base);
+-    font-family: inherit;
+-    transition: border-color 150ms ease, box-shadow 150ms ease;
++    border: 1px solid var(--border);
++    color: var(--text);
++    font-size: var(--font-size-ui);
++    font-family: var(--font-family-ui);
+ }
+ 
+-.form-input:focus,
+-.form-select:focus {
++.setting-input:focus,
++.setting-select:focus {
+     outline: none;
+-    border-color: var(--primary);
+-    box-shadow: 0 0 0 3px var(--primary-alpha);
+-}
+-
+-.form-input.error {
+-    border-color: var(--error);
++    border-color: var(--accent);
+ }
+ 
+-.form-range {
++.setting-range {
+     width: 100%;
+-    height: 6px;
+-    background: var(--input-border);
+-    border-radius: 3px;
+-    outline: none;
++    height: 4px;
++    background: var(--border);
+     -webkit-appearance: none;
++    appearance: none;
+ }
+ 
+-.form-range::-webkit-slider-thumb {
++.setting-range::-webkit-slider-thumb {
+     -webkit-appearance: none;
+-    appearance: none;
+-    width: 18px;
+-    height: 18px;
+-    background: var(--primary);
+-    border-radius: 50%;
++    width: 14px;
++    height: 14px;
++    background: var(--accent);
+     cursor: pointer;
+-    transition: background 150ms ease;
+ }
+ 
+-.form-range::-webkit-slider-thumb:hover {
+-    background: var(--primary-hover);
++.setting-range::-moz-range-thumb {
++    width: 14px;
++    height: 14px;
++    background: var(--accent);
++    border: none;
++    cursor: pointer;
+ }
+ 
+-.form-range::-moz-range-thumb {
+-    width: 18px;
+-    height: 18px;
+-    background: var(--primary);
+-    border-radius: 50%;
+-    cursor: pointer;
+-    border: none;
+-    transition: background 150ms ease;
++.setting-control {
++    display: flex;
++    gap: 8px;
+ }
+ 
+-.form-range::-moz-range-thumb:hover {
+-    background: var(--primary-hover);
++.setting-control .setting-input {
++    flex: 1;
+ }
+ 
+-.input-group {
+-    display: flex;
+-    gap: var(--spacing-sm);
++.setting-description {
++    margin-top: 4px;
++    font-size: 12px;
++    color: var(--text-muted);
+ }
+ 
+-.input-group .form-input {
+-    flex: 1;
++.setting-description.warning {
++    color: var(--warning);
+ }
+ 
+-.error-message {
++.setting-error {
+     display: block;
+-    margin-top: var(--spacing-xs);
+-    font-size: var(--font-size-xs);
++    margin-top: 4px;
++    font-size: 12px;
+     color: var(--error);
+ }
+ 
+-.error-message:empty {
+-    display: none;
++.setting-checkbox {
++    display: flex;
++    align-items: center;
++    gap: 8px;
++    color: var(--text);
++    cursor: pointer;
++}
++
++.setting-checkbox input {
++    cursor: pointer;
++}
++
++.settings-actions {
++    position: fixed;
++    bottom: 0;
++    right: 0;
++    padding: 16px 32px;
++    background-color: var(--sidebar-bg);
++    border-top: 1px solid var(--border);
++    display: flex;
++    gap: 8px;
++    justify-content: flex-end;
++}
++
++/* ==================== Status Bar ==================== */
++
++.status-bar {
++    grid-area: status;
++    background-color: var(--statusbar-bg);
++    color: #ffffff;
++    height: 22px;
++    display: flex;
++    align-items: center;
++    justify-content: space-between;
++    padding: 0 12px;
++    font-size: var(--font-size-status);
++    user-select: none;
+ }
+ 
+-.form-checkbox-group {
++.status-bar-left,
++.status-bar-right {
+     display: flex;
+     align-items: center;
+-    gap: var(--spacing-sm);
++    gap: 8px;
+ }
+ 
+-.form-checkbox {
+-    width: 18px;
+-    height: 18px;
+-    cursor: pointer;
++.status-item {
++    display: flex;
++    align-items: center;
++    gap: 4px;
+ }
+ 
+-/* ==================== Button Styles ==================== */
++.status-divider {
++    color: rgba(255, 255, 255, 0.5);
++}
++
++/* ==================== Buttons ==================== */
+ 
+ .btn {
+     display: inline-flex;
+     align-items: center;
+-    justify-content: center;
+-    gap: 0.5rem;
+-    padding: 0.5rem 1rem;
++    gap: 6px;
++    height: 28px;
++    padding: 4px 14px;
++    background-color: var(--accent);
++    color: #ffffff;
+     border: none;
+-    border-radius: 6px;
+-    font-size: 0.875rem;
++    border-radius: 2px;
++    font-size: var(--font-size-ui);
++    font-family: var(--font-family-ui);
+     font-weight: 500;
+-    font-family: inherit;
+     cursor: pointer;
+-    /* Use transform instead of margin for active state (Req 18.1) */
+-    transition: background-color 150ms ease, transform 50ms ease, opacity 150ms ease;
+-    white-space: nowrap;
+-    /* GPU acceleration (Req 18.1) */
+-    transform: translateZ(0);
++    transition: background-color 100ms ease;
+ }
+ 
+-.btn:active {
+-    /* Use translateY instead of margin (Req 18.1) */
+-    transform: translateY(1px) translateZ(0);
++.btn:hover:not(:disabled) {
++    background-color: #005a9e;
+ }
+ 
+ .btn:disabled {
+     opacity: 0.5;
+     cursor: not-allowed;
+-    transform: translateZ(0);
+-}
+-
+-.btn-large {
+-    padding: 0.75rem 1.5rem;
+-    font-size: 1rem;
+-}
+-
+-.btn-icon {
+-    flex-shrink: 0;
+-}
+-
+-.btn-primary {
+-    background-color: var(--primary);
+-    color: #ffffff;
+-}
+-
+-.btn-primary:hover:not(:disabled) {
+-    background-color: var(--primary-hover);
+ }
+ 
+ .btn-secondary {
+-    background-color: var(--secondary);
+-    color: var(--text-primary);
++    background-color: transparent;
++    color: var(--text);
++    border: 1px solid var(--border);
+ }
+ 
+ .btn-secondary:hover:not(:disabled) {
+-    background-color: var(--secondary-hover);
+-}
+-
+-.btn-success {
+-    background-color: var(--success);
+-    color: #ffffff;
++    border-color: var(--accent);
+ }
+ 
+-.btn-success:hover:not(:disabled) {
+-    background-color: var(--success-hover);
++.btn-sm {
++    height: 24px;
++    padding: 2px 10px;
++    font-size: 12px;
+ }
+ 
+-.btn-danger {
+-    background-color: var(--error);
+-    color: #ffffff;
+-}
+-
+-.btn-danger:hover:not(:disabled) {
+-    background-color: var(--error-hover);
+-}
+-
+-.icon-button {
+-    display: inline-flex;
++.icon-btn {
++    width: 28px;
++    height: 28px;
++    padding: 0;
++    display: flex;
+     align-items: center;
+     justify-content: center;
+-    width: 36px;
+-    height: 36px;
+-    padding: 0;
+-    background-color: transparent;
++    background: transparent;
+     border: none;
+-    border-radius: 6px;
+-    color: var(--text-secondary);
++    color: var(--text-muted);
+     cursor: pointer;
+-    transition: background-color 150ms ease, color 150ms ease;
++    transition: background-color 100ms ease, color 100ms ease;
+ }
+ 
+-.icon-button:hover {
++.icon-btn:hover {
+     background-color: var(--hover-bg);
+-    color: var(--text-primary);
++    color: var(--text);
+ }
+ 
+-.icon-button.active {
+-    background-color: var(--primary-alpha);
+-    color: var(--primary);
+-}
++/* ==================== Scrollbar ==================== */
+ 
+-.icon {
+-    color: currentColor;
++::-webkit-scrollbar {
++    width: 10px;
++    height: 10px;
+ }
+ 
+-/* ==================== Footer ==================== */
+-
+-.app-footer {
+-    grid-area: footer;
+-    display: flex;
+-    justify-content: space-between;
+-    align-items: center;
+-    padding: 0.5rem 1rem;
+-    background-color: var(--surface);
+-    border-top: 1px solid var(--border);
+-    font-size: 0.75rem;
+-    color: var(--text-secondary);
++::-webkit-scrollbar-track {
++    background: var(--background);
+ }
+ 
+-/* ==================== Utility Classes ==================== */
++::-webkit-scrollbar-thumb {
++    background: var(--border);
++}
+ 
+-.hidden {
+-    display: none !important;
++::-webkit-scrollbar-thumb:hover {
++    background: var(--text-muted);
+ }
+ 
+-.visually-hidden {
++/* ==================== Accessibility ==================== */
++
++.sr-only {
+     position: absolute;
+     width: 1px;
+     height: 1px;
+@@ -915,313 +738,121 @@ code, pre {
+     border-width: 0;
+ }
+ 
+-/* ==================== Scrollbar Styles ==================== */
+-
+-::-webkit-scrollbar {
+-    width: 12px;
+-    height: 12px;
+-}
+-
+-::-webkit-scrollbar-track {
+-    background: var(--background);
+-}
+-
+-::-webkit-scrollbar-thumb {
+-    background: var(--border);
+-    border-radius: 6px;
+-    border: 2px solid var(--background);
+-}
+-
+-::-webkit-scrollbar-thumb:hover {
+-    background: var(--text-secondary);
+-}
+-
+-/* ==================== Responsive Breakpoints ==================== */
+-
+-/* Breakpoint: 800px - Small screens */
+-@media (max-width: 800px) {
+-    .app-title {
+-        font-size: 1rem;
+-        display: none; /* Hide on very small screens */
+-    }
+-    
+-    .nav-tab {
+-        padding: 0.75rem 1rem;
+-        font-size: 0.8125rem;
+-    }
+-    
+-    .nav-tab span {
+-        display: none;
+-    }
+-    
+-    .view-container {
+-        padding: 1rem;
+-    }
+-    
+-    #view-task {
+-        gap: 1rem;
+-    }
+-    
+-    #view-history.with-detail {
+-        grid-template-columns: 1fr;
+-        grid-template-rows: 1fr 1fr;
+-    }
+-    
+-    .filter-controls {
+-        flex-direction: column;
+-    }
+-    
+-    .panel-header {
+-        flex-direction: column;
+-        align-items: flex-start;
+-        gap: 0.5rem;
+-    }
+-    
+-    .panel-actions {
+-        width: 100%;
+-        justify-content: flex-end;
+-    }
+-}
+-
+-/* Breakpoint: 1000px - Medium screens */
+-@media (min-width: 800px) and (max-width: 1000px) {
+-    .app-title {
+-        font-size: 1.125rem;
+-    }
+-}
+-
+-/* Breakpoint: 1400px - Large screens */
+-@media (min-width: 1400px) {
+-    .app-container {
+-        max-width: 1920px;
+-        margin: 0 auto;
+-    }
+-    
+-    .view-container {
+-        padding: 2rem;
+-    }
+-    
+-    #view-task {
+-        gap: 2rem;
+-    }
++.skip-link {
++    position: absolute;
++    top: -40px;
++    left: 0;
++    background: var(--accent);
++    color: #ffffff;
++    padding: 8px;
++    text-decoration: none;
++    z-index: 100;
+ }
+ 
+-/* ==================== Print Styles ==================== */
+-
+-@media print {
+-    .app-header,
+-    .app-navigation,
+-    .app-footer,
+-    .panel-actions,
+-    .task-actions {
+-        display: none;
+-    }
+-    
+-    .view-container {
+-        position: static;
+-        overflow: visible;
+-    }
+-    
+-    .panel {
+-        border: 1px solid #000;
+-        break-inside: avoid;
+-    }
++.skip-link:focus {
++    top: 0;
+ }
+ 
+-/* ==================== Platform-Specific Styles ==================== */
+-
+-/**
+- * macOS-specific styles
+- * On macOS, the system menu bar is used, so hide any redundant in-window menu elements
+- * Requirements: 17.2
+- */
+-.platform-mac .app-header {
+-    /* On macOS, you might want to adjust header padding for native menu bar */
+-    /* Currently keeping header as-is since we don't have a native menu bar implementation */
++:focus-visible {
++    outline: 2px solid var(--accent);
++    outline-offset: 2px;
+ }
+ 
+-/* Hide any explicit "File Edit View" menu bar on macOS if it exists */
+-.platform-mac .window-menu-bar {
+-    display: none;
+-}
++/* ==================== Transitions ==================== */
+ 
+-/**
+- * Windows-specific styles
+- * Requirements: 17.2
+- */
+-.platform-windows {
+-    /* Windows-specific adjustments can go here */
++.resizing {
++    cursor: col-resize;
++    user-select: none;
+ }
+ 
+-/**
+- * Linux-specific styles
+- * Requirements: 17.2
+- */
+-.platform-linux {
+-    /* Linux-specific adjustments can go here */
++.resizing * {
++    cursor: col-resize !important;
++    user-select: none !important;
+ }
+ 
+-/* ==================== Focus Visible (Accessibility) ==================== */
+-
+-:focus-visible {
+-    outline: 2px solid var(--primary);
+-    outline-offset: 2px;
+-}
++/* ==================== Utility ==================== */
+ 
+-button:focus-visible,
+-input:focus-visible,
+-select:focus-visible,
+-textarea:focus-visible {
+-    outline: 2px solid var(--primary);
+-    outline-offset: 2px;
++.hidden {
++    display: none !important;
+ }
+ 
+-/* ==================== Animations ==================== */
+-
+-/* GPU-accelerated animations for better performance (Req 18.1) */
+-
+-@keyframes fadeIn {
+-    from {
+-        opacity: 0;
+-        transform: translateZ(0);
+-    }
+-    to {
+-        opacity: 1;
+-        transform: translateZ(0);
+-    }
+-}
++/* ==================== Modal/Dialog Overrides ==================== */
+ 
+-@keyframes slideIn {
+-    from {
+-        transform: translateY(-10px) translateZ(0);
+-        opacity: 0;
+-    }
+-    to {
+-        transform: translateY(0) translateZ(0);
+-        opacity: 1;
+-    }
+-}
+-
+-/* Pulse animation for running status indicator */
+-@keyframes pulse {
+-    0%, 100% {
+-        opacity: 1;
+-    }
+-    50% {
+-        opacity: 0.5;
+-    }
++.modal {
++    position: fixed;
++    top: 0;
++    left: 0;
++    width: 100%;
++    height: 100%;
++    background-color: rgba(0, 0, 0, 0.7);
++    display: flex;
++    align-items: center;
++    justify-content: center;
++    z-index: 1000;
+ }
+ 
+-/* Check mark fade-in animation for task completion */
+-@keyframes checkmarkFadeIn {
+-    0% {
+-        opacity: 0;
+-        transform: scale(0.5) translateZ(0);
+-    }
+-    50% {
+-        transform: scale(1.1) translateZ(0);
+-    }
+-    100% {
+-        opacity: 1;
+-        transform: scale(1) translateZ(0);
+-    }
++.modal-dialog {
++    background-color: var(--sidebar-bg);
++    border: 1px solid var(--border);
++    max-width: 600px;
++    width: 90%;
++    max-height: 90vh;
++    overflow: auto;
+ }
+ 
+-.view-container.active {
+-    animation: fadeIn 200ms ease-in-out;
+-    /* Use GPU acceleration for smooth transitions (Req 18.1) */
+-    will-change: opacity;
+-    transform: translateZ(0);
++.modal-header {
++    padding: 16px;
++    border-bottom: 1px solid var(--border);
+ }
+ 
+-.progress-message {
+-    animation: slideIn 150ms ease-out;
+-    /* Use GPU acceleration for message animations (Req 18.1) */
+-    will-change: transform, opacity;
+-    transform: translateZ(0);
++.modal-title {
++    font-size: 16px;
++    font-weight: 600;
++    color: var(--text);
+ }
+ 
+-/* ==================== Theme Toggle Animation ==================== */
+-
+-.theme-transitioning,
+-.theme-transitioning * {
+-    transition: background-color 300ms ease, color 300ms ease, border-color 300ms ease !important;
++.modal-body {
++    padding: 16px;
+ }
+ 
+-
+-/* ==================== Animations ==================== */
+-
+-@keyframes slideIn {
+-    from {
+-        transform: translateX(100%);
+-        opacity: 0;
+-    }
+-    to {
+-        transform: translateX(0);
+-        opacity: 1;
+-    }
++.modal-footer {
++    padding: 16px;
++    border-top: 1px solid var(--border);
++    display: flex;
++    justify-content: flex-end;
++    gap: 8px;
+ }
+ 
+-@keyframes slideOut {
+-    from {
+-        transform: translateX(0);
+-        opacity: 1;
+-    }
+-    to {
+-        transform: translateX(100%);
+-        opacity: 0;
+-    }
+-}
++/* ==================== Loading Spinner ==================== */
+ 
+-@keyframes fadeIn {
+-    from {
+-        opacity: 0;
+-    }
+-    to {
+-        opacity: 1;
+-    }
+-}
+-
+-@keyframes fadeOut {
+-    from {
+-        opacity: 1;
+-    }
+-    to {
+-        opacity: 0;
+-    }
+-}
+-
+-/* ==================== Notification Styles ==================== */
+-
+-.notification {
++.loading-overlay {
+     position: fixed;
+-    top: 20px;
+-    right: 20px;
+-    padding: 12px 24px;
+-    border-radius: 6px;
+-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+-    z-index: 10000;
+-    font-size: var(--font-size-base);
+-    font-weight: 500;
+-    animation: slideIn 0.3s ease-out;
+-}
+-
+-.notification.success {
+-    background-color: var(--color-success);
+-    color: white;
++    top: 0;
++    left: 0;
++    width: 100%;
++    height: 100%;
++    background-color: rgba(0, 0, 0, 0.7);
++    display: flex;
++    flex-direction: column;
++    align-items: center;
++    justify-content: center;
++    z-index: 2000;
+ }
+ 
+-.notification.error {
+-    background-color: var(--color-error);
+-    color: white;
++.spinner {
++    width: 40px;
++    height: 40px;
++    border: 4px solid var(--border);
++    border-top-color: var(--accent);
++    border-radius: 50%;
++    animation: spin 1s linear infinite;
+ }
+ 
+-.notification.info {
+-    background-color: var(--color-info);
+-    color: white;
++@keyframes spin {
++    to { transform: rotate(360deg); }
+ }
+ 
+-.notification.warning {
+-    background-color: var(--color-warning);
+-    color: white;
++.loading-text {
++    margin-top: 16px;
++    color: var(--text);
+ }
+diff --git a/src/web/css/themes/dark.css b/src/web/css/themes/dark.css
+index 3195df2..d6c34a0 100644
+--- a/src/web/css/themes/dark.css
++++ b/src/web/css/themes/dark.css
+@@ -1,272 +1,46 @@
+ /**
+- * Dark Theme - Local AI Development Environment
+- * Color variables for dark mode
++ * VS Code Dark+ Theme
++ * Color variables matching VS Code exactly
+  */
+ 
+-:root[data-theme="dark"],
++:root,
+ body[data-theme="dark"] {
+-    /* ==================== Primary Colors ==================== */
+-    --primary: #3b82f6;           /* Blue 500 - Main actions, links */
+-    --primary-hover: #2563eb;     /* Blue 600 - Primary hover state */
+-    --primary-alpha: rgba(59, 130, 246, 0.15); /* Primary with transparency */
+-    
+-    --success: #10b981;           /* Green 500 - Success states */
+-    --success-hover: #059669;     /* Green 600 - Success hover */
+-    --success-alpha: rgba(16, 185, 129, 0.15); /* Success with transparency */
+-    
+-    --warning: #f59e0b;           /* Amber 500 - Warnings */
+-    --warning-hover: #d97706;     /* Amber 600 - Warning hover */
+-    --warning-alpha: rgba(245, 158, 11, 0.15); /* Warning with transparency */
+-    
+-    --error: #ef4444;             /* Red 500 - Errors */
+-    --error-hover: #dc2626;       /* Red 600 - Error hover */
+-    --error-alpha: rgba(239, 68, 68, 0.15); /* Error with transparency */
+-    
+-    --info: #60a5fa;              /* Blue 400 - Informational */
+-    --info-hover: #3b82f6;        /* Blue 500 - Info hover */
+-    --info-alpha: rgba(96, 165, 250, 0.15); /* Info with transparency */
+-    
+-    /* ==================== Neutral Colors ==================== */
+-    --background: #111827;        /* Gray 900 - Main background */
+-    --surface: #1f2937;           /* Gray 800 - Cards, panels */
+-    --border: #374151;            /* Gray 700 - Borders */
+-    
+-    --text-primary: #f9fafb;      /* Gray 50 - Primary text */
+-    --text-secondary: #9ca3af;    /* Gray 400 - Secondary text */
+-    --text-disabled: #6b7280;     /* Gray 500 - Disabled text */
+-    
+-    /* ==================== Component Colors ==================== */
+-    --input-bg: #1f2937;          /* Gray 800 - Input background */
+-    --input-border: #4b5563;      /* Gray 600 - Input borders */
+-    --input-border-focus: #3b82f6; /* Primary - Focused input border */
+-    
+-    --code-bg: #0f172a;           /* Slate 900 - Code block background */
+-    
+-    --hover-bg: #374151;          /* Gray 700 - Hover backgrounds */
+-    --active-bg: #4b5563;         /* Gray 600 - Active/pressed states */
+-    
+-    --secondary: #374151;         /* Gray 700 - Secondary button background */
+-    --secondary-hover: #4b5563;   /* Gray 600 - Secondary button hover */
+-    
+-    --shadow: rgba(0, 0, 0, 0.3); /* Box shadow color */
+-    --shadow-md: rgba(0, 0, 0, 0.4); /* Medium shadow */
+-    --shadow-lg: rgba(0, 0, 0, 0.5);  /* Large shadow */
+-    
+-    /* ==================== Status Colors ==================== */
+-    --status-success: #10b981;    /* Green 500 */
+-    --status-warning: #f59e0b;    /* Amber 500 */
+-    --status-error: #ef4444;      /* Red 500 */
+-    --status-info: #60a5fa;       /* Blue 400 */
+-    
+-    /* ==================== Semantic Colors ==================== */
+-    --link: #60a5fa;              /* Blue 400 - Links */
+-    --link-hover: #3b82f6;        /* Blue 500 - Link hover */
+-    --link-visited: #a78bfa;      /* Purple 400 - Visited links */
+-    
+-    /* ==================== Special Purpose ==================== */
+-    --divider: #374151;           /* Gray 700 - Dividers */
+-    --overlay: rgba(0, 0, 0, 0.7); /* Modal/dialog overlay */
+-    
+-    --scrollbar-track: #1f2937;   /* Gray 800 */
+-    --scrollbar-thumb: #4b5563;   /* Gray 600 */
+-    --scrollbar-thumb-hover: #6b7280; /* Gray 500 */
++    /* VS Code Dark+ Color Scheme - Exact hex values */
++    --background: #1e1e1e;          /* Main editor background */
++    --sidebar-bg: #252526;          /* Sidebar background */
++    --activitybar-bg: #333333;      /* Activity bar (left edge) */
++    --titlebar-bg: #323233;         /* Title bar */
++    --statusbar-bg: #007ACC;        /* Status bar (blue) */
++    --input-bg: #3c3c3c;            /* Input fields */
++    --border: #454545;              /* Borders */
++    --text: #cccccc;                /* Main text */
++    --text-muted: #858585;          /* Secondary text */
++    --accent: #007ACC;              /* Focus/active (blue) */
++    --success: #89d185;             /* Success (green) */
++    --error: #f48771;               /* Error (red) */
++    --warning: #cca700;             /* Warning (yellow) */
++    --hover-bg: #2a2a2b;            /* Hover background */
++    --active-bg: #37373d;           /* Active background */
++    
++    /* Typography */
++    --font-family-ui: 'Segoe UI', system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
++    --font-family-mono: 'Consolas', 'Monaco', 'Courier New', monospace;
++    --font-size-ui: 13px;
++    --font-size-editor: 14px;
++    --font-size-status: 12px;
+ }
+ 
+-/* ==================== Dark Theme Specific Overrides ==================== */
+-
+ body[data-theme="dark"] {
+     color-scheme: dark;
+ }
+ 
+-/* Ensure proper contrast for dark theme */
+-body[data-theme="dark"] .progress-output {
+-    background-color: #0f172a;
+-    color: #f9fafb;
+-}
+-
+-body[data-theme="dark"] code,
+-body[data-theme="dark"] pre {
+-    background-color: #0f172a;
+-    color: #f9fafb;
+-}
+-
+-/* Dark theme selection colors */
++/* Selection colors */
+ body[data-theme="dark"] ::selection {
+-    background-color: #1e3a8a; /* Blue 900 */
+-    color: #bfdbfe; /* Blue 200 */
++    background-color: #264f78;
++    color: #ffffff;
+ }
+ 
+ body[data-theme="dark"] ::-moz-selection {
+-    background-color: #1e3a8a;
+-    color: #bfdbfe;
+-}
+-
+-/* Dark theme focus ring */
+-body[data-theme="dark"] :focus-visible {
+-    outline-color: #3b82f6;
+-}
+-
+-/* Dark theme scrollbar */
+-body[data-theme="dark"] ::-webkit-scrollbar-track {
+-    background: #1f2937;
+-}
+-
+-body[data-theme="dark"] ::-webkit-scrollbar-thumb {
+-    background: #4b5563;
+-    border-color: #111827;
+-}
+-
+-body[data-theme="dark"] ::-webkit-scrollbar-thumb:hover {
+-    background: #6b7280;
+-}
+-
+-/* Dark theme specific adjustments for better readability */
+-body[data-theme="dark"] .panel {
+-    background-color: #1f2937;
+-    border-color: #374151;
+-}
+-
+-body[data-theme="dark"] .panel-header {
+-    background-color: #1f2937;
+-    border-color: #374151;
+-}
+-
+-body[data-theme="dark"] .history-entry {
+-    background-color: #111827;
+-    border-color: #374151;
+-}
+-
+-body[data-theme="dark"] .history-entry:hover {
+-    border-color: #3b82f6;
+-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+-}
+-
+-body[data-theme="dark"] .settings-section {
+-    border-color: #374151;
+-}
+-
+-/* Improve input visibility in dark mode */
+-body[data-theme="dark"] .task-input,
+-body[data-theme="dark"] .form-input,
+-body[data-theme="dark"] .form-select,
+-body[data-theme="dark"] .search-input,
+-body[data-theme="dark"] .filter-select {
+-    background-color: #1f2937;
+-    border-color: #4b5563;
+-    color: #f9fafb;
+-}
+-
+-body[data-theme="dark"] .task-input::placeholder,
+-body[data-theme="dark"] .form-input::placeholder,
+-body[data-theme="dark"] .search-input::placeholder {
+-    color: #6b7280;
+-}
+-
+-/* Adjust button colors for dark theme */
+-body[data-theme="dark"] .btn-secondary {
+-    background-color: #374151;
+-    color: #f9fafb;
+-}
+-
+-body[data-theme="dark"] .btn-secondary:hover:not(:disabled) {
+-    background-color: #4b5563;
+-}
+-
+-/* Dark theme app header */
+-body[data-theme="dark"] .app-header {
+-    background-color: #1f2937;
+-    border-bottom-color: #374151;
+-}
+-
+-body[data-theme="dark"] .app-navigation {
+-    background-color: #1f2937;
+-    border-bottom-color: #374151;
+-}
+-
+-/* Dark theme navigation tabs */
+-body[data-theme="dark"] .nav-tab {
+-    color: #9ca3af;
+-}
+-
+-body[data-theme="dark"] .nav-tab:hover {
+-    color: #f9fafb;
+-    background-color: #374151;
+-}
+-
+-body[data-theme="dark"] .nav-tab.active {
+-    color: #60a5fa;
+-    border-bottom-color: #60a5fa;
+-}
+-
+-/* Dark theme footer */
+-body[data-theme="dark"] .app-footer {
+-    background-color: #1f2937;
+-    border-top-color: #374151;
+-    color: #9ca3af;
+-}
+-
+-/* Dark theme icon buttons */
+-body[data-theme="dark"] .icon-button {
+-    color: #9ca3af;
+-}
+-
+-body[data-theme="dark"] .icon-button:hover {
+-    background-color: #374151;
+-    color: #f9fafb;
+-}
+-
+-body[data-theme="dark"] .icon-button.active {
+-    background-color: rgba(59, 130, 246, 0.15);
+-    color: #60a5fa;
+-}
+-
+-/* Dark theme empty state */
+-body[data-theme="dark"] .empty-state {
+-    color: #9ca3af;
+-}
+-
+-body[data-theme="dark"] .empty-icon {
+-    color: #6b7280;
+-}
+-
+-/* Dark theme progress messages - enhanced visibility */
+-body[data-theme="dark"] .progress-message.info {
+-    background-color: rgba(59, 130, 246, 0.1);
+-    border-left-color: #60a5fa;
+-}
+-
+-body[data-theme="dark"] .progress-message.success {
+-    background-color: rgba(16, 185, 129, 0.1);
+-    border-left-color: #10b981;
+-}
+-
+-body[data-theme="dark"] .progress-message.warning {
+-    background-color: rgba(245, 158, 11, 0.1);
+-    border-left-color: #f59e0b;
+-}
+-
+-body[data-theme="dark"] .progress-message.error {
+-    background-color: rgba(239, 68, 68, 0.1);
+-    border-left-color: #ef4444;
+-}
+-
+-/* Dark theme form range slider */
+-body[data-theme="dark"] .form-range {
+-    background: #4b5563;
+-}
+-
+-body[data-theme="dark"] .form-range::-webkit-slider-thumb {
+-    background: #3b82f6;
+-}
+-
+-body[data-theme="dark"] .form-range::-webkit-slider-thumb:hover {
+-    background: #60a5fa;
+-}
+-
+-body[data-theme="dark"] .form-range::-moz-range-thumb {
+-    background: #3b82f6;
+-}
+-
+-body[data-theme="dark"] .form-range::-moz-range-thumb:hover {
+-    background: #60a5fa;
++    background-color: #264f78;
++    color: #ffffff;
+ }
+diff --git a/src/web/index.html b/src/web/index.html
+index a2aaf16..d683347 100644
+--- a/src/web/index.html
++++ b/src/web/index.html
+@@ -12,8 +12,7 @@
+     
+     <!-- Stylesheets -->
+     <link rel="stylesheet" href="css/main.css">
+-    <link rel="stylesheet" href="css/themes/light.css" id="theme-light">
+-    <link rel="stylesheet" href="css/themes/dark.css" id="theme-dark" disabled>
++    <link rel="stylesheet" href="css/themes/dark.css" id="theme-dark">
+     <link rel="stylesheet" href="css/components/buttons.css">
+     <link rel="stylesheet" href="css/components/inputs.css">
+     <link rel="stylesheet" href="css/components/progress.css">
+@@ -22,730 +21,482 @@
+     <link rel="stylesheet" href="css/components/notifications.css">
+     <link rel="stylesheet" href="css/components/modal.css">
+ </head>
+-<body>
++<body data-theme="dark">
+     <!-- Screen reader announcements region -->
+     <div id="sr-announcements" class="sr-only" role="status" aria-live="polite" aria-atomic="true"></div>
+     
+     <!-- Skip to main content link for keyboard users -->
+     <a href="#main-content" class="skip-link">Skip to main content</a>
+     
+-    <!-- Main Application Container -->
+-    <div id="app" class="app-container">
++    <!-- VS Code Layout -->
++    <div class="vscode-layout">
+         
+-        <!-- Header with Navigation -->
+-        <header class="app-header" role="banner">
+-            <div class="header-content">
+-                <div class="app-branding">
+-                    <img src="assets/icon.svg" alt="Local AI Dev Logo" class="app-icon" width="32" height="32">
+-                    <h1 class="app-title">Local AI Dev</h1>
+-                </div>
+-                
+-                <!-- Navigation Tabs -->
+-                <nav class="nav-tabs" role="navigation" aria-label="Main navigation">
+-                    <button 
+-                        id="tab-task" 
+-                        class="nav-tab active" 
+-                        role="tab" 
+-                        aria-selected="true" 
+-                        aria-controls="view-task"
+-                        data-view="task">
+-                        <span class="tab-icon">Γû╢</span>
+-                        <span class="tab-label">Task</span>
+-                    </button>
+-                    <button 
+-                        id="tab-history" 
+-                        class="nav-tab" 
+-                        role="tab" 
+-                        aria-selected="false" 
+-                        aria-controls="view-history"
+-                        data-view="history">
+-                        <span class="tab-icon">≡ƒô£</span>
+-                        <span class="tab-label">History</span>
+-                    </button>
+-                    <button 
+-                        id="tab-settings" 
+-                        class="nav-tab" 
+-                        role="tab" 
+-                        aria-selected="false" 
+-                        aria-controls="view-settings"
+-                        data-view="settings">
+-                        <span class="tab-icon">ΓÜÖ</span>
+-                        <span class="tab-label">Settings</span>
+-                    </button>
+-                </nav>
+-                
+-                <!-- Theme Toggle -->
+-                <div class="header-actions">
+-                    <button 
+-                        id="theme-toggle" 
+-                        class="icon-button" 
+-                        aria-label="Toggle theme"
+-                        title="Toggle light/dark theme">
+-                        <span class="theme-icon">≡ƒîÖ</span>
+-                    </button>
++        <!-- Activity Bar (Left edge, 48px) -->
++        <aside class="activity-bar" role="navigation" aria-label="Activity bar">
++            <button 
++                class="activity-item active" 
++                data-view="task" 
++                title="Task"
++                aria-label="Task view"
++                aria-pressed="true">
++                <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
++                    <path d="M8 5v14l11-7z"/>
++                </svg>
++            </button>
++            <button 
++                class="activity-item" 
++                data-view="history" 
++                title="History"
++                aria-label="History view"
++                aria-pressed="false">
++                <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
++                    <path d="M13 3a9 9 0 0 0-9 9H1l3.89 3.89.07.14L9 12H6c0-3.87 3.13-7 7-7s7 3.13 7 7-3.13 7-7 7c-1.93 0-3.68-.79-4.94-2.06l-1.42 1.42A8.954 8.954 0 0 0 13 21a9 9 0 0 0 0-18zm-1 5v5l4.28 2.54.72-1.21-3.5-2.08V8H12z"/>
++                </svg>
++            </button>
++            <button 
++                class="activity-item" 
++                data-view="settings" 
++                title="Settings"
++                aria-label="Settings view"
++                aria-pressed="false">
++                <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
++                    <path d="M19.14,12.94c0.04-0.3,0.06-0.61,0.06-0.94c0-0.32-0.02-0.64-0.07-0.94l2.03-1.58c0.18-0.14,0.23-0.41,0.12-0.61 l-1.92-3.32c-0.12-0.22-0.37-0.29-0.59-0.22l-2.39,0.96c-0.5-0.38-1.03-0.7-1.62-0.94L14.4,2.81c-0.04-0.24-0.24-0.41-0.48-0.41 h-3.84c-0.24,0-0.43,0.17-0.47,0.41L9.25,5.35C8.66,5.59,8.12,5.92,7.63,6.29L5.24,5.33c-0.22-0.08-0.47,0-0.59,0.22L2.74,8.87 C2.62,9.08,2.66,9.34,2.86,9.48l2.03,1.58C4.84,11.36,4.8,11.69,4.8,12s0.02,0.64,0.07,0.94l-2.03,1.58 c-0.18,0.14-0.23,0.41-0.12,0.61l1.92,3.32c0.12,0.22,0.37,0.29,0.59,0.22l2.39-0.96c0.5,0.38,1.03,0.7,1.62,0.94l0.36,2.54 c0.05,0.24,0.24,0.41,0.48,0.41h3.84c0.24,0,0.44-0.17,0.47-0.41l0.36-2.54c0.59-0.24,1.13-0.56,1.62-0.94l2.39,0.96 c0.22,0.08,0.47,0,0.59-0.22l1.92-3.32c0.12-0.22,0.07-0.47-0.12-0.61L19.14,12.94z M12,15.6c-1.98,0-3.6-1.62-3.6-3.6 s1.62-3.6,3.6-3.6s3.6,1.62,3.6,3.6S13.98,15.6,12,15.6z"/>
++                </svg>
++            </button>
++        </aside>
++        
++        <!-- Sidebar (Resizable, ~300px) -->
++        <aside class="sidebar" id="sidebar" role="complementary">
++            <div class="sidebar-header">
++                <h2 class="sidebar-title" id="sidebar-title">TASK</h2>
++            </div>
++            <div class="sidebar-content" id="sidebar-content">
++                <!-- Sidebar content changes based on active activity item -->
++                <div class="sidebar-info">
++                    <p>Run AI-powered tasks to generate code, documentation, and more.</p>
+                 </div>
+             </div>
+-        </header>
++        </aside>
++        
++        <!-- Splitter -->
++        <div class="splitter" id="splitter" aria-hidden="true"></div>
+         
+-        <!-- Main Content Area -->
+-        <main id="main-content" class="app-main" role="main">
++        <!-- Editor Area (Main content) -->
++        <main class="editor-area" id="main-content" role="main">
++            
++            <!-- Editor Tabs -->
++            <div class="editor-tabs" role="tablist" aria-label="Editor tabs">
++                <div 
++                    class="editor-tab active" 
++                    data-view="task" 
++                    role="tab" 
++                    aria-selected="true" 
++                    aria-controls="panel-task">
++                    <span class="tab-label">Task</span>
++                    <button class="tab-close" aria-label="Close tab" style="display:none;">├ù</button>
++                </div>
++            </div>
+             
+-            <!-- Task View -->
+-            <section 
+-                id="view-task" 
+-                class="view-container active"
+-                data-view="task"
+-                role="tabpanel" 
+-                aria-labelledby="tab-task">
++            <!-- Editor Content -->
++            <div class="editor-content">
+                 
+-                <!-- Task Input Panel -->
+-                <div class="task-input-panel panel">
+-                    <div class="panel-header">
+-                        <h2 class="panel-title">Task Description</h2>
+-                        <span id="char-counter" class="char-counter" aria-live="polite">0 / 5000</span>
+-                    </div>
+-                    <div class="panel-content">
+-                        <textarea 
+-                            id="task-input" 
+-                            class="task-textarea" 
+-                            placeholder="Enter your task description here... For example: 'Create a Python function to calculate fibonacci numbers with tests'"
+-                            maxlength="5000"
+-                            rows="6"
+-                            aria-label="Task description input"
+-                            aria-describedby="char-counter"></textarea>
++                <!-- Task View -->
++                <div id="panel-task" class="editor-panel active" data-view="task" role="tabpanel">
++                    <div class="task-layout">
++                        <!-- Task Input Area -->
++                        <div class="task-input-area">
++                            <textarea 
++                                id="task-input" 
++                                class="task-textarea" 
++                                placeholder="Enter your task description here...
++
++For example:
++ΓÇó Create a Python function to calculate fibonacci numbers with tests
++ΓÇó Build a REST API endpoint for user authentication
++ΓÇó Write documentation for the authentication module"
++                                maxlength="5000"
++                                aria-label="Task description input"></textarea>
++                            
++                            <!-- Task Toolbar -->
++                            <div class="task-toolbar">
++                                <div class="toolbar-left">
++                                    <button 
++                                        id="btn-run" 
++                                        class="btn btn-primary" 
++                                        disabled
++                                        aria-label="Run task">
++                                        <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
++                                            <path d="M3 2v12l10-6z"/>
++                                        </svg>
++                                        <span>Run Task</span>
++                                    </button>
++                                    <button 
++                                        id="btn-stop" 
++                                        class="btn btn-secondary" 
++                                        disabled
++                                        aria-label="Stop task">
++                                        <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
++                                            <rect x="4" y="4" width="8" height="8"/>
++                                        </svg>
++                                        <span>Stop</span>
++                                    </button>
++                                    <span id="task-status-indicator" class="status-text" aria-live="polite">Idle</span>
++                                </div>
++                                <div class="toolbar-right">
++                                    <span id="char-counter" class="char-counter" aria-live="polite">0 / 5000</span>
++                                </div>
++                            </div>
++                        </div>
+                         
+-                        <div class="task-actions">
+-                            <div class="task-status">
+-                                <span id="task-status-indicator" class="status-badge status-idle" aria-live="polite">Idle</span>
++                        <!-- Horizontal Splitter -->
++                        <div class="h-splitter" id="h-splitter" aria-hidden="true"></div>
++                        
++                        <!-- Output Panel -->
++                        <div class="output-panel">
++                            <div class="output-header">
++                                <span class="output-title">OUTPUT</span>
++                                <div class="output-actions">
++                                    <button 
++                                        id="btn-copy-output" 
++                                        class="icon-btn" 
++                                        aria-label="Copy output"
++                                        title="Copy output">
++                                        <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
++                                            <path d="M4 2h7l3 3v8a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V3a1 1 0 0 1 1-1zm0 1v10h9V6h-3V3H4zm6 0v2h2l-2-2z"/>
++                                        </svg>
++                                    </button>
++                                    <button 
++                                        id="btn-clear-output" 
++                                        class="icon-btn" 
++                                        aria-label="Clear output"
++                                        title="Clear output">
++                                        <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
++                                            <path d="M6.5 1h3a.5.5 0 0 1 .5.5v1H6v-1a.5.5 0 0 1 .5-.5zM11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3A1.5 1.5 0 0 0 5 1.5v1H2.5a.5.5 0 0 0 0 1h.55l.5 11a2 2 0 0 0 2 1.95h5a2 2 0 0 0 2-1.95l.5-11h.55a.5.5 0 0 0 0-1H11z"/>
++                                        </svg>
++                                    </button>
++                                    <label class="auto-scroll-label">
++                                        <input type="checkbox" id="auto-scroll-toggle" checked>
++                                        <span>Auto-scroll</span>
++                                    </label>
++                                </div>
+                             </div>
+-                            <div class="task-buttons">
+-                                <button 
+-                                    id="btn-stop" 
+-                                    class="btn btn-danger btn-stop" 
+-                                    disabled
+-                                    aria-label="Stop running task">
+-                                    <span class="btn-icon">ΓÅ╣</span>
+-                                    <span class="btn-text">Stop</span>
+-                                </button>
+-                                <button 
+-                                    id="btn-run" 
+-                                    class="btn btn-primary btn-run" 
+-                                    disabled
+-                                    aria-label="Run task">
+-                                    <span class="btn-icon">Γû╢</span>
+-                                    <span class="btn-text">Run Task</span>
+-                                </button>
++                            <div 
++                                id="progress-output" 
++                                class="output-content" 
++                                role="log" 
++                                aria-live="polite" 
++                                aria-atomic="false">
++                                <div class="output-placeholder">
++                                    Output will appear here when you run a task...
++                                </div>
+                             </div>
+                         </div>
+                     </div>
+                 </div>
+                 
+-                <!-- Progress Display Panel -->
+-                <div class="progress-display-panel panel">
+-                    <div class="panel-header">
+-                        <h2 class="panel-title">Output</h2>
+-                        <div class="panel-actions">
+-                            <label class="toggle-label">
++                <!-- History View -->
++                <div id="panel-history" class="editor-panel" data-view="history" role="tabpanel" hidden>
++                    <div class="history-layout">
++                        <!-- History List -->
++                        <div class="history-list-pane">
++                            <div class="history-filters">
+                                 <input 
+-                                    type="checkbox" 
+-                                    id="auto-scroll-toggle" 
+-                                    checked
+-                                    aria-label="Auto-scroll output">
+-                                <span>Auto-scroll</span>
+-                            </label>
+-                            <button 
+-                                id="btn-copy-output" 
+-                                class="icon-button" 
+-                                aria-label="Copy output to clipboard"
+-                                title="Copy output">
+-                                <span>≡ƒôï</span>
+-                            </button>
+-                            <button 
+-                                id="btn-clear-output" 
+-                                class="icon-button" 
+-                                aria-label="Clear output"
+-                                title="Clear output">
+-                                <span>≡ƒùæ</span>
+-                            </button>
+-                        </div>
+-                    </div>
+-                    <div class="panel-content">
+-                        <div 
+-                            id="progress-output" 
+-                            class="progress-output" 
+-                            role="log" 
+-                            aria-live="polite" 
+-                            aria-atomic="false">
+-                            <div class="output-placeholder">
+-                                Output will appear here when you run a task...
++                                    type="text" 
++                                    id="history-search" 
++                                    class="search-input"
++                                    placeholder="Search history..."
++                                    aria-label="Search history">
++                                <select id="status-filter" class="filter-select" aria-label="Filter by status">
++                                    <option value="all">All Status</option>
++                                    <option value="success">Success</option>
++                                    <option value="failed">Failed</option>
++                                    <option value="cancelled">Cancelled</option>
++                                </select>
+                             </div>
+-                        </div>
+-                    </div>
+-                </div>
+-            </section>
+-            
+-            <!-- History View -->
+-            <section 
+-                id="view-history" 
+-                class="view-container"
+-                data-view="history"
+-                role="tabpanel" 
+-                aria-labelledby="tab-history"
+-                hidden>
+-                
+-                <div class="history-panel panel">
+-                    <div class="panel-header">
+-                        <h2 class="panel-title">Task History</h2>
+-                        <div class="panel-actions">
+-                            <button 
+-                                id="btn-export-history" 
+-                                class="btn btn-secondary btn-sm"
+-                                aria-label="Export history">
+-                                <span class="btn-icon">≡ƒÆ╛</span>
+-                                <span class="btn-text">Export</span>
+-                            </button>
+-                            <button 
+-                                id="btn-clear-history" 
+-                                class="btn btn-danger btn-sm"
+-                                aria-label="Clear all history">
+-                                <span class="btn-icon">≡ƒùæ</span>
+-                                <span class="btn-text">Clear All</span>
+-                            </button>
+-                        </div>
+-                    </div>
+-                    
+-                    <!-- History Filters -->
+-                    <div class="history-filters">
+-                        <div class="filter-group">
+-                            <label for="history-search" class="filter-label">Search:</label>
+-                            <input 
+-                                type="text" 
+-                                id="history-search" 
+-                                class="filter-input"
+-                                placeholder="Filter by task description..."
+-                                aria-label="Search history">
+-                        </div>
+-                        <div class="filter-group">
+-                            <label for="status-filter" class="filter-label">Status:</label>
+-                            <select id="status-filter" class="filter-select" aria-label="Filter by status">
+-                                <option value="all">All</option>
+-                                <option value="success">Success</option>
+-                                <option value="failed">Failed</option>
+-                                <option value="cancelled">Cancelled</option>
+-                            </select>
+-                        </div>
+-                        <div class="filter-group">
+-                            <label for="sort-order" class="filter-label">Sort:</label>
+-                            <select id="sort-order" class="filter-select" aria-label="Sort order">
+-                                <option value="newest">Newest First</option>
+-                                <option value="oldest">Oldest First</option>
+-                            </select>
+-                        </div>
+-                    </div>
+-                    
+-                    <!-- History List -->
+-                    <div class="panel-content">
+-                        <div 
+-                            id="history-list" 
+-                            class="history-list" 
+-                            role="list"
+-                            aria-label="Task history entries">
+-                            <div class="history-placeholder">
+-                                No history entries yet. Run a task to see it here.
++                            
++                            <div 
++                                id="history-list" 
++                                class="history-list" 
++                                role="list"
++                                aria-label="Task history entries">
++                                <div class="history-placeholder">
++                                    No history entries yet. Run a task to see it here.
++                                </div>
+                             </div>
+                         </div>
+-                    </div>
+-                    
+-                    <!-- History Entry Detail (Hidden by default) -->
+-                    <div id="history-detail" class="history-detail" hidden>
+-                        <div class="detail-header">
+-                            <h3 id="detail-title" class="detail-title"></h3>
+-                            <button 
+-                                id="btn-close-detail" 
+-                                class="icon-button"
+-                                aria-label="Close detail view">
+-                                <span>Γ£ò</span>
+-                            </button>
+-                        </div>
+-                        <div class="detail-content">
+-                            <div class="detail-meta">
+-                                <span id="detail-timestamp" class="detail-timestamp"></span>
+-                                <span id="detail-duration" class="detail-duration"></span>
+-                                <span id="detail-status" class="detail-status"></span>
+-                            </div>
+-                            <div class="detail-section">
+-                                <h4>Task Description:</h4>
+-                                <p id="detail-description" class="detail-description"></p>
+-                            </div>
+-                            <div class="detail-section">
+-                                <h4>Output:</h4>
+-                                <pre id="detail-output" class="detail-output"></pre>
+-                            </div>
+-                            <div class="detail-actions">
+-                                <button id="btn-rerun-task" class="btn btn-primary">
+-                                    <span class="btn-icon">Γû╢</span>
+-                                    <span class="btn-text">Re-run Task</span>
+-                                </button>
+-                                <button id="btn-delete-entry" class="btn btn-danger">
+-                                    <span class="btn-icon">≡ƒùæ</span>
+-                                    <span class="btn-text">Delete Entry</span>
+-                                </button>
++                        
++                        <!-- Vertical Splitter -->
++                        <div class="v-splitter" id="v-splitter" aria-hidden="true"></div>
++                        
++                        <!-- History Details -->
++                        <div class="history-details-pane" id="history-detail">
++                            <div class="details-placeholder">
++                                Select a history item to view details
+                             </div>
+                         </div>
+                     </div>
+                 </div>
+-            </section>
+-            
+-            <!-- Settings View -->
+-            <section 
+-                id="view-settings" 
+-                class="view-container"
+-                data-view="settings"
+-                role="tabpanel" 
+-                aria-labelledby="tab-settings"
+-                hidden>
+                 
+-                <div class="settings-panel panel">
+-                    <div class="panel-header">
+-                        <h2 class="panel-title">Settings</h2>
+-                        <div class="panel-actions">
+-                            <button 
+-                                id="btn-reset-settings" 
+-                                class="btn btn-secondary btn-sm"
+-                                aria-label="Reset to defaults">
+-                                <span class="btn-text">Reset to Defaults</span>
+-                            </button>
+-                            <button 
+-                                id="btn-save-settings" 
+-                                class="btn btn-primary btn-sm"
+-                                aria-label="Save settings">
+-                                <span class="btn-text">Save Settings</span>
+-                            </button>
+-                        </div>
+-                    </div>
+-                    
+-                    <div class="panel-content">
++                <!-- Settings View -->
++                <div id="panel-settings" class="editor-panel" data-view="settings" role="tabpanel" hidden>
++                    <div class="settings-container">
+                         <form id="settings-form" class="settings-form">
+                             
+-                            <!-- LLM Settings Section -->
+-                            <fieldset class="settings-section">
+-                                <legend class="section-title">LLM Settings</legend>
++                            <!-- LLM Settings -->
++                            <div class="settings-section">
++                                <h3 class="section-header">LLM Settings</h3>
+                                 
+-                                <div class="form-group">
+-                                    <label for="llm-endpoint" class="form-label">
+-                                        LLM Endpoint
+-                                        <span class="help-icon" title="URL of your local LLM server">Γä╣∩╕Å</span>
+-                                    </label>
+-                                    <input 
+-                                        type="url" 
+-                                        id="llm-endpoint" 
+-                                        name="llm.endpoint"
+-                                        class="form-input"
+-                                        placeholder="http://localhost:11434"
+-                                        aria-describedby="llm-endpoint-error">
+-                                    <span id="llm-endpoint-error" class="form-error" role="alert"></span>
++                                <div class="setting-item">
++                                    <label for="llm-endpoint" class="setting-label">LLM Endpoint</label>
++                                    <div class="setting-control">
++                                        <input 
++                                            type="url" 
++                                            id="llm-endpoint" 
++                                            name="llm.endpoint"
++                                            class="setting-input"
++                                            placeholder="http://localhost:11434">
++                                        <button 
++                                            type="button" 
++                                            id="btn-test-connection" 
++                                            class="btn btn-secondary btn-sm">
++                                            Test Connection
++                                        </button>
++                                    </div>
++                                    <div class="setting-description">URL of your local LLM server</div>
++                                    <span id="llm-endpoint-error" class="setting-error" role="alert"></span>
+                                 </div>
+                                 
+-                                <div class="form-group">
+-                                    <label for="llm-model" class="form-label">
+-                                        Model Name
+-                                        <span class="help-icon" title="Name of the LLM model to use">Γä╣∩╕Å</span>
+-                                    </label>
++                                <div class="setting-item">
++                                    <label for="llm-model" class="setting-label">Model Name</label>
+                                     <input 
+                                         type="text" 
+                                         id="llm-model" 
+                                         name="llm.model"
+-                                        class="form-input"
+-                                        placeholder="codellama:7b"
+-                                        aria-describedby="llm-model-error">
+-                                    <span id="llm-model-error" class="form-error" role="alert"></span>
++                                        class="setting-input"
++                                        placeholder="codellama:7b">
++                                    <div class="setting-description">Name of the LLM model to use</div>
+                                 </div>
+                                 
+-                                <div class="form-group">
+-                                    <label for="llm-temperature" class="form-label">
+-                                        Temperature
+-                                        <span class="help-icon" title="Controls randomness (0.0 = deterministic, 1.0 = creative)">Γä╣∩╕Å</span>
++                                <div class="setting-item">
++                                    <label for="llm-temperature" class="setting-label">
++                                        Temperature <span class="setting-value" id="llm-temperature-value">0.7</span>
+                                     </label>
+-                                    <div class="range-input-group">
+-                                        <input 
+-                                            type="range" 
+-                                            id="llm-temperature" 
+-                                            name="llm.temperature"
+-                                            class="form-range"
+-                                            min="0" 
+-                                            max="1" 
+-                                            step="0.1"
+-                                            value="0.7"
+-                                            aria-describedby="llm-temperature-value">
+-                                        <span id="llm-temperature-value" class="range-value">0.7</span>
+-                                    </div>
+-                                    <span id="llm-temperature-error" class="form-error" role="alert"></span>
++                                    <input 
++                                        type="range" 
++                                        id="llm-temperature" 
++                                        name="llm.temperature"
++                                        class="setting-range"
++                                        min="0" 
++                                        max="1" 
++                                        step="0.1"
++                                        value="0.7">
++                                    <div class="setting-description">Controls randomness (0.0 = deterministic, 1.0 = creative)</div>
+                                 </div>
+                                 
+-                                <div class="form-group">
+-                                    <label for="llm-max-tokens" class="form-label">
+-                                        Max Tokens
+-                                        <span class="help-icon" title="Maximum tokens per response">Γä╣∩╕Å</span>
+-                                    </label>
++                                <div class="setting-item">
++                                    <label for="llm-max-tokens" class="setting-label">Max Tokens</label>
+                                     <input 
+                                         type="number" 
+                                         id="llm-max-tokens" 
+                                         name="llm.max_tokens"
+-                                        class="form-input"
++                                        class="setting-input"
+                                         min="100"
+                                         max="32000"
+-                                        placeholder="4096"
+-                                        aria-describedby="llm-max-tokens-error">
+-                                    <span id="llm-max-tokens-error" class="form-error" role="alert"></span>
++                                        placeholder="4096">
++                                    <div class="setting-description">Maximum tokens per response</div>
+                                 </div>
+                                 
+-                                <div class="form-group">
+-                                    <label for="llm-backend" class="form-label">
+-                                        Backend Type
+-                                        <span class="help-icon" title="Type of LLM backend">Γä╣∩╕Å</span>
+-                                    </label>
++                                <div class="setting-item">
++                                    <label for="llm-backend" class="setting-label">Backend Type</label>
+                                     <select 
+                                         id="llm-backend" 
+                                         name="llm.backend"
+-                                        class="form-select"
+-                                        aria-describedby="llm-backend-error">
++                                        class="setting-select">
+                                         <option value="ollama">Ollama</option>
+                                         <option value="llamacpp">LlamaCpp</option>
+                                         <option value="openai-compatible">OpenAI Compatible</option>
+                                     </select>
+-                                    <span id="llm-backend-error" class="form-error" role="alert"></span>
++                                    <div class="setting-description">Type of LLM backend</div>
+                                 </div>
+-                            </fieldset>
++                            </div>
+                             
+-                            <!-- Project Settings Section -->
+-                            <fieldset class="settings-section">
+-                                <legend class="section-title">Project Settings</legend>
++                            <!-- Project Settings -->
++                            <div class="settings-section">
++                                <h3 class="section-header">Project Settings</h3>
+                                 
+-                                <div class="form-group">
+-                                    <label for="project-root" class="form-label">
+-                                        Project Root Directory
+-                                        <span class="help-icon" title="Root directory of your project">Γä╣∩╕Å</span>
+-                                    </label>
+-                                    <div class="path-input-group">
++                                <div class="setting-item">
++                                    <label for="project-root" class="setting-label">Project Root Directory</label>
++                                    <div class="setting-control">
+                                         <input 
+                                             type="text" 
+                                             id="project-root" 
+                                             name="project_root"
+-                                            class="form-input"
+-                                            placeholder="/path/to/project"
+-                                            aria-describedby="project-root-error">
++                                            class="setting-input"
++                                            placeholder="/path/to/project">
+                                         <button 
+                                             type="button" 
+                                             id="btn-browse-project" 
+-                                            class="btn btn-secondary btn-sm"
+-                                            aria-label="Browse for directory">
++                                            class="btn btn-secondary btn-sm">
+                                             Browse
+                                         </button>
+                                     </div>
+-                                    <span id="project-root-error" class="form-error" role="alert"></span>
++                                    <div class="setting-description">Root directory of your project</div>
+                                 </div>
+                                 
+-                                <div class="form-group">
+-                                    <label for="log-level" class="form-label">
+-                                        Log Level
+-                                        <span class="help-icon" title="Verbosity of logging">Γä╣∩╕Å</span>
+-                                    </label>
++                                <div class="setting-item">
++                                    <label for="log-level" class="setting-label">Log Level</label>
+                                     <select 
+                                         id="log-level" 
+                                         name="log_level"
+-                                        class="form-select"
+-                                        aria-describedby="log-level-error">
++                                        class="setting-select">
+                                         <option value="debug">Debug</option>
+                                         <option value="info">Info</option>
+                                         <option value="warning">Warning</option>
+                                         <option value="error">Error</option>
+                                     </select>
+-                                    <span id="log-level-error" class="form-error" role="alert"></span>
++                                    <div class="setting-description">Verbosity of logging</div>
+                                 </div>
+-                            </fieldset>
++                            </div>
+                             
+-                            <!-- Feature Flags Section -->
+-                            <fieldset class="settings-section">
+-                                <legend class="section-title">Feature Flags</legend>
++                            <!-- Feature Flags -->
++                            <div class="settings-section">
++                                <h3 class="section-header">Feature Flags</h3>
+                                 
+-                                <div class="form-group">
+-                                    <label class="checkbox-label">
++                                <div class="setting-item">
++                                    <label class="setting-checkbox">
+                                         <input 
+                                             type="checkbox" 
+                                             id="web-research-enabled" 
+-                                            name="features.web_research"
+-                                            class="form-checkbox">
++                                            name="features.web_research">
+                                         <span>Enable Web Research</span>
+-                                        <span class="help-icon" title="Allow AI to search the web for information">Γä╣∩╕Å</span>
+                                     </label>
++                                    <div class="setting-description">Allow AI to search the web for information</div>
+                                 </div>
+                                 
+-                                <div class="form-group">
+-                                    <label class="checkbox-label">
++                                <div class="setting-item">
++                                    <label class="setting-checkbox">
+                                         <input 
+                                             type="checkbox" 
+                                             id="self-improvement-enabled" 
+-                                            name="features.self_improvement"
+-                                            class="form-checkbox">
++                                            name="features.self_improvement">
+                                         <span>Enable Self-Improvement</span>
+-                                        <span class="help-icon" title="ΓÜá∩╕Å WARNING: Allows AI to modify its own code">Γä╣∩╕Å</span>
+                                     </label>
+-                                    <p class="form-help warning">
+-                                        ΓÜá∩╕Å Warning: This feature allows the AI to modify its own code. Use with caution.
+-                                    </p>
++                                    <div class="setting-description warning">ΓÜá∩╕Å Warning: Allows AI to modify its own code. Use with caution.</div>
+                                 </div>
+-                            </fieldset>
++                            </div>
+                             
+-                            <!-- GUI Settings Section -->
+-                            <fieldset class="settings-section">
+-                                <legend class="section-title">GUI Settings</legend>
++                            <!-- GUI Settings -->
++                            <div class="settings-section">
++                                <h3 class="section-header">GUI Settings</h3>
+                                 
+-                                <div class="form-group">
+-                                    <label for="gui-theme" class="form-label">
+-                                        Theme
+-                                    </label>
++                                <div class="setting-item">
++                                    <label for="gui-theme" class="setting-label">Theme</label>
+                                     <select 
+                                         id="gui-theme" 
+                                         name="gui.theme"
+-                                        class="form-select">
+-                                        <option value="light">Light</option>
++                                        class="setting-select">
+                                         <option value="dark">Dark</option>
++                                        <option value="light">Light</option>
+                                         <option value="auto">Auto (System)</option>
+                                     </select>
+                                 </div>
+                                 
+-                                <div class="form-group">
+-                                    <label class="checkbox-label">
++                                <div class="setting-item">
++                                    <label class="setting-checkbox">
+                                         <input 
+                                             type="checkbox" 
+                                             id="minimize-to-tray" 
+-                                            name="gui.minimize_to_tray"
+-                                            class="form-checkbox">
++                                            name="gui.minimize_to_tray">
+                                         <span>Minimize to System Tray</span>
+                                     </label>
+                                 </div>
+                                 
+-                                <div class="form-group">
+-                                    <label class="checkbox-label">
++                                <div class="setting-item">
++                                    <label class="setting-checkbox">
+                                         <input 
+                                             type="checkbox" 
+                                             id="auto-save-history" 
+                                             name="gui.auto_save_history"
+-                                            class="form-checkbox"
+                                             checked>
+                                         <span>Auto-save History</span>
+                                     </label>
+                                 </div>
+                                 
+-                                <div class="form-group">
+-                                    <label for="history-retention" class="form-label">
+-                                        History Retention (days)
+-                                        <span class="help-icon" title="Automatically delete history older than this many days">Γä╣∩╕Å</span>
+-                                    </label>
++                                <div class="setting-item">
++                                    <label for="history-retention" class="setting-label">History Retention (days)</label>
+                                     <input 
+                                         type="number" 
+                                         id="history-retention" 
+                                         name="gui.history_retention_days"
+-                                        class="form-input"
++                                        class="setting-input"
+                                         min="1"
+                                         max="365"
+-                                        value="90"
+-                                        aria-describedby="history-retention-error">
+-                                    <span id="history-retention-error" class="form-error" role="alert"></span>
++                                        value="90">
++                                    <div class="setting-description">Automatically delete history older than this many days</div>
+                                 </div>
+-                            </fieldset>
++                            </div>
+                             
+                         </form>
++                        
++                        <!-- Floating Action Buttons -->
++                        <div class="settings-actions">
++                            <button 
++                                id="btn-reset-settings" 
++                                class="btn btn-secondary"
++                                aria-label="Reset to defaults">
++                                Reset to Defaults
++                            </button>
++                            <button 
++                                id="btn-save-settings" 
++                                class="btn btn-primary"
++                                aria-label="Save settings">
++                                Save Settings
++                            </button>
++                        </div>
+                     </div>
+                 </div>
+-            </section>
+-            
++                
++            </div>
+         </main>
+         
+-        <!-- Footer -->
+-        <footer class="app-footer" role="contentinfo">
+-            <div class="footer-content">
+-                <span class="footer-text">Local AI Development Environment</span>
+-                <span class="footer-version" id="app-version">v1.0.0</span>
++        <!-- Status Bar (Bottom, 22px) -->
++        <footer class="status-bar" role="contentinfo">
++            <div class="status-bar-left">
++                <span class="status-item" id="llm-status">
++                    <svg width="12" height="12" viewBox="0 0 12 12" fill="currentColor">
++                        <circle cx="6" cy="6" r="5"/>
++                    </svg>
++                    <span>LLM: Disconnected</span>
++                </span>
++                <span class="status-divider">|</span>
++                <span class="status-item" id="task-status">Task: Idle</span>
++            </div>
++            <div class="status-bar-right">
++                <span class="status-item" id="app-version">v1.0.0</span>
+             </div>
+         </footer>
+         
+     </div>
+     
+-    <!-- Setup Wizard Dialog (First-Run Experience) -->
++    <!-- Setup Wizard Dialog (First-Run Experience) - Keeping original structure -->
+     <div id="setup-dialog" class="modal hidden" role="dialog" aria-modal="true" aria-labelledby="setup-dialog-title">
+         <div class="modal-dialog">
+-            <!-- Modal Header -->
+             <div class="modal-header">
+                 <h2 id="setup-dialog-title" class="modal-title">Welcome to Local AI Dev</h2>
+             </div>
+-            
+-            <!-- Modal Body -->
+             <div class="modal-body">
+-                <!-- Step 1: Welcome -->
++                <!-- Setup wizard steps remain the same as original -->
+                 <div id="setup-step-1" class="setup-step active">
+                     <div class="setup-welcome">
+                         <div class="setup-welcome-icon" aria-hidden="true">≡ƒÜÇ</div>
+                         <h2>Get Started</h2>
+-                        <p>
+-                            Welcome to Local AI Development Environment! This tool helps you build software 
+-                            using locally-hosted AI models.
+-                        </p>
+-                        <p>
+-                            Let's set up your development environment in a few quick steps.
+-                        </p>
+-                    </div>
+-                </div>
+-                
+-                <!-- Step 2: LLM Configuration -->
+-                <div id="setup-step-2" class="setup-step">
+-                    <div class="setup-field">
+-                        <label for="setup-llm-endpoint" class="setup-label setup-label-required">
+-                            LLM Endpoint URL
+-                        </label>
+-                        <input 
+-                            type="url" 
+-                            id="setup-llm-endpoint" 
+-                            class="setup-input"
+-                            placeholder="http://localhost:11434"
+-                            aria-describedby="setup-endpoint-help"
+-                            required>
+-                        <p id="setup-endpoint-help" class="setup-help">
+-                            Enter the URL of your local LLM server (Ollama, llama.cpp, etc.)
+-                        </p>
+-                        <div class="setup-input-group" style="margin-top: var(--spacing-md);">
+-                            <button 
+-                                type="button" 
+-                                id="setup-test-connection" 
+-                                class="btn btn-secondary"
+-                                aria-label="Test connection to LLM endpoint">
+-                                Test Connection
+-                            </button>
+-                        </div>
+-                        <div id="setup-endpoint-validation" class="setup-validation" hidden></div>
+-                    </div>
+-                    
+-                    <div class="setup-field">
+-                        <label for="setup-model-name" class="setup-label">
+-                            Model Name
+-                        </label>
+-                        <input 
+-                            type="text" 
+-                            id="setup-model-name" 
+-                            class="setup-input"
+-                            placeholder="codellama:7b"
+-                            aria-describedby="setup-model-help">
+-                        <p id="setup-model-help" class="setup-help">
+-                            Name of the AI model to use (e.g., codellama:7b, deepseek-coder:6.7b)
+-                        </p>
+-                    </div>
+-                    
+-                    <div class="setup-field">
+-                        <label for="setup-backend-type" class="setup-label">
+-                            Backend Type
+-                        </label>
+-                        <select id="setup-backend-type" class="setup-select" aria-describedby="setup-backend-help">
+-                            <option value="ollama">Ollama</option>
+-                            <option value="llamacpp">LlamaCpp</option>
+-                            <option value="openai-compatible">OpenAI Compatible</option>
+-                        </select>
+-                        <p id="setup-backend-help" class="setup-help">
+-                            Ollama typically runs on http://localhost:11434
+-                        </p>
+-                    </div>
+-                </div>
+-                
+-                <!-- Step 3: API Key (Optional) -->
+-                <div id="setup-step-3" class="setup-step">
+-                    <div class="setup-field">
+-                        <label for="setup-api-key" class="setup-label">
+-                            API Key (Optional)
+-                        </label>
+-                        <input 
+-                            type="password" 
+-                            id="setup-api-key" 
+-                            class="setup-input"
+-                            placeholder="Enter API key if required"
+-                            aria-describedby="setup-api-key-help">
+-                        <p id="setup-api-key-help" class="setup-help">
+-                            Some LLM servers require an API key for authentication. 
+-                            Leave blank if your server doesn't need one.
+-                        </p>
+-                    </div>
+-                    
+-                    <div class="setup-help" style="margin-top: var(--spacing-xl); padding: var(--spacing-md); background-color: var(--info-bg); border-radius: 6px;">
+-                        <strong>Note:</strong> API keys are encrypted and stored securely on your local machine.
+-                    </div>
+-                </div>
+-                
+-                <!-- Step 4: Working Directory -->
+-                <div id="setup-step-4" class="setup-step">
+-                    <div class="setup-field">
+-                        <label for="setup-project-root" class="setup-label setup-label-required">
+-                            Working Directory
+-                        </label>
+-                        <div class="setup-input-group">
+-                            <input 
+-                                type="text" 
+-                                id="setup-project-root" 
+-                                class="setup-input"
+-                                placeholder="/path/to/your/project"
+-                                aria-describedby="setup-directory-help"
+-                                required>
+-                            <button 
+-                                type="button" 
+-                                id="setup-browse-directory" 
+-                                class="btn btn-secondary"
+-                                aria-label="Browse for directory">
+-                                Browse
+-                            </button>
+-                        </div>
+-                        <p id="setup-directory-help" class="setup-help">
+-                            Select the root directory where the AI will work on your projects.
+-                        </p>
+-                        <div id="setup-directory-validation" class="setup-validation" hidden></div>
++                        <p>Welcome to Local AI Development Environment! This tool helps you build software using locally-hosted AI models.</p>
++                        <p>Let's set up your development environment in a few quick steps.</p>
+                     </div>
+-                    
+-                    <div class="setup-help" style="margin-top: var(--spacing-xl); padding: var(--spacing-md); background-color: var(--info-bg); border-radius: 6px;">
+-                        <strong>Tip:</strong> Choose a directory where you have write permissions. 
+-                        The AI will create and modify files in this directory based on your tasks.
+-                    </div>
+-                    
+-                    <div id="setup-finish-error" class="setup-validation" hidden></div>
+                 </div>
+             </div>
+-            
+-            <!-- Modal Footer -->
+             <div class="modal-footer">
+-                <div class="setup-progress" aria-label="Setup progress">
+-                    <span class="setup-progress-dot active" aria-label="Step 1"></span>
+-                    <span class="setup-progress-dot" aria-label="Step 2"></span>
+-                    <span class="setup-progress-dot" aria-label="Step 3"></span>
+-                    <span class="setup-progress-dot" aria-label="Step 4"></span>
+-                </div>
+-                
+-                <div class="modal-footer-actions">
+-                    <button 
+-                        id="setup-back-btn" 
+-                        class="btn btn-secondary" 
+-                        disabled
+-                        aria-label="Go back to previous step">
+-                        Back
+-                    </button>
+-                    <button 
+-                        id="setup-next-btn" 
+-                        class="btn btn-primary"
+-                        aria-label="Go to next step">
+-                        Next
+-                    </button>
+-                    <button 
+-                        id="setup-finish-btn" 
+-                        class="btn btn-primary" 
+-                        style="display: none;"
+-                        aria-label="Complete setup">
+-                        Finish
+-                    </button>
+-                </div>
++                <button id="setup-next-btn" class="btn btn-primary">Next</button>
+             </div>
+         </div>
+     </div>
+@@ -759,7 +510,7 @@
+     <!-- Eel Script (must be included before other scripts) -->
+     <script type="text/javascript" src="/eel.js"></script>
+     
+-    <!-- Utility Scripts (Load before main app) -->
++    <!-- Utility Scripts -->
+     <script src="js/utils/accessibility.js"></script>
+     <script src="js/utils/loading.js"></script>
+     <script src="js/platform.js"></script>
+@@ -767,7 +518,6 @@
+     <!-- Application Scripts -->
+     <script src="js/error_handler.js"></script>
+     <script src="js/help_system.js"></script>
+-
+     <script type="module" src="js/main.js"></script>
+     <script type="module" src="js/state.js"></script>
+     <script type="module" src="js/components/task_input.js"></script>
+diff --git a/src/web/js/main.js b/src/web/js/main.js
+index dcc460e..0bed0fb 100644
+--- a/src/web/js/main.js
++++ b/src/web/js/main.js
+@@ -1,18 +1,18 @@
+ /**
+- * Main Application Entry Point
++ * Main Application Entry Point - VS Code Style
+  * 
+- * Initializes the Desktop GUI Application:
+- * - Sets up Eel connection
+- * - Initializes view routing
+- * - Applies theme preferences
+- * - Restores window state
+- * - Coordinates all components
++ * Initializes the Desktop GUI Application with VS Code layout:
++ * - Activity bar + sidebar navigation
++ * - Resizable panels
++ * - View routing
++ * - Component initialization
+  */
+ 
+ // Global application object
+ const app = {
+     initialized: false,
+-    version: '1.0.0'
++    version: '1.0.0',
++    currentView: 'task'
+ };
+ 
+ /**
+@@ -46,22 +46,16 @@ function initializeComponents() {
+     }
+     
+     // Initialize Progress Display
+-    // Note: Progress Display initializes itself on creation as a singleton,
+-    // but we verify it's ready here
+     if (typeof progressDisplay !== 'undefined') {
+         console.log('Progress Display initialized');
+     }
+-    
+-    // TODO: Initialize other components as they are implemented
+-    // - History View
+-}
+ }
+ 
+ /**
+  * Initialize the application
+  */
+ async function initializeApp() {
+-    console.log('Initializing Desktop GUI Application...');
++    console.log('Initializing Desktop GUI Application with VS Code layout...');
+     
+     try {
+         // 1. Setup Eel connection
+@@ -72,25 +66,22 @@ async function initializeApp() {
+             await Platform.init();
+         }
+         
+-        // 3. Apply theme from state
+-        applyTheme();
++        // 3. Setup activity bar navigation
++        setupActivityBar();
+         
+-        // 4. Setup view routing
+-        setupViewRouting();
++        // 4. Setup resizable sidebar
++        setupSidebarResize();
+         
+-        // 5. Setup theme toggle
+-        setupThemeToggle();
++        // 5. Setup resizable panels
++        setupPanelResizers();
+         
+-        // 6. Setup window state tracking
+-        setupWindowStateTracking();
+-        
+-        // 7. Restore window size/position if available
+-        restoreWindowState();
++        // 6. Setup keyboard shortcuts
++        setupKeyboardShortcuts();
+         
+-        // 8. Initialize components
++        // 7. Initialize components
+         initializeComponents();
+         
+-        // 9. Check for first run and show setup wizard if needed
++        // 8. Check for first run and show setup wizard if needed
+         if (typeof window.setupWizard !== 'undefined') {
+             try {
+                 await window.setupWizard.show();
+@@ -99,12 +90,11 @@ async function initializeApp() {
+             }
+         }
+         
+-        // 10. Navigate to initial view
+-        navigateToView(stateManager.get('currentView'));
++        // 9. Navigate to initial view
++        navigateToView('task');
+         
+         // Mark as initialized
+         app.initialized = true;
+-        stateManager.set('eelConnected', true);
+         
+         console.log('Application initialized successfully');
+         
+@@ -126,47 +116,37 @@ function setupEelConnection() {
+     // Check if eel is available
+     if (typeof eel === 'undefined') {
+         console.warn('Eel is not available. Running in development mode without backend.');
+-        stateManager.set('eelConnected', false);
++        updateLLMStatus('Disconnected', false);
+         return;
+     }
+     
+     // Configure Eel
+     eel.set_host('ws://localhost:8080');
+     
+-    // Test connection by calling a simple backend function
+-    // This will be handled gracefully if backend is not ready
++    // Test connection
+     if (typeof eel.ping !== 'undefined') {
+         eel.ping()().then(response => {
+             console.log('Backend connection verified:', response);
+-            stateManager.set('eelConnected', true);
++            updateLLMStatus('Connected', true);
+         }).catch(error => {
+             console.warn('Backend not ready yet:', error);
+-            stateManager.set('eelConnected', false);
++            updateLLMStatus('Disconnected', false);
+         });
+     }
+ }
+ 
+ /**
+- * Setup view routing (tab switching)
++ * Setup activity bar navigation
+  */
+-function setupViewRouting() {
+-    console.log('Setting up view routing...');
++function setupActivityBar() {
++    const activityItems = document.querySelectorAll('.activity-item');
+     
+-    // Get all navigation tabs
+-    const navTabs = document.querySelectorAll('.nav-tab');
+-    
+-    navTabs.forEach(tab => {
+-        tab.addEventListener('click', (e) => {
+-            e.preventDefault();
+-            const viewName = tab.dataset.view;
+-            navigateToView(viewName);
++    activityItems.forEach(item => {
++        item.addEventListener('click', () => {
++            const view = item.dataset.view;
++            navigateToView(view);
+         });
+     });
+-    
+-    // Subscribe to view changes in state
+-    stateManager.subscribe('currentView', (newView) => {
+-        updateViewUI(newView);
+-    });
+ }
+ 
+ /**
+@@ -180,70 +160,42 @@ function navigateToView(viewName) {
+     }
+     
+     console.log(`Navigating to view: ${viewName}`);
++    app.currentView = viewName;
+     
+-    // Update state (this will trigger observers)
+-    stateManager.set('currentView', viewName, true);
+-}
+-
+-/**
+- * Update UI to reflect current view
+- * @param {string} viewName - The active view name
+- */
+-function updateViewUI(viewName) {
+-    // Get current active view
+-    const currentView = document.querySelector('.view-container.active');
+-    const nextView = document.querySelector(`.view-container[data-view="${viewName}"]`);
+-    
+-    if (!nextView) {
+-        console.warn(`View not found: ${viewName}`);
+-        return;
+-    }
+-    
+-    // Skip transition if already on this view
+-    if (currentView === nextView) {
+-        return;
+-    }
+-    
+-    // Smooth transition: fade out current view
+-    if (currentView) {
+-        currentView.classList.add('transitioning-out');
+-        
+-        setTimeout(() => {
+-            // Hide current view
+-            currentView.classList.remove('active', 'transitioning-out');
+-            currentView.setAttribute('hidden', '');
+-            
+-            // Show next view with fade-in animation
+-            nextView.removeAttribute('hidden');
+-            nextView.classList.add('transitioning-in');
+-            
+-            // Force reflow to ensure animation plays
+-            void nextView.offsetWidth;
+-            
+-            setTimeout(() => {
+-                nextView.classList.remove('transitioning-in');
+-                nextView.classList.add('active');
+-                nextView.focus();
+-            }, 10);
+-        }, 150); // Match CSS transition duration
+-    } else {
+-        // No current view, just show next view
+-        nextView.removeAttribute('hidden');
+-        nextView.classList.add('active');
+-        nextView.focus();
+-    }
++    // Update activity bar
++    document.querySelectorAll('.activity-item').forEach(item => {
++        const isActive = item.dataset.view === viewName;
++        item.classList.toggle('active', isActive);
++        item.setAttribute('aria-pressed', isActive.toString());
++    });
+     
+-    // Update navigation tabs
+-    document.querySelectorAll('.nav-tab').forEach(tab => {
++    // Update editor tabs
++    document.querySelectorAll('.editor-tab').forEach(tab => {
+         const isActive = tab.dataset.view === viewName;
+         tab.classList.toggle('active', isActive);
+         tab.setAttribute('aria-selected', isActive.toString());
+     });
+     
++    // Update editor panels
++    document.querySelectorAll('.editor-panel').forEach(panel => {
++        const isActive = panel.dataset.view === viewName;
++        if (isActive) {
++            panel.classList.add('active');
++            panel.removeAttribute('hidden');
++        } else {
++            panel.classList.remove('active');
++            panel.setAttribute('hidden', '');
++        }
++    });
++    
++    // Update sidebar title and content
++    updateSidebar(viewName);
++    
++    // Update status bar
++    updateTaskStatus('Idle');
++    
+     // Announce view change to screen readers
+-    if (typeof window.accessibility !== 'undefined' && window.accessibility.announceViewChange) {
+-        window.accessibility.announceViewChange(viewName);
+-    }
++    announceToScreenReader(`Switched to ${viewName} view`);
+     
+     // Dispatch view change event
+     window.dispatchEvent(new CustomEvent('view-changed', { 
+@@ -252,182 +204,206 @@ function updateViewUI(viewName) {
+ }
+ 
+ /**
+- * Apply theme from state
++ * Update sidebar based on active view
++ * @param {string} viewName - Current view name
+  */
+-function applyTheme() {
+-    const theme = stateManager.get('theme');
+-    console.log(`Applying theme: ${theme}`);
+-    
+-    const themeStylesheet = document.getElementById('theme-stylesheet');
+-    if (themeStylesheet) {
+-        themeStylesheet.href = `css/themes/${theme}.css`;
+-    }
++function updateSidebar(viewName) {
++    const sidebarTitle = document.getElementById('sidebar-title');
++    const sidebarContent = document.getElementById('sidebar-content');
++    
++    const sidebarConfig = {
++        task: {
++            title: 'TASK',
++            content: '<div class="sidebar-info"><p>Run AI-powered tasks to generate code, documentation, and more.</p></div>'
++        },
++        history: {
++            title: 'HISTORY',
++            content: '<div class="sidebar-info"><p>View and manage your task execution history.</p></div>'
++        },
++        settings: {
++            title: 'SETTINGS',
++            content: '<div class="sidebar-info"><p>Configure LLM connection, project settings, and preferences.</p></div>'
++        }
++    };
+     
+-    // Update body data attribute for CSS
+-    document.body.dataset.theme = theme;
++    const config = sidebarConfig[viewName] || sidebarConfig.task;
++    sidebarTitle.textContent = config.title;
++    sidebarContent.innerHTML = config.content;
+ }
+ 
+ /**
+- * Setup theme toggle button
++ * Setup resizable sidebar
+  */
+-function setupThemeToggle() {
+-    const themeToggle = document.getElementById('theme-toggle');
+-    
+-    if (themeToggle) {
+-        themeToggle.addEventListener('click', () => {
+-            toggleTheme();
+-        });
++function setupSidebarResize() {
++    const splitter = document.getElementById('splitter');
++    const sidebar = document.getElementById('sidebar');
++    let isResizing = false;
++    let startX = 0;
++    let startWidth = 0;
++    
++    // Restore saved width
++    const savedWidth = localStorage.getItem('vscode-sidebar-width');
++    if (savedWidth) {
++        sidebar.style.width = savedWidth + 'px';
+     }
+     
+-    // Subscribe to theme changes
+-    stateManager.subscribe('theme', (newTheme) => {
+-        applyTheme();
++    splitter.addEventListener('mousedown', (e) => {
++        isResizing = true;
++        startX = e.clientX;
++        startWidth = sidebar.offsetWidth;
++        document.body.classList.add('resizing');
++        e.preventDefault();
++    });
++    
++    document.addEventListener('mousemove', (e) => {
++        if (!isResizing) return;
++        
++        const delta = e.clientX - startX;
++        const newWidth = Math.max(200, Math.min(500, startWidth + delta));
++        sidebar.style.width = newWidth + 'px';
++    });
++    
++    document.addEventListener('mouseup', () => {
++        if (isResizing) {
++            isResizing = false;
++            document.body.classList.remove('resizing');
++            // Save width
++            localStorage.setItem('vscode-sidebar-width', sidebar.offsetWidth);
++        }
+     });
+ }
+ 
+ /**
+- * Toggle between light and dark theme
++ * Setup resizable panels (horizontal and vertical splitters)
+  */
+-function toggleTheme() {
+-    const currentTheme = stateManager.get('theme');
+-    const newTheme = currentTheme === 'light' ? 'dark' : 'light';
++function setupPanelResizers() {
++    // Horizontal splitter for Task view
++    const hSplitter = document.getElementById('h-splitter');
++    if (hSplitter) {
++        setupHorizontalResize(hSplitter);
++    }
+     
+-    console.log(`Toggling theme: ${currentTheme} -> ${newTheme}`);
+-    stateManager.set('theme', newTheme, true);
++    // Vertical splitter for History view
++    const vSplitter = document.getElementById('v-splitter');
++    if (vSplitter) {
++        setupVerticalResize(vSplitter);
++    }
+ }
+ 
+ /**
+- * Setup window state tracking
++ * Setup horizontal resizer
++ * @param {HTMLElement} splitter - Splitter element
+  */
+-function setupWindowStateTracking() {
+-    // Track window resize
+-    let resizeTimeout;
+-    window.addEventListener('resize', () => {
+-        clearTimeout(resizeTimeout);
+-        resizeTimeout = setTimeout(() => {
+-            const windowSize = {
+-                width: window.innerWidth,
+-                height: window.innerHeight
+-            };
+-            stateManager.set('windowSize', windowSize, true);
+-        }, 500); // Debounce resize events
++function setupHorizontalResize(splitter) {
++    const taskLayout = splitter.parentElement;
++    let isResizing = false;
++    let startY = 0;
++    
++    splitter.addEventListener('mousedown', (e) => {
++        isResizing = true;
++        startY = e.clientY;
++        document.body.classList.add('resizing');
++        e.preventDefault();
+     });
+     
+-    // Track window close
+-    window.addEventListener('beforeunload', () => {
+-        // Persist final state before closing
+-        const windowSize = {
+-            width: window.innerWidth,
+-            height: window.innerHeight
+-        };
+-        stateManager.set('windowSize', windowSize, true);
++    document.addEventListener('mousemove', (e) => {
++        if (!isResizing) return;
++        
++        const container = taskLayout;
++        const containerRect = container.getBoundingClientRect();
++        const percentage = ((e.clientY - containerRect.top) / containerRect.height) * 100;
++        const clampedPercentage = Math.max(20, Math.min(80, percentage));
++        
++        container.style.gridTemplateRows = `${clampedPercentage}% 1px 1fr`;
++    });
++    
++    document.addEventListener('mouseup', () => {
++        if (isResizing) {
++            isResizing = false;
++            document.body.classList.remove('resizing');
++        }
+     });
+ }
+ 
+ /**
+- * Restore window size/position from persisted state
++ * Setup vertical resizer
++ * @param {HTMLElement} splitter - Splitter element
+  */
+-function restoreWindowState() {
+-    const windowSize = stateManager.get('windowSize');
++function setupVerticalResize(splitter) {
++    const historyLayout = splitter.parentElement;
++    let isResizing = false;
++    let startX = 0;
++    
++    splitter.addEventListener('mousedown', (e) => {
++        isResizing = true;
++        startX = e.clientX;
++        document.body.classList.add('resizing');
++        e.preventDefault();
++    });
+     
+-    if (windowSize && windowSize.width && windowSize.height) {
+-        console.log('Restoring window size:', windowSize);
++    document.addEventListener('mousemove', (e) => {
++        if (!isResizing) return;
++        
++        const container = historyLayout;
++        const containerRect = container.getBoundingClientRect();
++        const percentage = ((e.clientX - containerRect.left) / containerRect.width) * 100;
++        const clampedPercentage = Math.max(20, Math.min(80, percentage));
+         
+-        // If running in Eel, try to resize window via backend
+-        if (typeof eel !== 'undefined' && typeof eel.resize_window !== 'undefined') {
+-            eel.resize_window(windowSize.width, windowSize.height)()
+-                .then(() => {
+-                    console.log('Window size restored');
+-                })
+-                .catch(error => {
+-                    console.warn('Could not resize window:', error);
+-                });
++        container.style.gridTemplateColumns = `${clampedPercentage}% 1px 1fr`;
++    });
++    
++    document.addEventListener('mouseup', () => {
++        if (isResizing) {
++            isResizing = false;
++            document.body.classList.remove('resizing');
+         }
+-    }
++    });
+ }
+ 
+ /**
+- * Show error message to user
+- * @param {string} title - Error title
+- * @param {string} message - Error message
++ * Update LLM connection status in status bar
++ * @param {string} status - Status text
++ * @param {boolean} connected - Connection state
+  */
+-function showError(title, message) {
+-    console.error(`${title}: ${message}`);
+-    showDialog(title, `<p class="error-message">${escapeHtml(message)}</p>`, 'error');
++function updateLLMStatus(status, connected) {
++    const llmStatus = document.getElementById('llm-status');
++    if (llmStatus) {
++        const icon = llmStatus.querySelector('svg circle');
++        if (icon) {
++            icon.style.fill = connected ? var(--success, '#89d185') : var(--error, '#f48771');
++        }
++        const text = llmStatus.querySelector('span:last-child');
++        if (text) {
++            text.textContent = `LLM: ${status}`;
++        }
++    }
+ }
+ 
+ /**
+- * Show a generic dialog
+- * @param {string} title - Dialog title
+- * @param {string} content - Dialog content (HTML)
+- * @param {string} type - Dialog type ('info', 'error', 'warning', 'success')
++ * Update task status in status bar
++ * @param {string} status - Status text
+  */
+-function showDialog(title, content, type = 'info') {
+-    let dialog = document.getElementById('app-dialog');
+-    
+-    // Create dialog if it doesn't exist
+-    if (!dialog) {
+-        dialog = document.createElement('div');
+-        dialog.id = 'app-dialog';
+-        dialog.className = 'dialog-overlay';
+-        dialog.innerHTML = `
+-            <div class="dialog-box" role="dialog" aria-modal="true">
+-                <div class="dialog-header">
+-                    <h3 class="dialog-title"></h3>
+-                    <button class="dialog-close" aria-label="Close dialog">&times;</button>
+-                </div>
+-                <div class="dialog-content"></div>
+-                <div class="dialog-footer">
+-                    <button class="btn btn-primary dialog-ok">OK</button>
+-                </div>
+-            </div>
+-        `;
+-        document.body.appendChild(dialog);
+-        
+-        // Setup close handlers
+-        dialog.querySelector('.dialog-close').addEventListener('click', closeDialog);
+-        dialog.querySelector('.dialog-ok').addEventListener('click', closeDialog);
+-        dialog.addEventListener('click', (e) => {
+-            if (e.target === dialog) {
+-                closeDialog();
+-            }
+-        });
++function updateTaskStatus(status) {
++    const taskStatus = document.getElementById('task-status');
++    if (taskStatus) {
++        taskStatus.textContent = `Task: ${status}`;
+     }
+     
+-    // Update dialog content
+-    dialog.querySelector('.dialog-title').textContent = title;
+-    dialog.querySelector('.dialog-content').innerHTML = content;
+-    dialog.dataset.type = type;
+-    
+-    // Show dialog
+-    dialog.removeAttribute('hidden');
+-    dialog.querySelector('.dialog-ok').focus();
+-}
+-
+-/**
+- * Escape HTML to prevent XSS
+- * @param {string} text - Text to escape
+- * @returns {string} Escaped HTML
+- */
+-function escapeHtml(text) {
+-    const div = document.createElement('div');
+-    div.textContent = text;
+-    return div.innerHTML;
++    const statusIndicator = document.getElementById('task-status-indicator');
++    if (statusIndicator) {
++        statusIndicator.textContent = status;
++    }
+ }
+ 
+ /**
+  * Keyboard shortcut handler
+- * Implements keyboard shortcuts for navigation and common actions
+  */
+ function setupKeyboardShortcuts() {
+     document.addEventListener('keydown', (e) => {
+         // Don't trigger shortcuts if user is typing in an input field
+         const isInputField = ['INPUT', 'TEXTAREA', 'SELECT'].includes(e.target.tagName);
+         
+-        // Use platform-aware modifier key check
+-        const isModifierPressed = (typeof Platform !== 'undefined' && Platform.isModifierPressed) 
+-            ? Platform.isModifierPressed(e)
+-            : (e.ctrlKey || e.metaKey);
++        const isModifierPressed = e.ctrlKey || e.metaKey;
+         
+         // Ctrl/Cmd + Enter: Run task (works in textarea)
+         if (isModifierPressed && e.key === 'Enter' && isInputField) {
+@@ -441,15 +417,6 @@ function setupKeyboardShortcuts() {
+         
+         // Esc: Close dialogs or stop task
+         if (e.key === 'Escape') {
+-            // Check for open dialogs first
+-            const openDialog = document.querySelector('.dialog-overlay:not([hidden])');
+-            if (openDialog) {
+-                e.preventDefault();
+-                closeDialog();
+-                return;
+-            }
+-            
+-            // If no dialog, stop running task
+             const stopButton = document.getElementById('btn-stop');
+             if (stopButton && !stopButton.disabled) {
+                 e.preventDefault();
+@@ -478,27 +445,6 @@ function setupKeyboardShortcuts() {
+                     e.preventDefault();
+                     navigateToView('settings');
+                     break;
+-                case 'h':
+-                case 'H':
+-                    e.preventDefault();
+-                    navigateToView('history');
+-                    break;
+-                case ',':
+-                    e.preventDefault();
+-                    navigateToView('settings');
+-                    break;
+-                case 'c':
+-                case 'C':
+-                    // Ctrl+C: Copy output (only if not in input field)
+-                    const progressView = document.querySelector('[data-view="task"]');
+-                    if (progressView && !progressView.hasAttribute('hidden')) {
+-                        const copyButton = document.getElementById('btn-copy-output');
+-                        if (copyButton) {
+-                            e.preventDefault();
+-                            copyButton.click();
+-                        }
+-                    }
+-                    break;
+             }
+         }
+     });
+@@ -507,63 +453,56 @@ function setupKeyboardShortcuts() {
+ }
+ 
+ /**
+- * Close any open dialog
++ * Show error message to user
++ * @param {string} title - Error title
++ * @param {string} message - Error message
++ */
++function showError(title, message) {
++    console.error(`${title}: ${message}`);
++    announceToScreenReader(`Error: ${message}`);
++}
++
++/**
++ * Announce message to screen readers
++ * @param {string} message - Message to announce
+  */
+-function closeDialog() {
+-    const openDialog = document.querySelector('.dialog-overlay:not([hidden])');
+-    if (openDialog) {
+-        openDialog.setAttribute('hidden', '');
++function announceToScreenReader(message) {
++    const announcements = document.getElementById('sr-announcements');
++    if (announcements) {
++        announcements.textContent = message;
++        // Clear after a delay to allow screen reader to announce
++        setTimeout(() => {
++            announcements.textContent = '';
++        }, 1000);
+     }
+ }
+ 
+ /**
+- * Show keyboard shortcuts help
++ * Escape HTML to prevent XSS
++ * @param {string} text - Text to escape
++ * @returns {string} Escaped HTML
+  */
+-function showKeyboardShortcutsHelp() {
+-    // Get platform-appropriate modifier key display
+-    const modKey = (typeof Platform !== 'undefined' && Platform.modifierKey) 
+-        ? Platform.modifierKey 
+-        : 'Ctrl/Cmd';
+-    
+-    const shortcuts = [
+-        { keys: `${modKey} + Enter`, action: 'Run task' },
+-        { keys: `${modKey} + 1`, action: 'Switch to Task view' },
+-        { keys: `${modKey} + 2`, action: 'Switch to History view' },
+-        { keys: `${modKey} + 3`, action: 'Switch to Settings view' },
+-        { keys: `${modKey} + H`, action: 'Open History view' },
+-        { keys: `${modKey} + ,`, action: 'Open Settings view' },
+-        { keys: `${modKey} + C`, action: 'Copy output (in Task view)' },
+-        { keys: 'Esc', action: 'Close dialog or stop task' }
+-    ];
+-    
+-    let content = '<h2>Keyboard Shortcuts</h2><ul class="shortcuts-list">';
+-    shortcuts.forEach(shortcut => {
+-        content += `<li><kbd>${shortcut.keys}</kbd> <span>${shortcut.action}</span></li>`;
+-    });
+-    content += '</ul>';
+-    
+-    showDialog('Keyboard Shortcuts', content);
++function escapeHtml(text) {
++    const div = document.createElement('div');
++    div.textContent = text;
++    return div.innerHTML;
+ }
+ 
+ // Initialize when DOM is ready
+ if (document.readyState === 'loading') {
+     document.addEventListener('DOMContentLoaded', () => {
+         initializeApp();
+-        setupKeyboardShortcuts();
+     });
+ } else {
+     // DOM already loaded
+     initializeApp();
+-    setupKeyboardShortcuts();
+ }
+ 
+ // Export for debugging and testing
+ if (typeof window !== 'undefined') {
+     window.app = app;
+     window.navigateToView = navigateToView;
+-    window.toggleTheme = toggleTheme;
+-    window.showDialog = showDialog;
++    window.updateLLMStatus = updateLLMStatus;
++    window.updateTaskStatus = updateTaskStatus;
+     window.showError = showError;
+-    window.closeDialog = closeDialog;
+-    window.showKeyboardShortcutsHelp = showKeyboardShortcutsHelp;
+ }
