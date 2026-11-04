@@ -653,7 +653,7 @@ body {
     background-color: var(--accent);
     color: #ffffff;
     border: none;
-    border-radius: 2px;
+    border-radius: 0;
     font-size: var(--font-size-ui);
     font-family: var(--font-family-ui);
     font-weight: 500;
