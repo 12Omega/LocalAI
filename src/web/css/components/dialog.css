@@ -1,7 +1,8 @@
 /**
- * Dialog Component Styles
+ * Dialog Component Styles - VS Code Style
  * 
- * Styles for modal dialogs used throughout the application
+ * Styles for modal dialogs used throughout the application.
+ * Compliant with VS Code Dark+ theme: sharp corners, no shadows, flat colors.
  */
 
 .dialog-overlay {
@@ -15,7 +16,6 @@
     align-items: center;
     justify-content: center;
     z-index: 1000;
-    backdrop-filter: blur(4px);
     animation: fadeIn 0.2s ease-out;
 }
 
@@ -24,9 +24,8 @@
 }
 
 .dialog-box {
-    background-color: var(--bg-primary);
-    border-radius: var(--border-radius);
-    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+    background-color: #252526;
+    border: 1px solid #454545;
     max-width: 600px;
     width: 90%;
     max-height: 80vh;
@@ -39,15 +38,15 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: var(--spacing-lg);
-    border-bottom: 1px solid var(--border-color);
+    padding: 16px 20px;
+    border-bottom: 1px solid #454545;
 }
 
 .dialog-title {
     margin: 0;
-    font-size: var(--font-size-lg);
+    font-size: 16px;
     font-weight: 600;
-    color: var(--text-primary);
+    color: #cccccc;
 }
 
 .dialog-close {
@@ -55,7 +54,7 @@
     border: none;
     font-size: 28px;
     line-height: 1;
-    color: var(--text-secondary);
+    color: #858585;
     cursor: pointer;
     padding: 0;
     width: 32px;
@@ -63,71 +62,69 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    border-radius: var(--border-radius-sm);
     transition: background-color 0.2s, color 0.2s;
 }
 
 .dialog-close:hover {
-    background-color: var(--bg-hover);
-    color: var(--text-primary);
+    background-color: #2a2a2b;
+    color: #cccccc;
 }
 
 .dialog-close:focus {
-    outline: 2px solid var(--accent-primary);
+    outline: 2px solid #007ACC;
     outline-offset: 2px;
 }
 
 .dialog-content {
-    padding: var(--spacing-lg);
+    padding: 16px 20px;
     overflow-y: auto;
     flex: 1;
 }
 
 .dialog-footer {
-    padding: var(--spacing-lg);
-    border-top: 1px solid var(--border-color);
+    padding: 16px 20px;
+    border-top: 1px solid #454545;
     display: flex;
     justify-content: flex-end;
-    gap: var(--spacing-md);
+    gap: 8px;
 }
 
 /* Dialog types */
 .dialog-overlay[data-type="error"] .dialog-header {
-    background-color: var(--error-bg);
-    border-bottom-color: var(--error-border);
+    background-color: rgba(244, 135, 113, 0.1);
+    border-bottom-color: #f48771;
 }
 
 .dialog-overlay[data-type="error"] .dialog-title {
-    color: var(--error-text);
+    color: #f48771;
 }
 
 .dialog-overlay[data-type="warning"] .dialog-header {
-    background-color: var(--warning-bg);
-    border-bottom-color: var(--warning-border);
+    background-color: rgba(204, 167, 0, 0.1);
+    border-bottom-color: #cca700;
 }
 
 .dialog-overlay[data-type="warning"] .dialog-title {
-    color: var(--warning-text);
+    color: #cca700;
 }
 
 .dialog-overlay[data-type="success"] .dialog-header {
-    background-color: var(--success-bg);
-    border-bottom-color: var(--success-border);
+    background-color: rgba(137, 209, 133, 0.1);
+    border-bottom-color: #89d185;
 }
 
 .dialog-overlay[data-type="success"] .dialog-title {
-    color: var(--success-text);
+    color: #89d185;
 }
 
 /* Error message styling */
 .error-message {
-    color: var(--error-text);
-    background-color: var(--error-bg);
-    padding: var(--spacing-md);
-    border-radius: var(--border-radius-sm);
-    border-left: 4px solid var(--error-border);
-    font-family: var(--font-mono);
-    font-size: var(--font-size-sm);
+    color: #f48771;
+    background-color: rgba(244, 135, 113, 0.1);
+    padding: 12px;
+    border-left: 2px solid #f48771;
+    font-family: 'Consolas', 'Monaco', monospace;
+    font-size: 13px;
     white-space: pre-wrap;
     word-break: break-word;
 }
@@ -142,8 +139,8 @@
 .shortcuts-list li {
     display: flex;
     align-items: center;
-    padding: var(--spacing-sm) 0;
-    border-bottom: 1px solid var(--border-color);
+    padding: 8px 0;
+    border-bottom: 1px solid #454545;
 }
 
 .shortcuts-list li:last-child {
@@ -151,20 +148,19 @@
 }
 
 .shortcuts-list kbd {
-    background-color: var(--bg-secondary);
-    border: 1px solid var(--border-color);
-    border-radius: var(--border-radius-sm);
-    padding: var(--spacing-xs) var(--spacing-sm);
-    font-family: var(--font-mono);
-    font-size: var(--font-size-sm);
-    color: var(--text-primary);
+    background-color: #3c3c3c;
+    border: 1px solid #454545;
+    padding: 4px 8px;
+    font-family: 'Consolas', 'Monaco', monospace;
+    font-size: 13px;
+    color: #cccccc;
     min-width: 180px;
     text-align: center;
 }
 
 .shortcuts-list span {
-    margin-left: var(--spacing-lg);
-    color: var(--text-secondary);
+    margin-left: 16px;
+    color: #858585;
 }
 
 /* Animations */
@@ -198,7 +194,7 @@
     .shortcuts-list li {
         flex-direction: column;
         align-items: flex-start;
-        gap: var(--spacing-xs);
+        gap: 4px;
     }
     
     .shortcuts-list kbd {
@@ -207,5 +203,13 @@
     
     .shortcuts-list span {
         margin-left: 0;
+    }
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+    .dialog-overlay,
+    .dialog-box {
+        animation: none;
     }
 }

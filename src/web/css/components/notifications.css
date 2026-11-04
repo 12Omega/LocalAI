@@ -1,23 +1,23 @@
 /**
- * Notifications and Toast Messages
+ * Notifications and Toast Messages - VS Code Style
  * 
- * Styles for toast notifications, warnings, and error messages
+ * Styles for toast notifications, warnings, and error messages.
+ * Compliant with VS Code Dark+ theme: sharp corners, no shadows, flat colors.
  */
 
 /* Toast Notifications */
 .toast-notification {
     position: fixed;
-    bottom: var(--spacing-lg);
-    right: var(--spacing-lg);
+    bottom: 16px;
+    right: 16px;
     min-width: 300px;
     max-width: 500px;
-    padding: var(--spacing-md);
-    background: var(--bg-primary);
-    border-radius: var(--border-radius);
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    padding: 12px;
+    background: #252526;
+    border: 1px solid #454545;
     display: flex;
     align-items: center;
-    gap: var(--spacing-md);
+    gap: 12px;
     z-index: 9999;
     animation: slideInRight 0.3s ease-out;
 }
@@ -28,8 +28,8 @@
 
 .toast-content {
     flex: 1;
-    font-size: var(--font-size-sm);
-    color: var(--text-primary);
+    font-size: 13px;
+    color: #cccccc;
 }
 
 .toast-close {
@@ -37,7 +37,7 @@
     border: none;
     font-size: 20px;
     line-height: 1;
-    color: var(--text-secondary);
+    color: #858585;
     cursor: pointer;
     padding: 0;
     width: 24px;
@@ -45,113 +45,108 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    border-radius: var(--border-radius-sm);
     transition: background-color 0.2s;
 }
 
 .toast-close:hover {
-    background-color: var(--bg-hover);
+    background-color: #2a2a2b;
 }
 
 /* Toast variants */
 .toast-info {
-    border-left: 4px solid var(--info-border);
-    background-color: var(--info-bg);
+    border-left: 2px solid #007ACC;
+    background-color: rgba(0, 122, 204, 0.1);
 }
 
 .toast-success {
-    border-left: 4px solid var(--success-border);
-    background-color: var(--success-bg);
+    border-left: 2px solid #89d185;
+    background-color: rgba(137, 209, 133, 0.1);
 }
 
 .toast-warning {
-    border-left: 4px solid var(--warning-border);
-    background-color: var(--warning-bg);
+    border-left: 2px solid #cca700;
+    background-color: rgba(204, 167, 0, 0.1);
 }
 
 .toast-error {
-    border-left: 4px solid var(--error-border);
-    background-color: var(--error-bg);
+    border-left: 2px solid #f48771;
+    background-color: rgba(244, 135, 113, 0.1);
 }
 
 /* Error content in dialogs */
 .error-content {
     display: flex;
     flex-direction: column;
-    gap: var(--spacing-md);
+    gap: 12px;
 }
 
 .error-main-message {
-    font-size: var(--font-size-base);
-    color: var(--text-primary);
+    font-size: 13px;
+    color: #cccccc;
     margin: 0;
     line-height: 1.5;
 }
 
 .error-details {
-    background-color: var(--bg-secondary);
-    border: 1px solid var(--border-color);
-    border-radius: var(--border-radius-sm);
-    padding: var(--spacing-sm);
+    background-color: #3c3c3c;
+    border: 1px solid #454545;
+    padding: 8px;
 }
 
 .error-details summary {
     cursor: pointer;
     font-weight: 500;
-    color: var(--text-secondary);
+    color: #858585;
     user-select: none;
-    padding: var(--spacing-xs);
+    padding: 4px;
 }
 
 .error-details summary:hover {
-    color: var(--text-primary);
+    color: #cccccc;
 }
 
 .error-stack {
-    margin: var(--spacing-sm) 0 0 0;
-    padding: var(--spacing-sm);
-    background-color: var(--bg-tertiary, #000);
-    color: var(--text-on-dark, #fff);
-    font-family: var(--font-mono);
-    font-size: var(--font-size-xs);
-    border-radius: var(--border-radius-sm);
+    margin: 8px 0 0 0;
+    padding: 8px;
+    background-color: #1e1e1e;
+    color: #cccccc;
+    font-family: 'Consolas', 'Monaco', monospace;
+    font-size: 12px;
     overflow-x: auto;
     white-space: pre-wrap;
     word-break: break-word;
 }
 
 .error-help {
-    font-size: var(--font-size-sm);
-    color: var(--text-secondary);
+    font-size: 13px;
+    color: #858585;
     margin: 0;
-    padding: var(--spacing-sm);
-    background-color: var(--bg-secondary);
-    border-radius: var(--border-radius-sm);
-    border-left: 3px solid var(--warning-border);
+    padding: 8px;
+    background-color: #3c3c3c;
+    border-left: 2px solid #cca700;
 }
 
 .error-suggestions {
-    font-size: var(--font-size-sm);
-    color: var(--text-secondary);
-    padding: var(--spacing-sm);
-    background-color: var(--info-bg);
-    border-radius: var(--border-radius-sm);
-    border-left: 3px solid var(--info-border);
+    font-size: 13px;
+    color: #858585;
+    padding: 8px;
+    background-color: rgba(0, 122, 204, 0.1);
+    border-left: 2px solid #007ACC;
 }
 
 .error-suggestions strong {
-    color: var(--text-primary);
+    color: #cccccc;
     display: block;
-    margin-bottom: var(--spacing-xs);
+    margin-bottom: 4px;
 }
 
 .error-suggestions ul {
     margin: 0;
-    padding-left: var(--spacing-lg);
+    padding-left: 20px;
 }
 
 .error-suggestions li {
-    margin-bottom: var(--spacing-xs);
+    margin-bottom: 4px;
 }
 
 .error-suggestions li:last-child {
@@ -183,28 +178,28 @@
 
 /* Stack multiple toasts */
 .toast-notification:nth-last-child(2) {
-    bottom: calc(var(--spacing-lg) + 80px);
+    bottom: calc(16px + 80px);
 }
 
 .toast-notification:nth-last-child(3) {
-    bottom: calc(var(--spacing-lg) + 160px);
+    bottom: calc(16px + 160px);
 }
 
 /* Responsive */
 @media (max-width: 600px) {
     .toast-notification {
-        left: var(--spacing-md);
-        right: var(--spacing-md);
-        bottom: var(--spacing-md);
+        left: 12px;
+        right: 12px;
+        bottom: 12px;
         min-width: auto;
     }
     
     .toast-notification:nth-last-child(2) {
-        bottom: calc(var(--spacing-md) + 70px);
+        bottom: calc(12px + 70px);
     }
     
     .toast-notification:nth-last-child(3) {
-        bottom: calc(var(--spacing-md) + 140px);
+        bottom: calc(12px + 140px);
     }
 }
 

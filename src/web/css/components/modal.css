@@ -1,8 +1,8 @@
 /**
- * Modal Component Styles
+ * Modal Component Styles - VS Code Style
  * 
  * Styles for modal dialogs and overlays, including the setup wizard.
- * Requirements: 19.2 - First-run setup dialog
+ * Compliant with VS Code Dark+ theme: sharp corners, no shadows, flat colors.
  */
 
 /* ==================== Modal Overlay ==================== */
@@ -18,7 +18,6 @@
     align-items: center;
     justify-content: center;
     background-color: rgba(0, 0, 0, 0.6);
-    backdrop-filter: blur(4px);
     animation: modalFadeIn 0.2s ease-out;
 }
 
@@ -38,9 +37,8 @@
 /* ==================== Modal Dialog Card ==================== */
 
 .modal-dialog {
-    background-color: var(--background-elevated);
-    border-radius: 12px;
-    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+    background-color: #252526;
+    border: 1px solid #454545;
     max-width: 500px;
     width: 90%;
     max-height: 90vh;
@@ -64,28 +62,28 @@
 /* ==================== Modal Header ==================== */
 
 .modal-header {
-    padding: var(--spacing-xl);
-    border-bottom: 1px solid var(--border);
+    padding: 16px 20px;
+    border-bottom: 1px solid #454545;
     flex-shrink: 0;
 }
 
 .modal-title {
-    font-size: var(--font-size-xl);
+    font-size: 16px;
     font-weight: 600;
-    color: var(--text-primary);
+    color: #cccccc;
     margin: 0;
 }
 
 .modal-subtitle {
-    font-size: var(--font-size-sm);
-    color: var(--text-secondary);
-    margin-top: var(--spacing-sm);
+    font-size: 13px;
+    color: #858585;
+    margin-top: 8px;
 }
 
 /* ==================== Modal Body ==================== */
 
 .modal-body {
-    padding: var(--spacing-xl);
+    padding: 16px 20px;
     overflow-y: auto;
     flex-grow: 1;
 }
@@ -93,8 +91,8 @@
 /* ==================== Modal Footer ==================== */
 
 .modal-footer {
-    padding: var(--spacing-xl);
-    border-top: 1px solid var(--border);
+    padding: 16px 20px;
+    border-top: 1px solid #454545;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -103,7 +101,7 @@
 
 .modal-footer-actions {
     display: flex;
-    gap: var(--spacing-md);
+    gap: 8px;
 }
 
 /* ==================== Setup Wizard Specific Styles ==================== */
@@ -130,30 +128,30 @@
 
 .setup-welcome {
     text-align: center;
-    padding: var(--spacing-xl) 0;
+    padding: 24px 0;
 }
 
 .setup-welcome-icon {
     font-size: 64px;
-    margin-bottom: var(--spacing-xl);
+    margin-bottom: 24px;
 }
 
 .setup-welcome h2 {
-    font-size: var(--font-size-2xl);
-    margin-bottom: var(--spacing-md);
-    color: var(--text-primary);
+    font-size: 20px;
+    margin-bottom: 12px;
+    color: #cccccc;
 }
 
 .setup-welcome p {
-    color: var(--text-secondary);
-    line-height: var(--line-height-relaxed);
-    margin-bottom: var(--spacing-md);
+    color: #858585;
+    line-height: 1.6;
+    margin-bottom: 12px;
 }
 
 /* ==================== Setup Form Fields ==================== */
 
 .setup-field {
-    margin-bottom: var(--spacing-xl);
+    margin-bottom: 20px;
 }
 
 .setup-field:last-child {
@@ -162,68 +160,64 @@
 
 .setup-label {
     display: block;
-    font-size: var(--font-size-sm);
+    font-size: 13px;
     font-weight: 600;
-    color: var(--text-primary);
-    margin-bottom: var(--spacing-sm);
+    color: #cccccc;
+    margin-bottom: 8px;
 }
 
 .setup-label-required::after {
     content: ' *';
-    color: var(--error);
+    color: #f48771;
 }
 
 .setup-input {
     width: 100%;
-    padding: var(--spacing-md);
-    border: 1px solid var(--border);
-    border-radius: 6px;
-    background-color: var(--background);
-    color: var(--text-primary);
-    font-size: var(--font-size-base);
-    font-family: var(--font-family-base);
-    transition: border-color 0.2s, box-shadow 0.2s;
+    padding: 6px 8px;
+    border: 1px solid #454545;
+    background-color: #3c3c3c;
+    color: #cccccc;
+    font-size: 13px;
+    font-family: 'Segoe UI', system-ui, sans-serif;
+    transition: border-color 0.2s;
 }
 
 .setup-input:focus {
     outline: none;
-    border-color: var(--primary);
-    box-shadow: 0 0 0 3px var(--primary-alpha);
+    border-color: #007ACC;
 }
 
 .setup-input::placeholder {
-    color: var(--text-tertiary);
+    color: #858585;
 }
 
 .setup-select {
     width: 100%;
-    padding: var(--spacing-md);
-    border: 1px solid var(--border);
-    border-radius: 6px;
-    background-color: var(--background);
-    color: var(--text-primary);
-    font-size: var(--font-size-base);
-    font-family: var(--font-family-base);
+    padding: 6px 8px;
+    border: 1px solid #454545;
+    background-color: #3c3c3c;
+    color: #cccccc;
+    font-size: 13px;
+    font-family: 'Segoe UI', system-ui, sans-serif;
     cursor: pointer;
     transition: border-color 0.2s;
 }
 
 .setup-select:focus {
     outline: none;
-    border-color: var(--primary);
-    box-shadow: 0 0 0 3px var(--primary-alpha);
+    border-color: #007ACC;
 }
 
 .setup-help {
-    font-size: var(--font-size-xs);
-    color: var(--text-secondary);
-    margin-top: var(--spacing-sm);
-    line-height: var(--line-height-relaxed);
+    font-size: 12px;
+    color: #858585;
+    margin-top: 8px;
+    line-height: 1.6;
 }
 
 .setup-input-group {
     display: flex;
-    gap: var(--spacing-sm);
+    gap: 8px;
 }
 
 .setup-input-group .setup-input {
@@ -237,11 +231,10 @@
 /* ==================== Validation Messages ==================== */
 
 .setup-validation {
-    margin-top: var(--spacing-sm);
-    padding: var(--spacing-md);
-    border-radius: 6px;
-    font-size: var(--font-size-sm);
-    line-height: var(--line-height-normal);
+    margin-top: 8px;
+    padding: 8px 12px;
+    font-size: 13px;
+    line-height: 1.5;
 }
 
 .setup-validation[hidden] {
@@ -249,21 +242,21 @@
 }
 
 .setup-validation-info {
-    background-color: var(--info-bg);
-    color: var(--info-text);
-    border-left: 3px solid var(--info);
+    background-color: rgba(0, 122, 204, 0.1);
+    color: #007ACC;
+    border-left: 2px solid #007ACC;
 }
 
 .setup-validation-success {
-    background-color: var(--success-bg);
-    color: var(--success-text);
-    border-left: 3px solid var(--success);
+    background-color: rgba(137, 209, 133, 0.1);
+    color: #89d185;
+    border-left: 2px solid #89d185;
 }
 
 .setup-validation-error {
-    background-color: var(--error-bg);
-    color: var(--error-text);
-    border-left: 3px solid var(--error);
+    background-color: rgba(244, 135, 113, 0.1);
+    color: #f48771;
+    border-left: 2px solid #f48771;
 }
 
 /* ==================== Progress Dots ==================== */
@@ -272,24 +265,24 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    gap: var(--spacing-sm);
+    gap: 8px;
 }
 
 .setup-progress-dot {
     width: 10px;
     height: 10px;
-    border-radius: 50%;
-    background-color: var(--border);
+    border-radius: 0;
+    background-color: #454545;
     transition: background-color 0.3s, transform 0.3s;
 }
 
 .setup-progress-dot.active {
-    background-color: var(--primary);
+    background-color: #007ACC;
     transform: scale(1.3);
 }
 
 .setup-progress-dot.completed {
-    background-color: var(--success);
+    background-color: #89d185;
 }
 
 /* ==================== Responsive Design ==================== */
@@ -303,7 +296,7 @@
     .modal-header,
     .modal-body,
     .modal-footer {
-        padding: var(--spacing-lg);
+        padding: 16px;
     }
     
     .setup-input-group {
@@ -312,7 +305,7 @@
     
     .modal-footer {
         flex-direction: column;
-        gap: var(--spacing-md);
+        gap: 12px;
     }
     
     .modal-footer-actions {
@@ -348,5 +341,14 @@
     to {
         opacity: 0;
         transform: translateX(-10px);
+    }
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+    .modal,
+    .modal-dialog,
+    .setup-step {
+        animation: none;
     }
 }
