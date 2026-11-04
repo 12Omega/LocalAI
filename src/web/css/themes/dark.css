@@ -1,272 +1,46 @@
 /**
- * Dark Theme - Local AI Development Environment
- * Color variables for dark mode
+ * VS Code Dark+ Theme
+ * Color variables matching VS Code exactly
  */
 
-:root[data-theme="dark"],
+:root,
 body[data-theme="dark"] {
-    /* ==================== Primary Colors ==================== */
-    --primary: #3b82f6;           /* Blue 500 - Main actions, links */
-    --primary-hover: #2563eb;     /* Blue 600 - Primary hover state */
-    --primary-alpha: rgba(59, 130, 246, 0.15); /* Primary with transparency */
+    /* VS Code Dark+ Color Scheme - Exact hex values */
+    --background: #1e1e1e;          /* Main editor background */
+    --sidebar-bg: #252526;          /* Sidebar background */
+    --activitybar-bg: #333333;      /* Activity bar (left edge) */
+    --titlebar-bg: #323233;         /* Title bar */
+    --statusbar-bg: #007ACC;        /* Status bar (blue) */
+    --input-bg: #3c3c3c;            /* Input fields */
+    --border: #454545;              /* Borders */
+    --text: #cccccc;                /* Main text */
+    --text-muted: #858585;          /* Secondary text */
+    --accent: #007ACC;              /* Focus/active (blue) */
+    --success: #89d185;             /* Success (green) */
+    --error: #f48771;               /* Error (red) */
+    --warning: #cca700;             /* Warning (yellow) */
+    --hover-bg: #2a2a2b;            /* Hover background */
+    --active-bg: #37373d;           /* Active background */
     
-    --success: #10b981;           /* Green 500 - Success states */
-    --success-hover: #059669;     /* Green 600 - Success hover */
-    --success-alpha: rgba(16, 185, 129, 0.15); /* Success with transparency */
-    
-    --warning: #f59e0b;           /* Amber 500 - Warnings */
-    --warning-hover: #d97706;     /* Amber 600 - Warning hover */
-    --warning-alpha: rgba(245, 158, 11, 0.15); /* Warning with transparency */
-    
-    --error: #ef4444;             /* Red 500 - Errors */
-    --error-hover: #dc2626;       /* Red 600 - Error hover */
-    --error-alpha: rgba(239, 68, 68, 0.15); /* Error with transparency */
-    
-    --info: #60a5fa;              /* Blue 400 - Informational */
-    --info-hover: #3b82f6;        /* Blue 500 - Info hover */
-    --info-alpha: rgba(96, 165, 250, 0.15); /* Info with transparency */
-    
-    /* ==================== Neutral Colors ==================== */
-    --background: #111827;        /* Gray 900 - Main background */
-    --surface: #1f2937;           /* Gray 800 - Cards, panels */
-    --border: #374151;            /* Gray 700 - Borders */
-    
-    --text-primary: #f9fafb;      /* Gray 50 - Primary text */
-    --text-secondary: #9ca3af;    /* Gray 400 - Secondary text */
-    --text-disabled: #6b7280;     /* Gray 500 - Disabled text */
-    
-    /* ==================== Component Colors ==================== */
-    --input-bg: #1f2937;          /* Gray 800 - Input background */
-    --input-border: #4b5563;      /* Gray 600 - Input borders */
-    --input-border-focus: #3b82f6; /* Primary - Focused input border */
-    
-    --code-bg: #0f172a;           /* Slate 900 - Code block background */
-    
-    --hover-bg: #374151;          /* Gray 700 - Hover backgrounds */
-    --active-bg: #4b5563;         /* Gray 600 - Active/pressed states */
-    
-    --secondary: #374151;         /* Gray 700 - Secondary button background */
-    --secondary-hover: #4b5563;   /* Gray 600 - Secondary button hover */
-    
-    --shadow: rgba(0, 0, 0, 0.3); /* Box shadow color */
-    --shadow-md: rgba(0, 0, 0, 0.4); /* Medium shadow */
-    --shadow-lg: rgba(0, 0, 0, 0.5);  /* Large shadow */
-    
-    /* ==================== Status Colors ==================== */
-    --status-success: #10b981;    /* Green 500 */
-    --status-warning: #f59e0b;    /* Amber 500 */
-    --status-error: #ef4444;      /* Red 500 */
-    --status-info: #60a5fa;       /* Blue 400 */
-    
-    /* ==================== Semantic Colors ==================== */
-    --link: #60a5fa;              /* Blue 400 - Links */
-    --link-hover: #3b82f6;        /* Blue 500 - Link hover */
-    --link-visited: #a78bfa;      /* Purple 400 - Visited links */
-    
-    /* ==================== Special Purpose ==================== */
-    --divider: #374151;           /* Gray 700 - Dividers */
-    --overlay: rgba(0, 0, 0, 0.7); /* Modal/dialog overlay */
-    
-    --scrollbar-track: #1f2937;   /* Gray 800 */
-    --scrollbar-thumb: #4b5563;   /* Gray 600 */
-    --scrollbar-thumb-hover: #6b7280; /* Gray 500 */
+    /* Typography */
+    --font-family-ui: 'Segoe UI', system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+    --font-family-mono: 'Consolas', 'Monaco', 'Courier New', monospace;
+    --font-size-ui: 13px;
+    --font-size-editor: 14px;
+    --font-size-status: 12px;
 }
-
-/* ==================== Dark Theme Specific Overrides ==================== */
 
 body[data-theme="dark"] {
     color-scheme: dark;
 }
 
-/* Ensure proper contrast for dark theme */
-body[data-theme="dark"] .progress-output {
-    background-color: #0f172a;
-    color: #f9fafb;
-}
-
-body[data-theme="dark"] code,
-body[data-theme="dark"] pre {
-    background-color: #0f172a;
-    color: #f9fafb;
-}
-
-/* Dark theme selection colors */
+/* Selection colors */
 body[data-theme="dark"] ::selection {
-    background-color: #1e3a8a; /* Blue 900 */
-    color: #bfdbfe; /* Blue 200 */
+    background-color: #264f78;
+    color: #ffffff;
 }
 
 body[data-theme="dark"] ::-moz-selection {
-    background-color: #1e3a8a;
-    color: #bfdbfe;
-}
-
-/* Dark theme focus ring */
-body[data-theme="dark"] :focus-visible {
-    outline-color: #3b82f6;
-}
-
-/* Dark theme scrollbar */
-body[data-theme="dark"] ::-webkit-scrollbar-track {
-    background: #1f2937;
-}
-
-body[data-theme="dark"] ::-webkit-scrollbar-thumb {
-    background: #4b5563;
-    border-color: #111827;
-}
-
-body[data-theme="dark"] ::-webkit-scrollbar-thumb:hover {
-    background: #6b7280;
-}
-
-/* Dark theme specific adjustments for better readability */
-body[data-theme="dark"] .panel {
-    background-color: #1f2937;
-    border-color: #374151;
-}
-
-body[data-theme="dark"] .panel-header {
-    background-color: #1f2937;
-    border-color: #374151;
-}
-
-body[data-theme="dark"] .history-entry {
-    background-color: #111827;
-    border-color: #374151;
-}
-
-body[data-theme="dark"] .history-entry:hover {
-    border-color: #3b82f6;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
-}
-
-body[data-theme="dark"] .settings-section {
-    border-color: #374151;
-}
-
-/* Improve input visibility in dark mode */
-body[data-theme="dark"] .task-input,
-body[data-theme="dark"] .form-input,
-body[data-theme="dark"] .form-select,
-body[data-theme="dark"] .search-input,
-body[data-theme="dark"] .filter-select {
-    background-color: #1f2937;
-    border-color: #4b5563;
-    color: #f9fafb;
-}
-
-body[data-theme="dark"] .task-input::placeholder,
-body[data-theme="dark"] .form-input::placeholder,
-body[data-theme="dark"] .search-input::placeholder {
-    color: #6b7280;
-}
-
-/* Adjust button colors for dark theme */
-body[data-theme="dark"] .btn-secondary {
-    background-color: #374151;
-    color: #f9fafb;
-}
-
-body[data-theme="dark"] .btn-secondary:hover:not(:disabled) {
-    background-color: #4b5563;
-}
-
-/* Dark theme app header */
-body[data-theme="dark"] .app-header {
-    background-color: #1f2937;
-    border-bottom-color: #374151;
-}
-
-body[data-theme="dark"] .app-navigation {
-    background-color: #1f2937;
-    border-bottom-color: #374151;
-}
-
-/* Dark theme navigation tabs */
-body[data-theme="dark"] .nav-tab {
-    color: #9ca3af;
-}
-
-body[data-theme="dark"] .nav-tab:hover {
-    color: #f9fafb;
-    background-color: #374151;
-}
-
-body[data-theme="dark"] .nav-tab.active {
-    color: #60a5fa;
-    border-bottom-color: #60a5fa;
-}
-
-/* Dark theme footer */
-body[data-theme="dark"] .app-footer {
-    background-color: #1f2937;
-    border-top-color: #374151;
-    color: #9ca3af;
-}
-
-/* Dark theme icon buttons */
-body[data-theme="dark"] .icon-button {
-    color: #9ca3af;
-}
-
-body[data-theme="dark"] .icon-button:hover {
-    background-color: #374151;
-    color: #f9fafb;
-}
-
-body[data-theme="dark"] .icon-button.active {
-    background-color: rgba(59, 130, 246, 0.15);
-    color: #60a5fa;
-}
-
-/* Dark theme empty state */
-body[data-theme="dark"] .empty-state {
-    color: #9ca3af;
-}
-
-body[data-theme="dark"] .empty-icon {
-    color: #6b7280;
-}
-
-/* Dark theme progress messages - enhanced visibility */
-body[data-theme="dark"] .progress-message.info {
-    background-color: rgba(59, 130, 246, 0.1);
-    border-left-color: #60a5fa;
-}
-
-body[data-theme="dark"] .progress-message.success {
-    background-color: rgba(16, 185, 129, 0.1);
-    border-left-color: #10b981;
-}
-
-body[data-theme="dark"] .progress-message.warning {
-    background-color: rgba(245, 158, 11, 0.1);
-    border-left-color: #f59e0b;
-}
-
-body[data-theme="dark"] .progress-message.error {
-    background-color: rgba(239, 68, 68, 0.1);
-    border-left-color: #ef4444;
-}
-
-/* Dark theme form range slider */
-body[data-theme="dark"] .form-range {
-    background: #4b5563;
-}
-
-body[data-theme="dark"] .form-range::-webkit-slider-thumb {
-    background: #3b82f6;
-}
-
-body[data-theme="dark"] .form-range::-webkit-slider-thumb:hover {
-    background: #60a5fa;
-}
-
-body[data-theme="dark"] .form-range::-moz-range-thumb {
-    background: #3b82f6;
-}
-
-body[data-theme="dark"] .form-range::-moz-range-thumb:hover {
-    background: #60a5fa;
+    background-color: #264f78;
+    color: #ffffff;
 }

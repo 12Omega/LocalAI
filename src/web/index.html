@@ -12,8 +12,7 @@
     
     <!-- Stylesheets -->
     <link rel="stylesheet" href="css/main.css">
-    <link rel="stylesheet" href="css/themes/light.css" id="theme-light">
-    <link rel="stylesheet" href="css/themes/dark.css" id="theme-dark" disabled>
+    <link rel="stylesheet" href="css/themes/dark.css" id="theme-dark">
     <link rel="stylesheet" href="css/components/buttons.css">
     <link rel="stylesheet" href="css/components/inputs.css">
     <link rel="stylesheet" href="css/components/progress.css">
@@ -22,730 +21,482 @@
     <link rel="stylesheet" href="css/components/notifications.css">
     <link rel="stylesheet" href="css/components/modal.css">
 </head>
-<body>
+<body data-theme="dark">
     <!-- Screen reader announcements region -->
     <div id="sr-announcements" class="sr-only" role="status" aria-live="polite" aria-atomic="true"></div>
     
     <!-- Skip to main content link for keyboard users -->
     <a href="#main-content" class="skip-link">Skip to main content</a>
     
-    <!-- Main Application Container -->
-    <div id="app" class="app-container">
+    <!-- VS Code Layout -->
+    <div class="vscode-layout">
         
-        <!-- Header with Navigation -->
-        <header class="app-header" role="banner">
-            <div class="header-content">
-                <div class="app-branding">
-                    <img src="assets/icon.svg" alt="Local AI Dev Logo" class="app-icon" width="32" height="32">
-                    <h1 class="app-title">Local AI Dev</h1>
-                </div>
-                
-                <!-- Navigation Tabs -->
-                <nav class="nav-tabs" role="navigation" aria-label="Main navigation">
-                    <button 
-                        id="tab-task" 
-                        class="nav-tab active" 
-                        role="tab" 
-                        aria-selected="true" 
-                        aria-controls="view-task"
-                        data-view="task">
-                        <span class="tab-icon">▶</span>
-                        <span class="tab-label">Task</span>
-                    </button>
-                    <button 
-                        id="tab-history" 
-                        class="nav-tab" 
-                        role="tab" 
-                        aria-selected="false" 
-                        aria-controls="view-history"
-                        data-view="history">
-                        <span class="tab-icon">📜</span>
-                        <span class="tab-label">History</span>
-                    </button>
-                    <button 
-                        id="tab-settings" 
-                        class="nav-tab" 
-                        role="tab" 
-                        aria-selected="false" 
-                        aria-controls="view-settings"
-                        data-view="settings">
-                        <span class="tab-icon">⚙</span>
-                        <span class="tab-label">Settings</span>
-                    </button>
-                </nav>
-                
-                <!-- Theme Toggle -->
-                <div class="header-actions">
-                    <button 
-                        id="theme-toggle" 
-                        class="icon-button" 
-                        aria-label="Toggle theme"
-                        title="Toggle light/dark theme">
-                        <span class="theme-icon">🌙</span>
-                    </button>
+        <!-- Activity Bar (Left edge, 48px) -->
+        <aside class="activity-bar" role="navigation" aria-label="Activity bar">
+            <button 
+                class="activity-item active" 
+                data-view="task" 
+                title="Task"
+                aria-label="Task view"
+                aria-pressed="true">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M8 5v14l11-7z"/>
+                </svg>
+            </button>
+            <button 
+                class="activity-item" 
+                data-view="history" 
+                title="History"
+                aria-label="History view"
+                aria-pressed="false">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M13 3a9 9 0 0 0-9 9H1l3.89 3.89.07.14L9 12H6c0-3.87 3.13-7 7-7s7 3.13 7 7-3.13 7-7 7c-1.93 0-3.68-.79-4.94-2.06l-1.42 1.42A8.954 8.954 0 0 0 13 21a9 9 0 0 0 0-18zm-1 5v5l4.28 2.54.72-1.21-3.5-2.08V8H12z"/>
+                </svg>
+            </button>
+            <button 
+                class="activity-item" 
+                data-view="settings" 
+                title="Settings"
+                aria-label="Settings view"
+                aria-pressed="false">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M19.14,12.94c0.04-0.3,0.06-0.61,0.06-0.94c0-0.32-0.02-0.64-0.07-0.94l2.03-1.58c0.18-0.14,0.23-0.41,0.12-0.61 l-1.92-3.32c-0.12-0.22-0.37-0.29-0.59-0.22l-2.39,0.96c-0.5-0.38-1.03-0.7-1.62-0.94L14.4,2.81c-0.04-0.24-0.24-0.41-0.48-0.41 h-3.84c-0.24,0-0.43,0.17-0.47,0.41L9.25,5.35C8.66,5.59,8.12,5.92,7.63,6.29L5.24,5.33c-0.22-0.08-0.47,0-0.59,0.22L2.74,8.87 C2.62,9.08,2.66,9.34,2.86,9.48l2.03,1.58C4.84,11.36,4.8,11.69,4.8,12s0.02,0.64,0.07,0.94l-2.03,1.58 c-0.18,0.14-0.23,0.41-0.12,0.61l1.92,3.32c0.12,0.22,0.37,0.29,0.59,0.22l2.39-0.96c0.5,0.38,1.03,0.7,1.62,0.94l0.36,2.54 c0.05,0.24,0.24,0.41,0.48,0.41h3.84c0.24,0,0.44-0.17,0.47-0.41l0.36-2.54c0.59-0.24,1.13-0.56,1.62-0.94l2.39,0.96 c0.22,0.08,0.47,0,0.59-0.22l1.92-3.32c0.12-0.22,0.07-0.47-0.12-0.61L19.14,12.94z M12,15.6c-1.98,0-3.6-1.62-3.6-3.6 s1.62-3.6,3.6-3.6s3.6,1.62,3.6,3.6S13.98,15.6,12,15.6z"/>
+                </svg>
+            </button>
+        </aside>
+        
+        <!-- Sidebar (Resizable, ~300px) -->
+        <aside class="sidebar" id="sidebar" role="complementary">
+            <div class="sidebar-header">
+                <h2 class="sidebar-title" id="sidebar-title">TASK</h2>
+            </div>
+            <div class="sidebar-content" id="sidebar-content">
+                <!-- Sidebar content changes based on active activity item -->
+                <div class="sidebar-info">
+                    <p>Run AI-powered tasks to generate code, documentation, and more.</p>
                 </div>
             </div>
-        </header>
+        </aside>
         
-        <!-- Main Content Area -->
-        <main id="main-content" class="app-main" role="main">
+        <!-- Splitter -->
+        <div class="splitter" id="splitter" aria-hidden="true"></div>
+        
+        <!-- Editor Area (Main content) -->
+        <main class="editor-area" id="main-content" role="main">
             
-            <!-- Task View -->
-            <section 
-                id="view-task" 
-                class="view-container active"
-                data-view="task"
-                role="tabpanel" 
-                aria-labelledby="tab-task">
+            <!-- Editor Tabs -->
+            <div class="editor-tabs" role="tablist" aria-label="Editor tabs">
+                <div 
+                    class="editor-tab active" 
+                    data-view="task" 
+                    role="tab" 
+                    aria-selected="true" 
+                    aria-controls="panel-task">
+                    <span class="tab-label">Task</span>
+                    <button class="tab-close" aria-label="Close tab" style="display:none;">×</button>
+                </div>
+            </div>
+            
+            <!-- Editor Content -->
+            <div class="editor-content">
                 
-                <!-- Task Input Panel -->
-                <div class="task-input-panel panel">
-                    <div class="panel-header">
-                        <h2 class="panel-title">Task Description</h2>
-                        <span id="char-counter" class="char-counter" aria-live="polite">0 / 5000</span>
-                    </div>
-                    <div class="panel-content">
-                        <textarea 
-                            id="task-input" 
-                            class="task-textarea" 
-                            placeholder="Enter your task description here... For example: 'Create a Python function to calculate fibonacci numbers with tests'"
-                            maxlength="5000"
-                            rows="6"
-                            aria-label="Task description input"
-                            aria-describedby="char-counter"></textarea>
+                <!-- Task View -->
+                <div id="panel-task" class="editor-panel active" data-view="task" role="tabpanel">
+                    <div class="task-layout">
+                        <!-- Task Input Area -->
+                        <div class="task-input-area">
+                            <textarea 
+                                id="task-input" 
+                                class="task-textarea" 
+                                placeholder="Enter your task description here...
+
+For example:
+• Create a Python function to calculate fibonacci numbers with tests
+• Build a REST API endpoint for user authentication
+• Write documentation for the authentication module"
+                                maxlength="5000"
+                                aria-label="Task description input"></textarea>
+                            
+                            <!-- Task Toolbar -->
+                            <div class="task-toolbar">
+                                <div class="toolbar-left">
+                                    <button 
+                                        id="btn-run" 
+                                        class="btn btn-primary" 
+                                        disabled
+                                        aria-label="Run task">
+                                        <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
+                                            <path d="M3 2v12l10-6z"/>
+                                        </svg>
+                                        <span>Run Task</span>
+                                    </button>
+                                    <button 
+                                        id="btn-stop" 
+                                        class="btn btn-secondary" 
+                                        disabled
+                                        aria-label="Stop task">
+                                        <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
+                                            <rect x="4" y="4" width="8" height="8"/>
+                                        </svg>
+                                        <span>Stop</span>
+                                    </button>
+                                    <span id="task-status-indicator" class="status-text" aria-live="polite">Idle</span>
+                                </div>
+                                <div class="toolbar-right">
+                                    <span id="char-counter" class="char-counter" aria-live="polite">0 / 5000</span>
+                                </div>
+                            </div>
+                        </div>
                         
-                        <div class="task-actions">
-                            <div class="task-status">
-                                <span id="task-status-indicator" class="status-badge status-idle" aria-live="polite">Idle</span>
+                        <!-- Horizontal Splitter -->
+                        <div class="h-splitter" id="h-splitter" aria-hidden="true"></div>
+                        
+                        <!-- Output Panel -->
+                        <div class="output-panel">
+                            <div class="output-header">
+                                <span class="output-title">OUTPUT</span>
+                                <div class="output-actions">
+                                    <button 
+                                        id="btn-copy-output" 
+                                        class="icon-btn" 
+                                        aria-label="Copy output"
+                                        title="Copy output">
+                                        <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
+                                            <path d="M4 2h7l3 3v8a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V3a1 1 0 0 1 1-1zm0 1v10h9V6h-3V3H4zm6 0v2h2l-2-2z"/>
+                                        </svg>
+                                    </button>
+                                    <button 
+                                        id="btn-clear-output" 
+                                        class="icon-btn" 
+                                        aria-label="Clear output"
+                                        title="Clear output">
+                                        <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
+                                            <path d="M6.5 1h3a.5.5 0 0 1 .5.5v1H6v-1a.5.5 0 0 1 .5-.5zM11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3A1.5 1.5 0 0 0 5 1.5v1H2.5a.5.5 0 0 0 0 1h.55l.5 11a2 2 0 0 0 2 1.95h5a2 2 0 0 0 2-1.95l.5-11h.55a.5.5 0 0 0 0-1H11z"/>
+                                        </svg>
+                                    </button>
+                                    <label class="auto-scroll-label">
+                                        <input type="checkbox" id="auto-scroll-toggle" checked>
+                                        <span>Auto-scroll</span>
+                                    </label>
+                                </div>
                             </div>
-                            <div class="task-buttons">
-                                <button 
-                                    id="btn-stop" 
-                                    class="btn btn-danger btn-stop" 
-                                    disabled
-                                    aria-label="Stop running task">
-                                    <span class="btn-icon">⏹</span>
-                                    <span class="btn-text">Stop</span>
-                                </button>
-                                <button 
-                                    id="btn-run" 
-                                    class="btn btn-primary btn-run" 
-                                    disabled
-                                    aria-label="Run task">
-                                    <span class="btn-icon">▶</span>
-                                    <span class="btn-text">Run Task</span>
-                                </button>
+                            <div 
+                                id="progress-output" 
+                                class="output-content" 
+                                role="log" 
+                                aria-live="polite" 
+                                aria-atomic="false">
+                                <div class="output-placeholder">
+                                    Output will appear here when you run a task...
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
                 
-                <!-- Progress Display Panel -->
-                <div class="progress-display-panel panel">
-                    <div class="panel-header">
-                        <h2 class="panel-title">Output</h2>
-                        <div class="panel-actions">
-                            <label class="toggle-label">
+                <!-- History View -->
+                <div id="panel-history" class="editor-panel" data-view="history" role="tabpanel" hidden>
+                    <div class="history-layout">
+                        <!-- History List -->
+                        <div class="history-list-pane">
+                            <div class="history-filters">
                                 <input 
-                                    type="checkbox" 
-                                    id="auto-scroll-toggle" 
-                                    checked
-                                    aria-label="Auto-scroll output">
-                                <span>Auto-scroll</span>
-                            </label>
-                            <button 
-                                id="btn-copy-output" 
-                                class="icon-button" 
-                                aria-label="Copy output to clipboard"
-                                title="Copy output">
-                                <span>📋</span>
-                            </button>
-                            <button 
-                                id="btn-clear-output" 
-                                class="icon-button" 
-                                aria-label="Clear output"
-                                title="Clear output">
-                                <span>🗑</span>
-                            </button>
+                                    type="text" 
+                                    id="history-search" 
+                                    class="search-input"
+                                    placeholder="Search history..."
+                                    aria-label="Search history">
+                                <select id="status-filter" class="filter-select" aria-label="Filter by status">
+                                    <option value="all">All Status</option>
+                                    <option value="success">Success</option>
+                                    <option value="failed">Failed</option>
+                                    <option value="cancelled">Cancelled</option>
+                                </select>
+                            </div>
+                            
+                            <div 
+                                id="history-list" 
+                                class="history-list" 
+                                role="list"
+                                aria-label="Task history entries">
+                                <div class="history-placeholder">
+                                    No history entries yet. Run a task to see it here.
+                                </div>
+                            </div>
                         </div>
-                    </div>
-                    <div class="panel-content">
-                        <div 
-                            id="progress-output" 
-                            class="progress-output" 
-                            role="log" 
-                            aria-live="polite" 
-                            aria-atomic="false">
-                            <div class="output-placeholder">
-                                Output will appear here when you run a task...
+                        
+                        <!-- Vertical Splitter -->
+                        <div class="v-splitter" id="v-splitter" aria-hidden="true"></div>
+                        
+                        <!-- History Details -->
+                        <div class="history-details-pane" id="history-detail">
+                            <div class="details-placeholder">
+                                Select a history item to view details
                             </div>
                         </div>
                     </div>
                 </div>
-            </section>
-            
-            <!-- History View -->
-            <section 
-                id="view-history" 
-                class="view-container"
-                data-view="history"
-                role="tabpanel" 
-                aria-labelledby="tab-history"
-                hidden>
                 
-                <div class="history-panel panel">
-                    <div class="panel-header">
-                        <h2 class="panel-title">Task History</h2>
-                        <div class="panel-actions">
-                            <button 
-                                id="btn-export-history" 
-                                class="btn btn-secondary btn-sm"
-                                aria-label="Export history">
-                                <span class="btn-icon">💾</span>
-                                <span class="btn-text">Export</span>
-                            </button>
-                            <button 
-                                id="btn-clear-history" 
-                                class="btn btn-danger btn-sm"
-                                aria-label="Clear all history">
-                                <span class="btn-icon">🗑</span>
-                                <span class="btn-text">Clear All</span>
-                            </button>
-                        </div>
-                    </div>
-                    
-                    <!-- History Filters -->
-                    <div class="history-filters">
-                        <div class="filter-group">
-                            <label for="history-search" class="filter-label">Search:</label>
-                            <input 
-                                type="text" 
-                                id="history-search" 
-                                class="filter-input"
-                                placeholder="Filter by task description..."
-                                aria-label="Search history">
-                        </div>
-                        <div class="filter-group">
-                            <label for="status-filter" class="filter-label">Status:</label>
-                            <select id="status-filter" class="filter-select" aria-label="Filter by status">
-                                <option value="all">All</option>
-                                <option value="success">Success</option>
-                                <option value="failed">Failed</option>
-                                <option value="cancelled">Cancelled</option>
-                            </select>
-                        </div>
-                        <div class="filter-group">
-                            <label for="sort-order" class="filter-label">Sort:</label>
-                            <select id="sort-order" class="filter-select" aria-label="Sort order">
-                                <option value="newest">Newest First</option>
-                                <option value="oldest">Oldest First</option>
-                            </select>
-                        </div>
-                    </div>
-                    
-                    <!-- History List -->
-                    <div class="panel-content">
-                        <div 
-                            id="history-list" 
-                            class="history-list" 
-                            role="list"
-                            aria-label="Task history entries">
-                            <div class="history-placeholder">
-                                No history entries yet. Run a task to see it here.
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <!-- History Entry Detail (Hidden by default) -->
-                    <div id="history-detail" class="history-detail" hidden>
-                        <div class="detail-header">
-                            <h3 id="detail-title" class="detail-title"></h3>
-                            <button 
-                                id="btn-close-detail" 
-                                class="icon-button"
-                                aria-label="Close detail view">
-                                <span>✕</span>
-                            </button>
-                        </div>
-                        <div class="detail-content">
-                            <div class="detail-meta">
-                                <span id="detail-timestamp" class="detail-timestamp"></span>
-                                <span id="detail-duration" class="detail-duration"></span>
-                                <span id="detail-status" class="detail-status"></span>
-                            </div>
-                            <div class="detail-section">
-                                <h4>Task Description:</h4>
-                                <p id="detail-description" class="detail-description"></p>
-                            </div>
-                            <div class="detail-section">
-                                <h4>Output:</h4>
-                                <pre id="detail-output" class="detail-output"></pre>
-                            </div>
-                            <div class="detail-actions">
-                                <button id="btn-rerun-task" class="btn btn-primary">
-                                    <span class="btn-icon">▶</span>
-                                    <span class="btn-text">Re-run Task</span>
-                                </button>
-                                <button id="btn-delete-entry" class="btn btn-danger">
-                                    <span class="btn-icon">🗑</span>
-                                    <span class="btn-text">Delete Entry</span>
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
-            
-            <!-- Settings View -->
-            <section 
-                id="view-settings" 
-                class="view-container"
-                data-view="settings"
-                role="tabpanel" 
-                aria-labelledby="tab-settings"
-                hidden>
-                
-                <div class="settings-panel panel">
-                    <div class="panel-header">
-                        <h2 class="panel-title">Settings</h2>
-                        <div class="panel-actions">
-                            <button 
-                                id="btn-reset-settings" 
-                                class="btn btn-secondary btn-sm"
-                                aria-label="Reset to defaults">
-                                <span class="btn-text">Reset to Defaults</span>
-                            </button>
-                            <button 
-                                id="btn-save-settings" 
-                                class="btn btn-primary btn-sm"
-                                aria-label="Save settings">
-                                <span class="btn-text">Save Settings</span>
-                            </button>
-                        </div>
-                    </div>
-                    
-                    <div class="panel-content">
+                <!-- Settings View -->
+                <div id="panel-settings" class="editor-panel" data-view="settings" role="tabpanel" hidden>
+                    <div class="settings-container">
                         <form id="settings-form" class="settings-form">
                             
-                            <!-- LLM Settings Section -->
-                            <fieldset class="settings-section">
-                                <legend class="section-title">LLM Settings</legend>
+                            <!-- LLM Settings -->
+                            <div class="settings-section">
+                                <h3 class="section-header">LLM Settings</h3>
                                 
-                                <div class="form-group">
-                                    <label for="llm-endpoint" class="form-label">
-                                        LLM Endpoint
-                                        <span class="help-icon" title="URL of your local LLM server">ℹ️</span>
-                                    </label>
-                                    <input 
-                                        type="url" 
-                                        id="llm-endpoint" 
-                                        name="llm.endpoint"
-                                        class="form-input"
-                                        placeholder="http://localhost:11434"
-                                        aria-describedby="llm-endpoint-error">
-                                    <span id="llm-endpoint-error" class="form-error" role="alert"></span>
+                                <div class="setting-item">
+                                    <label for="llm-endpoint" class="setting-label">LLM Endpoint</label>
+                                    <div class="setting-control">
+                                        <input 
+                                            type="url" 
+                                            id="llm-endpoint" 
+                                            name="llm.endpoint"
+                                            class="setting-input"
+                                            placeholder="http://localhost:11434">
+                                        <button 
+                                            type="button" 
+                                            id="btn-test-connection" 
+                                            class="btn btn-secondary btn-sm">
+                                            Test Connection
+                                        </button>
+                                    </div>
+                                    <div class="setting-description">URL of your local LLM server</div>
+                                    <span id="llm-endpoint-error" class="setting-error" role="alert"></span>
                                 </div>
                                 
-                                <div class="form-group">
-                                    <label for="llm-model" class="form-label">
-                                        Model Name
-                                        <span class="help-icon" title="Name of the LLM model to use">ℹ️</span>
-                                    </label>
+                                <div class="setting-item">
+                                    <label for="llm-model" class="setting-label">Model Name</label>
                                     <input 
                                         type="text" 
                                         id="llm-model" 
                                         name="llm.model"
-                                        class="form-input"
-                                        placeholder="codellama:7b"
-                                        aria-describedby="llm-model-error">
-                                    <span id="llm-model-error" class="form-error" role="alert"></span>
+                                        class="setting-input"
+                                        placeholder="codellama:7b">
+                                    <div class="setting-description">Name of the LLM model to use</div>
                                 </div>
                                 
-                                <div class="form-group">
-                                    <label for="llm-temperature" class="form-label">
-                                        Temperature
-                                        <span class="help-icon" title="Controls randomness (0.0 = deterministic, 1.0 = creative)">ℹ️</span>
+                                <div class="setting-item">
+                                    <label for="llm-temperature" class="setting-label">
+                                        Temperature <span class="setting-value" id="llm-temperature-value">0.7</span>
                                     </label>
-                                    <div class="range-input-group">
-                                        <input 
-                                            type="range" 
-                                            id="llm-temperature" 
-                                            name="llm.temperature"
-                                            class="form-range"
-                                            min="0" 
-                                            max="1" 
-                                            step="0.1"
-                                            value="0.7"
-                                            aria-describedby="llm-temperature-value">
-                                        <span id="llm-temperature-value" class="range-value">0.7</span>
-                                    </div>
-                                    <span id="llm-temperature-error" class="form-error" role="alert"></span>
+                                    <input 
+                                        type="range" 
+                                        id="llm-temperature" 
+                                        name="llm.temperature"
+                                        class="setting-range"
+                                        min="0" 
+                                        max="1" 
+                                        step="0.1"
+                                        value="0.7">
+                                    <div class="setting-description">Controls randomness (0.0 = deterministic, 1.0 = creative)</div>
                                 </div>
                                 
-                                <div class="form-group">
-                                    <label for="llm-max-tokens" class="form-label">
-                                        Max Tokens
-                                        <span class="help-icon" title="Maximum tokens per response">ℹ️</span>
-                                    </label>
+                                <div class="setting-item">
+                                    <label for="llm-max-tokens" class="setting-label">Max Tokens</label>
                                     <input 
                                         type="number" 
                                         id="llm-max-tokens" 
                                         name="llm.max_tokens"
-                                        class="form-input"
+                                        class="setting-input"
                                         min="100"
                                         max="32000"
-                                        placeholder="4096"
-                                        aria-describedby="llm-max-tokens-error">
-                                    <span id="llm-max-tokens-error" class="form-error" role="alert"></span>
+                                        placeholder="4096">
+                                    <div class="setting-description">Maximum tokens per response</div>
                                 </div>
                                 
-                                <div class="form-group">
-                                    <label for="llm-backend" class="form-label">
-                                        Backend Type
-                                        <span class="help-icon" title="Type of LLM backend">ℹ️</span>
-                                    </label>
+                                <div class="setting-item">
+                                    <label for="llm-backend" class="setting-label">Backend Type</label>
                                     <select 
                                         id="llm-backend" 
                                         name="llm.backend"
-                                        class="form-select"
-                                        aria-describedby="llm-backend-error">
+                                        class="setting-select">
                                         <option value="ollama">Ollama</option>
                                         <option value="llamacpp">LlamaCpp</option>
                                         <option value="openai-compatible">OpenAI Compatible</option>
                                     </select>
-                                    <span id="llm-backend-error" class="form-error" role="alert"></span>
+                                    <div class="setting-description">Type of LLM backend</div>
                                 </div>
-                            </fieldset>
+                            </div>
                             
-                            <!-- Project Settings Section -->
-                            <fieldset class="settings-section">
-                                <legend class="section-title">Project Settings</legend>
+                            <!-- Project Settings -->
+                            <div class="settings-section">
+                                <h3 class="section-header">Project Settings</h3>
                                 
-                                <div class="form-group">
-                                    <label for="project-root" class="form-label">
-                                        Project Root Directory
-                                        <span class="help-icon" title="Root directory of your project">ℹ️</span>
-                                    </label>
-                                    <div class="path-input-group">
+                                <div class="setting-item">
+                                    <label for="project-root" class="setting-label">Project Root Directory</label>
+                                    <div class="setting-control">
                                         <input 
                                             type="text" 
                                             id="project-root" 
                                             name="project_root"
-                                            class="form-input"
-                                            placeholder="/path/to/project"
-                                            aria-describedby="project-root-error">
+                                            class="setting-input"
+                                            placeholder="/path/to/project">
                                         <button 
                                             type="button" 
                                             id="btn-browse-project" 
-                                            class="btn btn-secondary btn-sm"
-                                            aria-label="Browse for directory">
+                                            class="btn btn-secondary btn-sm">
                                             Browse
                                         </button>
                                     </div>
-                                    <span id="project-root-error" class="form-error" role="alert"></span>
+                                    <div class="setting-description">Root directory of your project</div>
                                 </div>
                                 
-                                <div class="form-group">
-                                    <label for="log-level" class="form-label">
-                                        Log Level
-                                        <span class="help-icon" title="Verbosity of logging">ℹ️</span>
-                                    </label>
+                                <div class="setting-item">
+                                    <label for="log-level" class="setting-label">Log Level</label>
                                     <select 
                                         id="log-level" 
                                         name="log_level"
-                                        class="form-select"
-                                        aria-describedby="log-level-error">
+                                        class="setting-select">
                                         <option value="debug">Debug</option>
                                         <option value="info">Info</option>
                                         <option value="warning">Warning</option>
                                         <option value="error">Error</option>
                                     </select>
-                                    <span id="log-level-error" class="form-error" role="alert"></span>
+                                    <div class="setting-description">Verbosity of logging</div>
                                 </div>
-                            </fieldset>
+                            </div>
                             
-                            <!-- Feature Flags Section -->
-                            <fieldset class="settings-section">
-                                <legend class="section-title">Feature Flags</legend>
+                            <!-- Feature Flags -->
+                            <div class="settings-section">
+                                <h3 class="section-header">Feature Flags</h3>
                                 
-                                <div class="form-group">
-                                    <label class="checkbox-label">
+                                <div class="setting-item">
+                                    <label class="setting-checkbox">
                                         <input 
                                             type="checkbox" 
                                             id="web-research-enabled" 
-                                            name="features.web_research"
-                                            class="form-checkbox">
+                                            name="features.web_research">
                                         <span>Enable Web Research</span>
-                                        <span class="help-icon" title="Allow AI to search the web for information">ℹ️</span>
                                     </label>
+                                    <div class="setting-description">Allow AI to search the web for information</div>
                                 </div>
                                 
-                                <div class="form-group">
-                                    <label class="checkbox-label">
+                                <div class="setting-item">
+                                    <label class="setting-checkbox">
                                         <input 
                                             type="checkbox" 
                                             id="self-improvement-enabled" 
-                                            name="features.self_improvement"
-                                            class="form-checkbox">
+                                            name="features.self_improvement">
                                         <span>Enable Self-Improvement</span>
-                                        <span class="help-icon" title="⚠️ WARNING: Allows AI to modify its own code">ℹ️</span>
                                     </label>
-                                    <p class="form-help warning">
-                                        ⚠️ Warning: This feature allows the AI to modify its own code. Use with caution.
-                                    </p>
+                                    <div class="setting-description warning">⚠️ Warning: Allows AI to modify its own code. Use with caution.</div>
                                 </div>
-                            </fieldset>
+                            </div>
                             
-                            <!-- GUI Settings Section -->
-                            <fieldset class="settings-section">
-                                <legend class="section-title">GUI Settings</legend>
+                            <!-- GUI Settings -->
+                            <div class="settings-section">
+                                <h3 class="section-header">GUI Settings</h3>
                                 
-                                <div class="form-group">
-                                    <label for="gui-theme" class="form-label">
-                                        Theme
-                                    </label>
+                                <div class="setting-item">
+                                    <label for="gui-theme" class="setting-label">Theme</label>
                                     <select 
                                         id="gui-theme" 
                                         name="gui.theme"
-                                        class="form-select">
-                                        <option value="light">Light</option>
+                                        class="setting-select">
                                         <option value="dark">Dark</option>
+                                        <option value="light">Light</option>
                                         <option value="auto">Auto (System)</option>
                                     </select>
                                 </div>
                                 
-                                <div class="form-group">
-                                    <label class="checkbox-label">
+                                <div class="setting-item">
+                                    <label class="setting-checkbox">
                                         <input 
                                             type="checkbox" 
                                             id="minimize-to-tray" 
-                                            name="gui.minimize_to_tray"
-                                            class="form-checkbox">
+                                            name="gui.minimize_to_tray">
                                         <span>Minimize to System Tray</span>
                                     </label>
                                 </div>
                                 
-                                <div class="form-group">
-                                    <label class="checkbox-label">
+                                <div class="setting-item">
+                                    <label class="setting-checkbox">
                                         <input 
                                             type="checkbox" 
                                             id="auto-save-history" 
                                             name="gui.auto_save_history"
-                                            class="form-checkbox"
                                             checked>
                                         <span>Auto-save History</span>
                                     </label>
                                 </div>
                                 
-                                <div class="form-group">
-                                    <label for="history-retention" class="form-label">
-                                        History Retention (days)
-                                        <span class="help-icon" title="Automatically delete history older than this many days">ℹ️</span>
-                                    </label>
+                                <div class="setting-item">
+                                    <label for="history-retention" class="setting-label">History Retention (days)</label>
                                     <input 
                                         type="number" 
                                         id="history-retention" 
                                         name="gui.history_retention_days"
-                                        class="form-input"
+                                        class="setting-input"
                                         min="1"
                                         max="365"
-                                        value="90"
-                                        aria-describedby="history-retention-error">
-                                    <span id="history-retention-error" class="form-error" role="alert"></span>
+                                        value="90">
+                                    <div class="setting-description">Automatically delete history older than this many days</div>
                                 </div>
-                            </fieldset>
+                            </div>
                             
                         </form>
+                        
+                        <!-- Floating Action Buttons -->
+                        <div class="settings-actions">
+                            <button 
+                                id="btn-reset-settings" 
+                                class="btn btn-secondary"
+                                aria-label="Reset to defaults">
+                                Reset to Defaults
+                            </button>
+                            <button 
+                                id="btn-save-settings" 
+                                class="btn btn-primary"
+                                aria-label="Save settings">
+                                Save Settings
+                            </button>
+                        </div>
                     </div>
                 </div>
-            </section>
-            
+                
+            </div>
         </main>
         
-        <!-- Footer -->
-        <footer class="app-footer" role="contentinfo">
-            <div class="footer-content">
-                <span class="footer-text">Local AI Development Environment</span>
-                <span class="footer-version" id="app-version">v1.0.0</span>
+        <!-- Status Bar (Bottom, 22px) -->
+        <footer class="status-bar" role="contentinfo">
+            <div class="status-bar-left">
+                <span class="status-item" id="llm-status">
+                    <svg width="12" height="12" viewBox="0 0 12 12" fill="currentColor">
+                        <circle cx="6" cy="6" r="5"/>
+                    </svg>
+                    <span>LLM: Disconnected</span>
+                </span>
+                <span class="status-divider">|</span>
+                <span class="status-item" id="task-status">Task: Idle</span>
+            </div>
+            <div class="status-bar-right">
+                <span class="status-item" id="app-version">v1.0.0</span>
             </div>
         </footer>
         
     </div>
     
-    <!-- Setup Wizard Dialog (First-Run Experience) -->
+    <!-- Setup Wizard Dialog (First-Run Experience) - Keeping original structure -->
     <div id="setup-dialog" class="modal hidden" role="dialog" aria-modal="true" aria-labelledby="setup-dialog-title">
         <div class="modal-dialog">
-            <!-- Modal Header -->
             <div class="modal-header">
                 <h2 id="setup-dialog-title" class="modal-title">Welcome to Local AI Dev</h2>
             </div>
-            
-            <!-- Modal Body -->
             <div class="modal-body">
-                <!-- Step 1: Welcome -->
+                <!-- Setup wizard steps remain the same as original -->
                 <div id="setup-step-1" class="setup-step active">
                     <div class="setup-welcome">
                         <div class="setup-welcome-icon" aria-hidden="true">🚀</div>
                         <h2>Get Started</h2>
-                        <p>
-                            Welcome to Local AI Development Environment! This tool helps you build software 
-                            using locally-hosted AI models.
-                        </p>
-                        <p>
-                            Let's set up your development environment in a few quick steps.
-                        </p>
+                        <p>Welcome to Local AI Development Environment! This tool helps you build software using locally-hosted AI models.</p>
+                        <p>Let's set up your development environment in a few quick steps.</p>
                     </div>
-                </div>
-                
-                <!-- Step 2: LLM Configuration -->
-                <div id="setup-step-2" class="setup-step">
-                    <div class="setup-field">
-                        <label for="setup-llm-endpoint" class="setup-label setup-label-required">
-                            LLM Endpoint URL
-                        </label>
-                        <input 
-                            type="url" 
-                            id="setup-llm-endpoint" 
-                            class="setup-input"
-                            placeholder="http://localhost:11434"
-                            aria-describedby="setup-endpoint-help"
-                            required>
-                        <p id="setup-endpoint-help" class="setup-help">
-                            Enter the URL of your local LLM server (Ollama, llama.cpp, etc.)
-                        </p>
-                        <div class="setup-input-group" style="margin-top: var(--spacing-md);">
-                            <button 
-                                type="button" 
-                                id="setup-test-connection" 
-                                class="btn btn-secondary"
-                                aria-label="Test connection to LLM endpoint">
-                                Test Connection
-                            </button>
-                        </div>
-                        <div id="setup-endpoint-validation" class="setup-validation" hidden></div>
-                    </div>
-                    
-                    <div class="setup-field">
-                        <label for="setup-model-name" class="setup-label">
-                            Model Name
-                        </label>
-                        <input 
-                            type="text" 
-                            id="setup-model-name" 
-                            class="setup-input"
-                            placeholder="codellama:7b"
-                            aria-describedby="setup-model-help">
-                        <p id="setup-model-help" class="setup-help">
-                            Name of the AI model to use (e.g., codellama:7b, deepseek-coder:6.7b)
-                        </p>
-                    </div>
-                    
-                    <div class="setup-field">
-                        <label for="setup-backend-type" class="setup-label">
-                            Backend Type
-                        </label>
-                        <select id="setup-backend-type" class="setup-select" aria-describedby="setup-backend-help">
-                            <option value="ollama">Ollama</option>
-                            <option value="llamacpp">LlamaCpp</option>
-                            <option value="openai-compatible">OpenAI Compatible</option>
-                        </select>
-                        <p id="setup-backend-help" class="setup-help">
-                            Ollama typically runs on http://localhost:11434
-                        </p>
-                    </div>
-                </div>
-                
-                <!-- Step 3: API Key (Optional) -->
-                <div id="setup-step-3" class="setup-step">
-                    <div class="setup-field">
-                        <label for="setup-api-key" class="setup-label">
-                            API Key (Optional)
-                        </label>
-                        <input 
-                            type="password" 
-                            id="setup-api-key" 
-                            class="setup-input"
-                            placeholder="Enter API key if required"
-                            aria-describedby="setup-api-key-help">
-                        <p id="setup-api-key-help" class="setup-help">
-                            Some LLM servers require an API key for authentication. 
-                            Leave blank if your server doesn't need one.
-                        </p>
-                    </div>
-                    
-                    <div class="setup-help" style="margin-top: var(--spacing-xl); padding: var(--spacing-md); background-color: var(--info-bg); border-radius: 6px;">
-                        <strong>Note:</strong> API keys are encrypted and stored securely on your local machine.
-                    </div>
-                </div>
-                
-                <!-- Step 4: Working Directory -->
-                <div id="setup-step-4" class="setup-step">
-                    <div class="setup-field">
-                        <label for="setup-project-root" class="setup-label setup-label-required">
-                            Working Directory
-                        </label>
-                        <div class="setup-input-group">
-                            <input 
-                                type="text" 
-                                id="setup-project-root" 
-                                class="setup-input"
-                                placeholder="/path/to/your/project"
-                                aria-describedby="setup-directory-help"
-                                required>
-                            <button 
-                                type="button" 
-                                id="setup-browse-directory" 
-                                class="btn btn-secondary"
-                                aria-label="Browse for directory">
-                                Browse
-                            </button>
-                        </div>
-                        <p id="setup-directory-help" class="setup-help">
-                            Select the root directory where the AI will work on your projects.
-                        </p>
-                        <div id="setup-directory-validation" class="setup-validation" hidden></div>
-                    </div>
-                    
-                    <div class="setup-help" style="margin-top: var(--spacing-xl); padding: var(--spacing-md); background-color: var(--info-bg); border-radius: 6px;">
-                        <strong>Tip:</strong> Choose a directory where you have write permissions. 
-                        The AI will create and modify files in this directory based on your tasks.
-                    </div>
-                    
-                    <div id="setup-finish-error" class="setup-validation" hidden></div>
                 </div>
             </div>
-            
-            <!-- Modal Footer -->
             <div class="modal-footer">
-                <div class="setup-progress" aria-label="Setup progress">
-                    <span class="setup-progress-dot active" aria-label="Step 1"></span>
-                    <span class="setup-progress-dot" aria-label="Step 2"></span>
-                    <span class="setup-progress-dot" aria-label="Step 3"></span>
-                    <span class="setup-progress-dot" aria-label="Step 4"></span>
-                </div>
-                
-                <div class="modal-footer-actions">
-                    <button 
-                        id="setup-back-btn" 
-                        class="btn btn-secondary" 
-                        disabled
-                        aria-label="Go back to previous step">
-                        Back
-                    </button>
-                    <button 
-                        id="setup-next-btn" 
-                        class="btn btn-primary"
-                        aria-label="Go to next step">
-                        Next
-                    </button>
-                    <button 
-                        id="setup-finish-btn" 
-                        class="btn btn-primary" 
-                        style="display: none;"
-                        aria-label="Complete setup">
-                        Finish
-                    </button>
-                </div>
+                <button id="setup-next-btn" class="btn btn-primary">Next</button>
             </div>
         </div>
     </div>
@@ -759,7 +510,7 @@
     <!-- Eel Script (must be included before other scripts) -->
     <script type="text/javascript" src="/eel.js"></script>
     
-    <!-- Utility Scripts (Load before main app) -->
+    <!-- Utility Scripts -->
     <script src="js/utils/accessibility.js"></script>
     <script src="js/utils/loading.js"></script>
     <script src="js/platform.js"></script>
@@ -767,7 +518,6 @@
     <!-- Application Scripts -->
     <script src="js/error_handler.js"></script>
     <script src="js/help_system.js"></script>
-
     <script type="module" src="js/main.js"></script>
     <script type="module" src="js/state.js"></script>
     <script type="module" src="js/components/task_input.js"></script>
