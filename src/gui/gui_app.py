@@ -1087,12 +1087,7 @@ def initialize_backend() -> bool:
             system_config = config_mgr.load_config()
         
         # Initialize core components (Req 11.1)
-        llm_interface = LocalLLMInterface(
-            endpoint=system_config.llm.endpoint,
-            model_name=system_config.llm.model_name,
-            temperature=system_config.llm.temperature,
-            max_tokens=system_config.llm.max_tokens
-        )
+        llm_interface = LocalLLMInterface(config=system_config.llm)
         logger.info("LLM Interface initialized")
         
         code_agent = CodeAgent(
@@ -1101,10 +1096,7 @@ def initialize_backend() -> bool:
         )
         logger.info("Code Agent initialized")
         
-        context_manager = ContextManager(
-            project_root=system_config.project_root,
-            excluded_dirs=system_config.excluded_directories
-        )
+        context_manager = ContextManager(config=system_config)
         logger.info("Context Manager initialized")
         
         # Initialize GUI Task Manager
